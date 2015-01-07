@@ -1,0 +1,46 @@
+<%
+  if post.persisted?
+    action_url = post_url(post)
+    action = "PATCH"
+    button_text = "Update post"
+  else
+    action_url = posts_url
+    action = "POST"
+    button_text = "New post"
+  end
+%>
+
+<h1><%= button_text %></h1>
+
+<%= render 'shared/errors' %>
+
+<form id="post_form" action="<%= action_url %>" method="post">
+
+  <input type="hidden" name="_method" value="<%= action %>">
+  <%= token_tag form_authenticity_token %>
+
+  <label>Title<br>
+    <input type="text" name="post[title]" value="<%= post.title %>">
+  </label>
+
+  <br><br>
+
+  <label>URL<br>
+    <input type="text" name="post[url]" value="<%= post.url %>">
+  </label>
+
+  <br>
+
+  <label>Content<br>
+    <textarea name="post[content]"><%= post.content %></textarea>
+  </label>
+
+  <br>
+
+  <label>Subzeddit<br>
+    <input type="text" name="post[sub_id]" value="<%= post.sub_id %>">
+  </label>
+
+  <br>
+  <button name="button"><%= button_text %></button>
+</form>

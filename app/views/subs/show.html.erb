@@ -15,3 +15,14 @@
 
 <a href="<%= subs_url %>">Back to Index</a>
 <br>
+
+<br>
+<% if c_user %>
+  <a href="<%= new_sub_post_url(@sub.id) %>">Submit a new post</a><br>
+<% end %>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li><a href="<%= sub_post_url(@sub.id, post) %>"><%= post.title %></a></li>
+  <% end %>
+</ul>

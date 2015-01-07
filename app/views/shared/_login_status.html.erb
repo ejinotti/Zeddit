@@ -1,11 +1,15 @@
 <% if current_user %>
-  <h2><%= current_user.username %></h2>
-  <form action="<%= session_url %>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <%= token_tag form_authenticity_token %>
-    <button name="button">Log Out</button>
-  </form>
+  <section class="login-stuff">
+    <h2><%= current_user.username %></h2>
+    <form action="<%= session_url %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <%= token_tag form_authenticity_token %>
+      <button name="button">Log Out</button>
+    </form>
+  </section>
 <% else %>
-  <a href="<%= new_session_url %>">Log In</a>
-  <a href="<%= new_user_url %>">Sign Up</a>
+  <section class="login-stuff">
+    <a href="<%= new_session_url %>">Log In</a>
+    <a href="<%= new_user_url %>">Sign Up</a>
+  </section>
 <% end %>

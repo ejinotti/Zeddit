@@ -1,6 +1,7 @@
 class SubsController < ApplicationController
 
-  before_action :ensure_logged_in, except: [:index, :show]
+  before_action :ensure_logged_in, only: [:new, :create]
+  before_action :verify_owner, only: [:edit, :update, :destroy]
 
   def index
     @subs = Sub.all
@@ -25,25 +26,23 @@ class SubsController < ApplicationController
   end
 
   def show
-    @sub = Sub.find(params[:id])
-    #@posts = @sub.posts
+    @sub = Sub.find_by(id: params[:id])
+
+    if (!@sub)
+      flash[:errors] = ["Subzeddit does not exist"]
+      redirect_to root_url
+    end
+
+    @posts = @sub.posts
     render :show
   end
 
   def edit
-    @sub = Sub.find(params[:id])
     render :edit
   end
 
   def update
-    @sub = Sub.find(params[:id])
-
-    # TODO: make this prettier
-    if @sub.nil?
-      flash.now[:errors] = ["Sub not found"]
-      @sub = Sub.new(sub_params)
-      render :edit
-    elsif @sub.update(sub_params)
+    if @sub.update(sub_params)
       redirect_to sub_url(@sub)
     else
       flash.now[:errors] = @sub.errors.full_messages
@@ -53,7 +52,6 @@ class SubsController < ApplicationController
   end
 
   def destroy
-    @sub = Sub.find(params[:id])
     @sub.destroy!
     redirect_to subs_url
   end
@@ -62,6 +60,19 @@ class SubsController < ApplicationController
 
   def sub_params
     params.require(:sub).permit(:title, :description)
+  end
+
+  def verify_owner
+    @sub = Sub.find_by(id: params[:id])
+    c_user = current_user
+
+    if !@sub
+      flash[:errors] = ["Subzeddit does not exist"]
+      redirect_to root_url
+    elsif !(c_user && c_user.id == @sub.owner_id)
+      flash[:errors] = ["You do not own that Subzeddit"]
+      redirect_to root_url
+    end
   end
 
 end

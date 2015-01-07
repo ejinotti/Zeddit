@@ -1,0 +1,17 @@
+<h1><%= @post.title %></h1>
+
+<a href="<%= @post.url %>"><%= @post.url %></a>
+
+<p><%= @post.content %></p>
+
+<% c_user = current_user %>
+<% if c_user && c_user.id == @post.author_id %>
+  <a href="<%= edit_post_url(@post) %>">Edit this post.</a><br>
+  <form action="<%= post_url(@post) %>" method="post">
+    <%= token_tag form_authenticity_token %>
+    <input type="hidden" name="_method" value="DELETE">
+    <button>DELETE THIS POST</button>
+  </form>
+<% end %>
+
+<a href="<%= sub_url(@post.sub_id) %>">Return to sub.</a>
