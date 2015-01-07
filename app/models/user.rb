@@ -5,12 +5,19 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
+  has_many(
+    :owned_subs,
+    class_name: 'Sub',
+    foreign_key: :owner_id,
+    primary_key: :id
+  )
+
   attr_reader :password
 
   def self.generate_session_token
     SecureRandom.urlsafe_base64
   end
-  
+
   def is_password?(password)
     BCrypt::Password.new(self.password_digest).is_password?(password)
   end

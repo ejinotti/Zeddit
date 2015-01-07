@@ -1,0 +1,17 @@
+<% c_user = current_user %>
+
+<h1><%= @sub.title %></h1>
+
+<p><%= @sub.description %></p>
+
+<% if c_user && c_user.id == @sub.owner_id %>
+  <a href="<%= edit_sub_url(@sub) %>">Edit <%= @sub.title %></a><br>
+  <form action="<%= sub_url(@sub) %>" method="post">
+    <%= token_tag form_authenticity_token %>
+    <input type="hidden" name="_method" value="DELETE">
+    <button>DELETE THIS SUB</button>
+  </form>
+<% end %>
+
+<a href="<%= subs_url %>">Back to Index</a>
+<br>

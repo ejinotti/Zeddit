@@ -1,12 +1,10 @@
 <%
-  action_url = session_url
-  submit_text = "Log In!"
-%>
-
-<%
   if action == :newuser
     action_url = users_url
     submit_text = "Sign Up!"
+  else
+    action_url = session_url
+    submit_text = "Log In!"
   end
 %>
 
@@ -14,7 +12,7 @@
 
 <%= render 'shared/errors' %>
 
-<form action="<%= action_url %>" method="post">
+<form action="<%= action_url %>" method="POST">
 
   <%= token_tag form_authenticity_token %>
 
@@ -30,5 +28,5 @@
 
   <br>
 
-  <button name="button"><%= submit_text %></button>
+  <button><%= submit_text %></button>
 </form>

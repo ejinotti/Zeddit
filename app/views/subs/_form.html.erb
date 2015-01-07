@@ -1,0 +1,35 @@
+<%
+  if sub.persisted?
+    action_url = sub_url(sub)
+    action = "PATCH"
+    button_text = "Update Sub"
+  else
+    action_url = subs_url
+    action = "POST"
+    button_text = "New Sub"
+  end
+%>
+
+<h1><%= button_text %></h1>
+
+<%= render 'shared/errors' %>
+
+<form id="sub_form" action="<%= action_url %>" method="POST">
+
+  <%= token_tag form_authenticity_token %>
+  <input type="hidden" name="_method" value="<%= action %>">
+
+  <label>Title<br>
+    <input type="text" name="sub[title]" value="<%= sub.title %>">
+  </label>
+
+  <br><br>
+
+  <label>Description<br>
+    <textarea name="sub[description]"><%= sub.description %></textarea>
+  </label>
+
+  <br>
+
+  <button><%= button_text %></button>
+</form>
