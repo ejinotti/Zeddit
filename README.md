@@ -30,19 +30,19 @@ Some other things that'd be nice to have..
 All have id primary key and timestamps.
 
 
-|Users     |  |Subscriptions|  |Subzeddits |
-|----------|  |-------------|  |-----------|
-|user_name |  |user_id      |  |owner_id   |
-|email     |  |sub_id       |  |name       |
-|sess_token|  |             |  |title      |
-|pw_digest |  |             |  |description|
-|          |  |             |  |sidebar    |
+|Users     |Subscriptions|Subzeddits |
+|----------|-------------|-----------|
+|user_name |user_id      |owner_id   |
+|email     |sub_id       |name       |
+|sess_token|             |title      |
+|pw_digest |             |description|
+|          |             |sidebar    |
 
-|Comments |  |Posts    |  |Votes        |
-|---------|  |---------|  |-------------|
-|author_id|  |author_id|  |voter_id     |
-|body     |  |title    |  |value (+1/-1)|
-|post_id  |  |url      |  |votable_id   |
-|parent_id|  |body     |  |votable_type |
-|         |  |type     |  |             |
-|         |  |sub_id   |  |             |
+|Comments |Posts    |Votes        |
+|---------|---------|-------------|
+|author_id|author_id|voter_id     |
+|body     |title    |value (+1/-1)|
+|post_id  |url      |votable_id   |
+|parent_id|body     |votable_type |
+|         |type     |             |
+|         |sub_id   |             |
