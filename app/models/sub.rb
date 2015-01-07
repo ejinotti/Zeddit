@@ -1,6 +1,7 @@
 class Sub < ActiveRecord::Base
 
   validates :title, :description, :owner_id, presence: true
+  validates :title, uniqueness: true
 
   belongs_to(
     :owner,
