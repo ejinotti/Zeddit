@@ -1,0 +1,34 @@
+<%
+  action_url = session_url
+  submit_text = "Log In!"
+%>
+
+<%
+  if action == :newuser
+    action_url = users_url
+    submit_text = "Sign Up!"
+  end
+%>
+
+<h1><%= submit_text %></h1>
+
+<%= render 'shared/errors' %>
+
+<form action="<%= action_url %>" method="post">
+
+  <%= token_tag form_authenticity_token %>
+
+  <label>Username
+    <input type="text" name="user[username]" value="<%= user.username %>">
+  </label>
+
+  <br>
+
+  <label>Password
+    <input type="password" name="user[password]">
+  </label>
+
+  <br>
+
+  <button name="button"><%= submit_text %></button>
+</form>
