@@ -12,4 +12,7 @@ Rails.application.routes.draw do
 
   resources :posts, except: [:index, :new, :show]
 
+  post 'subscribe/:sub_id', to: 'users#subscribe', as: :subscribe
+  post 'unsubscribe/:sub_id', to: 'users#unsubscribe', as: :unsubscribe
+
 end

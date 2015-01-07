@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
 
   def subzeddit_must_exist
     if !Sub.find_by(id: sub_id)
-      errors.add(:sub_id, "no such Subzeddit exists")
+      errors.add(:sub_id, ": no such Subzeddit exists")
     end
   end
 

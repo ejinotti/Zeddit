@@ -6,6 +6,13 @@
       <%= token_tag form_authenticity_token %>
       <button name="button">Log Out</button>
     </form>
+    <br>
+    <u>User's Subzeddits (for debug)</u>
+    <ul>
+      <% current_user.subzeddits.each do |subzeddit| %>
+        <li><%= subzeddit.title %></li>
+      <% end %>
+    </ul>
   </section>
 <% else %>
   <section class="login-stuff">

@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many :subscriptions
+  has_many :subzeddits, through: :subscriptions, source: :sub
+  has_many :subzeddit_posts, through: :subzeddits, source: :posts
+
   attr_reader :password
 
   def self.generate_session_token
@@ -45,6 +49,10 @@ class User < ActiveRecord::Base
     self.session_token = self.class.generate_session_token
     self.save!
     self.session_token
+  end
+
+  def is_subbed_to?(sub_id)
+    !!self.subzeddits.find_by(id: sub_id)
   end
 
   private

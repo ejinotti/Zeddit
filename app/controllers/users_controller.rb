@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :ensure_logged_in, only: [:subscribe, :unsubscribe]
+
   def new
     @user = User.new
     render :new
@@ -20,6 +22,16 @@ class UsersController < ApplicationController
       flash.now[:errors] = @user.errors.full_messages
       render :new
     end
+  end
+
+  def subscribe
+    current_user.subscriptions.create!(sub_id: params[:sub_id])
+    redirect_to sub_url(params[:sub_id])
+  end
+
+  def unsubscribe
+    current_user.subscriptions.where(sub_id: params[:sub_id]).first.destroy
+    redirect_to sub_url(params[:sub_id])
   end
 
 end

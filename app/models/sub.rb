@@ -11,5 +11,7 @@ class Sub < ActiveRecord::Base
   )
 
   has_many :posts
+  has_many :subscriptions
+  has_many :subbed_users, through: :subscriptions, source: :user
 
 end

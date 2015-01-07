@@ -18,6 +18,20 @@
 
 <br>
 <% if c_user %>
+  <%
+  if c_user.is_subbed_to?(@sub.id)
+    action_url = unsubscribe_url(@sub.id)
+    button_text = "UNSUBSCRIBE"
+  else
+    action_url = subscribe_url(@sub.id)
+    button_text = "SUBSCRIBE"
+  end
+  %>
+  <form action="<%= action_url %>" method="post">
+    <%= token_tag form_authenticity_token %>
+    <button><%= button_text %></button>
+  </form>
+  <br><br>
   <a href="<%= new_sub_post_url(@sub.id) %>">Submit a new post</a><br>
 <% end %>
 
