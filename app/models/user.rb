@@ -30,6 +30,13 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :votes,
+    class_name: 'Vote',
+    foreign_key: :voter_id,
+    primary_key: :id
+  )
+
   attr_reader :password
 
   def self.generate_session_token
@@ -60,6 +67,10 @@ class User < ActiveRecord::Base
 
   def is_subbed_to?(sub_id)
     !!self.subzeddits.find_by(id: sub_id)
+  end
+
+  def already_voted_on?(v_id, v_type)
+    !self.votes.where(votable_id: v_id, votable_type: v_type).empty?
   end
 
   private

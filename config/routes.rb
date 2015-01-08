@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   post 'subscribe/:sub_id', to: 'users#subscribe', as: :subscribe
   post 'unsubscribe/:sub_id', to: 'users#unsubscribe', as: :unsubscribe
 
+  post 'upvote/:votable_type/:votable_id', to: 'users#upvote', as: :upvote
+  post 'downvote/:votable_type/:votable_id', to: 'users#downvote', as: :downvote
+
 end

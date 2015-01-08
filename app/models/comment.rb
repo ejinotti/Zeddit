@@ -26,4 +26,10 @@ class Comment < ActiveRecord::Base
     dependent: :destroy
   )
 
+  has_many :votes, as: :votable, dependent: :destroy
+
+  def points
+    self.votes.sum(:value)
+  end
+
 end

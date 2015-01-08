@@ -14,6 +14,8 @@ class Post < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
+  has_many :votes, as: :votable, dependent: :destroy
+
   def comments_by_parent_id
     comment_hash = Hash.new([])
 
@@ -24,6 +26,10 @@ class Post < ActiveRecord::Base
     end
 
     comment_hash
+  end
+
+  def points
+    self.votes.sum(:value)
   end
 
   private

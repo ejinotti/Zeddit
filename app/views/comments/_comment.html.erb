@@ -1,7 +1,26 @@
+<% havent_already_voted = logged_in? && !current_user.already_voted_on?(post.id, "Post") %>
+
 <li>
-  <%= comment.author.username %><br>
+  <% if havent_already_voted %>
+    <form class="vote" action="/upvote/Comment/<%= comment.id %>" method="post">
+      <%= token_tag form_authenticity_token %>
+      <button name="upvote">&#8593;</button>
+    </form>
+  <% end %>
+  <a href="<%= user_url(comment.author) %>"><%= comment.author.username %></a>
+  <small>
+    <%= comment.points %> points
+    <%= comment.created_at %>
+  </small><br>
+
+  <% if havent_already_voted %>
+    <form class="vote" action="/downvote/Comment/<%= comment.id %>" method="post">
+      <%= token_tag form_authenticity_token %>
+      <button name="downvote">&#8595;</button>
+    </form>
+  <% end %>
   <%= comment.content %><br>
-  <%= comment.created_at %><br>
+
   <% new_url = new_post_comment_url(comment.post_id) %>
   <a href="<%= new_url %>?parent_id=<%= comment.id %>">Reply!</a><br>
 

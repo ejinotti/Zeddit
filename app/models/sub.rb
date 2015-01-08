@@ -1,3 +1,5 @@
+# aka Subzeddit
+
 class Sub < ActiveRecord::Base
 
   validates :title, :description, :owner_id, presence: true

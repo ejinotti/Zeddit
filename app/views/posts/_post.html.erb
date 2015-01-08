@@ -1,4 +1,20 @@
-<a href="<%= sub_post_url(post.sub_id, post.id) %>"><%= post.title %></a><br>
+<% havent_already_voted = logged_in? && !current_user.already_voted_on?(post.id, "Post") %>
+
+<% if havent_already_voted %>
+  <form class="vote" action="/upvote/Post/<%= post.id %>" method="post">
+    <%= token_tag form_authenticity_token %>
+    <button name="upvote">&#8593;</button>
+  </form>
+<% end %>
+<a href="<%= sub_post_url(post.sub_id, post.id) %>"><%= post.title %></a>
+<small>(<%= post.points %> points)</small><br>
+
+<% if havent_already_voted %>
+  <form class="vote" action="/downvote/Post/<%= post.id %>" method="post">
+    <%= token_tag form_authenticity_token %>
+    <button name="downvote">&#8595;</button>
+  </form>
+<% end %>
 <small>
   submitted at <%= post.created_at %>
   by <a href="<%= user_url(post.author_id) %>"><%= post.author.username %></a>
@@ -6,9 +22,9 @@
     to <a href="<%= sub_url(post.sub_id) %>"><%= post.sub.title %></a>
   <% end %>
   <br>
-  <a href="<%= sub_post_url(post.sub_id, post.id) %>">
-    <%= post.comments.count %> comments
-  </a>
-
 </small>
+
+<a href="<%= sub_post_url(post.sub_id, post.id) %>">
+  <%= post.comments.count %> comments
+</a>
 <br><br>
