@@ -20,7 +20,6 @@ class Post < ActiveRecord::Base
     comment_hash = Hash.new([])
 
     all_comments = self.comments.includes(:author)
-
     all_comments.each do |comment|
       comment_hash[comment.parent_id] += [comment]
     end
