@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :sub
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   def comments_by_parent_id
     comment_hash = Hash.new([])

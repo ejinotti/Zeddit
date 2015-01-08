@@ -10,8 +10,8 @@ class Sub < ActiveRecord::Base
     primary_key: :id
   )
 
-  has_many :posts
-  has_many :subscriptions
+  has_many :posts, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   has_many :subbed_users, through: :subscriptions, source: :user
 
   def self.get_root_posts
