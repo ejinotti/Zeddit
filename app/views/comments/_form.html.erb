@@ -1,0 +1,30 @@
+<%
+  if comment.persisted?
+    action_url = comment_url(comment)
+    action = "PATCH"
+    button_text = "Update comment"
+  else
+    action_url = comments_url
+    action = "POST"
+    button_text = "New comment"
+  end
+%>
+
+<h1><%= button_text %></h1>
+
+<%= render 'shared/errors' %>
+
+<form id="comment_form" action="<%= action_url %>" method="post">
+
+  <input type="hidden" name="_method" value="<%= action %>">
+  <%= token_tag form_authenticity_token %>
+
+  <input type="hidden" name="comment[parent_id]" value="<%= comment.parent_id %>">
+  <input type="hidden" name="comment[post_id]" value="<%= comment.post_id %>">
+
+  <label>Content<br>
+    <textarea name="comment[content]"><%= comment.content %></textarea>
+  </label>
+
+  <button><%= button_text %></button>
+</form>

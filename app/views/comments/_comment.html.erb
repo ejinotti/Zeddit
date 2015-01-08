@@ -1,0 +1,20 @@
+<li>
+  <%= comment.author.username %><br>
+  <%= comment.content %><br>
+  <%= comment.created_at %><br>
+  <% new_url = new_post_comment_url(comment.post_id) %>
+  <a href="<%= new_url %>?parent_id=<%= comment.id %>">Reply!</a><br>
+
+  <% if current_user && current_user.id == comment.author_id %>
+    <a href="<%= edit_comment_url(comment) %>">Edit!</a><br>
+    <form action="<%= comment_url(comment) %>" method="post">
+      <%= token_tag form_authenticity_token %>
+      <input type="hidden" name="_method" value="DELETE">
+      <button>DELETE!</button>
+    </form>
+  <% end %>
+</li>
+
+<ul>
+  <%= render all_comments[comment.id], all_comments: all_comments %>
+</ul>

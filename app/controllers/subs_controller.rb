@@ -43,7 +43,6 @@ class SubsController < ApplicationController
       redirect_to root_url
     end
 
-    #@posts = @sub.posts
     render :show
   end
 

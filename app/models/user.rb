@@ -23,6 +23,13 @@ class User < ActiveRecord::Base
   has_many :subzeddits, through: :subscriptions, source: :sub
   has_many :subzeddit_posts, through: :subzeddits, source: :posts
 
+  has_many(
+    :comments,
+    class_name: 'Comment',
+    foreign_key: :author_id,
+    primary_key: :id
+  )
+
   attr_reader :password
 
   def self.generate_session_token

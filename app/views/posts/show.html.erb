@@ -11,4 +11,9 @@
   </form>
 <% end %>
 
-<a href="<%= sub_url(@post.sub_id) %>">Return to sub.</a>
+<a href="<%= sub_url(@post.sub_id) %>">Return to sub.</a><br><br>
+<a href="<%= new_post_comment_url(@post.id) %>">Comment on this Post!</a><br>
+
+<ul>
+  <%= render @all_comments[nil], all_comments: @all_comments %>
+</ul>

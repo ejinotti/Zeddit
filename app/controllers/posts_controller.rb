@@ -1,9 +1,12 @@
 class PostsController < ApplicationController
 
+  before_action :ensure_logged_in, only: [:new, :create]
   before_action :verify_owner, only: [:edit, :update, :destroy]
 
   def new
     @post = Post.new
+
+    # TODO: might want to check for erroneous sub_id param here.
     @post.sub_id = params[:sub_id]
     render :new
   end
@@ -28,7 +31,7 @@ class PostsController < ApplicationController
       redirect_to root_url
     end
 
-    #@all_comments = @post.comments_by_parent_id
+    @all_comments = @post.comments_by_parent_id
     render :show
   end
 

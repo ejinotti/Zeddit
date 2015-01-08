@@ -1,10 +1,14 @@
-
 <a href="<%= sub_post_url(post.sub_id, post.id) %>"><%= post.title %></a><br>
 <small>
   submitted at <%= post.created_at %>
-  by <%= post.author.username %>
+  by <a href="<%= user_url(post.author_id) %>"><%= post.author.username %></a>
   <% if show_sub %>
     to <a href="<%= sub_url(post.sub_id) %>"><%= post.sub.title %></a>
   <% end %>
+  <br>
+  <a href="<%= sub_post_url(post.sub_id, post.id) %>">
+    <%= post.comments.count %> comments
+  </a>
+
 </small>
 <br><br>
