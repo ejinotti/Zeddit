@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: redirect('/subs')
+  root to: 'subs#root'
 
   resources :users, only: [:new, :index, :create]
 

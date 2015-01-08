@@ -60,12 +60,11 @@ class PostsController < ApplicationController
 
   def verify_owner
     @post = Post.find_by(id: params[:id])
-    c_user = current_user
 
     if !@post
       flash[:errors] = ["Post does not exist"]
       redirect_to root_url
-    elsif !(c_user && c_user.id == @post.author_id)
+    elsif !(current_user && current_user.id == @post.author_id)
       flash[:errors] = ["You do not own that Post"]
       redirect_to root_url
     end

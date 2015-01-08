@@ -13,7 +13,7 @@
   </form>
 <% end %>
 
-<a href="<%= subs_url %>">Back to Index</a>
+<a href="<%= root_url %>">Back to Root</a>
 <br>
 
 <br>
@@ -35,8 +35,6 @@
   <a href="<%= new_sub_post_url(@sub.id) %>">Submit a new post</a><br>
 <% end %>
 
-<ul>
-  <% @posts.each do |post| %>
-    <li><a href="<%= sub_post_url(@sub.id, post) %>"><%= post.title %></a></li>
-  <% end %>
-</ul>
+<br><br>
+
+<%= render @sub.posts.order(created_at: :desc), show_sub: false %>

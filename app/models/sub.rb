@@ -14,4 +14,12 @@ class Sub < ActiveRecord::Base
   has_many :subscriptions
   has_many :subbed_users, through: :subscriptions, source: :user
 
+  def self.get_root_posts
+    subs = Sub.joins(:posts).group('subs.id')
+              .order('COUNT(posts.id) DESC').limit(5)
+    posts = []
+    subs.each { |sub| posts += sub.posts }
+    posts.sort { |x,y| y.created_at <=> x.created_at }
+  end
+
 end

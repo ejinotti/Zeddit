@@ -1,0 +1,10 @@
+
+<a href="<%= sub_post_url(post.sub_id, post.id) %>"><%= post.title %></a><br>
+<small>
+  submitted at <%= post.created_at %>
+  by <%= post.author.username %>
+  <% if show_sub %>
+    to <a href="<%= sub_url(post.sub_id) %>"><%= post.sub.title %></a>
+  <% end %>
+</small>
+<br><br>

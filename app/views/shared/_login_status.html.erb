@@ -7,12 +7,17 @@
       <button name="button">Log Out</button>
     </form>
     <br>
-    <u>User's Subzeddits (for debug)</u>
+    Temp Debug Stuff
+    <br>
+    <u>User's Subzeddits</u>
     <ul>
       <% current_user.subzeddits.each do |subzeddit| %>
-        <li><%= subzeddit.title %></li>
+        <li>
+          <a href="<%= sub_url(subzeddit) %>"><%= subzeddit.title %></a>
+        </li>
       <% end %>
     </ul>
+    <a href="<%= subs_url %>">To Subzeddits Index</a>
   </section>
 <% else %>
   <section class="login-stuff">

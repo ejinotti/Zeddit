@@ -1,11 +1,8 @@
-<h1><%= @post.title %></h1>
-
-<a href="<%= @post.url %>"><%= @post.url %></a>
+<%= render @post, show_sub: false %>
 
 <p><%= @post.content %></p>
 
-<% c_user = current_user %>
-<% if c_user && c_user.id == @post.author_id %>
+<% if current_user && current_user.id == @post.author_id %>
   <a href="<%= edit_post_url(@post) %>">Edit this post.</a><br>
   <form action="<%= post_url(@post) %>" method="post">
     <%= token_tag form_authenticity_token %>
