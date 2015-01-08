@@ -1,8 +1,8 @@
-<% havent_already_voted = logged_in? && !current_user.already_voted_on?(post.id, "Post") %>
+<% havent_already_voted = logged_in? && !current_user.already_voted_on?(comment.id, "Comment") %>
 
 <li>
   <% if havent_already_voted %>
-    <form class="vote" action="/upvote/Comment/<%= comment.id %>" method="post">
+    <form class="vote" action="<%= upvote_url("Comment", comment.id) %>" method="post">
       <%= token_tag form_authenticity_token %>
       <button name="upvote">&#8593;</button>
     </form>
@@ -14,7 +14,7 @@
   </small><br>
 
   <% if havent_already_voted %>
-    <form class="vote" action="/downvote/Comment/<%= comment.id %>" method="post">
+    <form class="vote" action="<%= downvote_url("Comment", comment.id) %>" method="post">
       <%= token_tag form_authenticity_token %>
       <button name="downvote">&#8595;</button>
     </form>

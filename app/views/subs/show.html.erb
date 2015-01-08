@@ -20,15 +20,18 @@
 <% if c_user %>
   <%
   if c_user.is_subbed_to?(@sub.id)
+    action = "DELETE"
     action_url = unsubscribe_url(@sub.id)
     button_text = "UNSUBSCRIBE"
   else
+    action = "POST"
     action_url = subscribe_url(@sub.id)
     button_text = "SUBSCRIBE"
   end
   %>
   <form action="<%= action_url %>" method="post">
     <%= token_tag form_authenticity_token %>
+    <input type="hidden" name="_method" value="<%= action %>">
     <button><%= button_text %></button>
   </form>
   <br><br>
