@@ -4,8 +4,8 @@ class VotesController < ApplicationController
 
   def upvote
     c_user = current_user
-    v_id = params[:votable_id]
-    v_type = params[:votable_type]
+    v_id = params[:id]
+    v_type = (request.path == upvote_post_path(v_id)) ? "Post" : "Comment"
 
     case c_user.get_vote_value(v_id, v_type)
     when 0
@@ -30,9 +30,8 @@ class VotesController < ApplicationController
 
   def downvote
     c_user = current_user
-    v_id = params[:votable_id]
-    v_type = params[:votable_type]
-
+    v_id = params[:id]
+    v_type = (request.path == downvote_post_path(v_id)) ? "Post" : "Comment"
 
     case c_user.get_vote_value(v_id, v_type)
     when 0

@@ -23,11 +23,11 @@
   <%
   if c_user.is_subbed_to?(@sub.id)
     action = "DELETE"
-    action_url = unsubscribe_url(@sub.id)
+    action_url = unsubscribe_sub_url(@sub.id)
     button_text = "UNSUBSCRIBE"
   else
     action = "POST"
-    action_url = subscribe_url(@sub.id)
+    action_url = subscribe_sub_url(@sub.id)
     button_text = "SUBSCRIBE"
   end
   %>

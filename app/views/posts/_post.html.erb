@@ -1,7 +1,7 @@
 <%
 if logged_in?
-  up_action = upvote_url("Post", post.id)
-  down_action = downvote_url("Post", post.id)
+  up_action = upvote_post_url(post.id)
+  down_action = downvote_post_url(post.id)
   method = "POST"
   vote_val = current_user.get_vote_value(post.id, "Post")
 else
