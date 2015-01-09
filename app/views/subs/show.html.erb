@@ -1,6 +1,8 @@
 <% c_user = current_user %>
 
-<small>subs#show</small>
+<small>subs#show</small><br>
+
+<%= render 'shared/login_status' %>
 
 <h1><%= @sub.title %></h1>
 
@@ -15,7 +17,7 @@
   </form>
 <% end %>
 
-<a href="<%= root_url %>">Back to Root</a>
+<a href="<%= railsroot_url %>">Back to Root</a>
 <br>
 
 <br>

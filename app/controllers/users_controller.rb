@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  before_action :ensure_logged_in, only: [:subscribe, :unsubscribe]
-
   def index
     @users = User.all
     render :index

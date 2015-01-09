@@ -69,7 +69,7 @@ class SubsController < ApplicationController
 
     if !(current_user && current_user.id == @sub.owner_id)
       flash[:errors] = ["You do not own that Subzeddit"]
-      redirect_to root_url
+      redirect_to railsroot_url
     end
   end
 

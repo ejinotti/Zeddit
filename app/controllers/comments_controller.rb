@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
 
     if !(current_user && current_user.id == @comment.author_id)
       flash[:errors] = ["You do not own that Comment"]
-      redirect_to root_url
+      redirect_to railsroot_url
     end
   end
 
