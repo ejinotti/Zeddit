@@ -7,22 +7,16 @@ class VotesController < ApplicationController
     v_id = params[:id]
     v_type = (request.path == upvote_post_path(v_id)) ? "Post" : "Comment"
 
+    votable = eval(v_type).find(v_id)
+
     case c_user.get_vote_value(v_id, v_type)
     when 0
-      c_user.votes.create!(
-        votable_id: v_id,
-        votable_type: v_type,
-        value: 1
-      )
+      votable.votes.create!(voter_id: c_user.id, value: 1)
     when -1
-      c_user.votes.where(votable_id: v_id, votable_type: v_type).destroy_all
-      c_user.votes.create!(
-        votable_id: v_id,
-        votable_type: v_type,
-        value: 1
-      )
+      votable.votes.where(voter_id: c_user.id).destroy_all
+      votable.votes.create!(voter_id: c_user.id, value: 1)
     else
-      c_user.votes.where(votable_id: v_id, votable_type: v_type).destroy_all
+      votable.votes.where(voter_id: c_user.id).destroy_all
     end
 
     redirect_to :back
@@ -33,22 +27,16 @@ class VotesController < ApplicationController
     v_id = params[:id]
     v_type = (request.path == downvote_post_path(v_id)) ? "Post" : "Comment"
 
+    votable = eval(v_type).find(v_id)
+
     case c_user.get_vote_value(v_id, v_type)
     when 0
-      c_user.votes.create!(
-        votable_id: v_id,
-        votable_type: v_type,
-        value: -1
-      )
+      votable.votes.create!(voter_id: c_user.id, value: -1)
     when 1
-      c_user.votes.where(votable_id: v_id, votable_type: v_type).destroy_all
-      c_user.votes.create!(
-        votable_id: v_id,
-        votable_type: v_type,
-        value: -1
-      )
+      votable.votes.where(voter_id: c_user.id).destroy_all
+      votable.votes.create!(voter_id: c_user.id, value: -1)
     else
-      c_user.votes.where(votable_id: v_id, votable_type: v_type).destroy_all
+      votable.votes.where(voter_id: c_user.id).destroy_all
     end
 
     redirect_to :back
