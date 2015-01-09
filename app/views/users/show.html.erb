@@ -1,3 +1,5 @@
+<small>users#show</small>
+
 <h1><%= @user.username %></h1>
 
 <%= render @user.posts.order(created_at: :desc), show_sub: true %>
