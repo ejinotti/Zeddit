@@ -14,8 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.author_id = current_user.id
+    @comment = current_user.comments.new(comment_params)
 
     if @comment.save
       redirect_to sub_post_url(@comment.post.sub_id, @comment.post_id)

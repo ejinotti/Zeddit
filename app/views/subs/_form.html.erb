@@ -14,7 +14,7 @@
 
 <%= render 'shared/errors' %>
 
-<form id="sub_form" action="<%= action_url %>" method="POST">
+<form action="<%= action_url %>" method="POST">
 
   <%= token_tag form_authenticity_token %>
   <input type="hidden" name="_method" value="<%= action %>">

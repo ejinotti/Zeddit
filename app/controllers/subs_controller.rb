@@ -24,9 +24,6 @@ class SubsController < ApplicationController
   end
 
   def create
-    # @sub = Sub.new(sub_params)
-    # @sub.owner_id = current_user.id
-    
     @sub = current_user.owned_subs.new(sub_params)
 
     if @sub.save

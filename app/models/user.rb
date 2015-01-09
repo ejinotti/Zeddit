@@ -69,8 +69,10 @@ class User < ActiveRecord::Base
     !!self.subzeddits.find_by(id: sub_id)
   end
 
-  def already_voted_on?(v_id, v_type)
-    !self.votes.where(votable_id: v_id, votable_type: v_type).empty?
+  def get_vote_value(v_id, v_type)
+    my_vote = self.votes.where(votable_id: v_id, votable_type: v_type).first
+    return my_vote.value if my_vote
+    0
   end
 
   private

@@ -1,24 +1,31 @@
-<% havent_already_voted = logged_in? && !current_user.already_voted_on?(comment.id, "Comment") %>
+<%
+if logged_in?
+  up_action = upvote_url("Comment", comment.id)
+  down_action = downvote_url("Comment", comment.id)
+  method = "POST"
+else
+  up_action = down_action = new_session_url
+  method = "GET"
+end
+
+vote_val = current_user.get_vote_value(comment.id, "Comment")
+%>
 
 <li>
-  <% if havent_already_voted %>
-    <form class="vote" action="<%= upvote_url("Comment", comment.id) %>" method="post">
-      <%= token_tag form_authenticity_token %>
-      <button name="upvote">&#8593;</button>
-    </form>
-  <% end %>
+  <form class="vote" action="<%= up_action %>" method="<%= method %>">
+    <%= token_tag form_authenticity_token if method == "POST" %>
+    <button <%= 'style=background:red' if vote_val == 1 %>>&#8593;</button>
+  </form>
   <a href="<%= user_url(comment.author) %>"><%= comment.author.username %></a>
   <small>
     <%= comment.points %> points
     <%= comment.created_at %>
   </small><br>
 
-  <% if havent_already_voted %>
-    <form class="vote" action="<%= downvote_url("Comment", comment.id) %>" method="post">
-      <%= token_tag form_authenticity_token %>
-      <button name="downvote">&#8595;</button>
-    </form>
-  <% end %>
+  <form class="vote" action="<%= down_action %>" method="<%= method %>">
+    <%= token_tag form_authenticity_token if method == "POST" %>
+    <button <%= 'style=background:red' if vote_val == -1 %>>&#8595;</button>
+  </form>
   <%= comment.content %><br>
 
   <% new_url = new_post_comment_url(comment.post_id) %>
