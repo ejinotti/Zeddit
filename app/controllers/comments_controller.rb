@@ -51,12 +51,9 @@ class CommentsController < ApplicationController
   end
 
   def verify_owner
-    @comment = Comment.find_by(id: params[:id])
+    @comment = Comment.find(params[:id])
 
-    if !@comment
-      flash[:errors] = ["Comment does not exist"]
-      redirect_to root_url
-    elsif !(current_user && current_user.id == @comment.author_id)
+    if !(current_user && current_user.id == @comment.author_id)
       flash[:errors] = ["You do not own that Comment"]
       redirect_to root_url
     end

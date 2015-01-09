@@ -35,15 +35,7 @@ class SubsController < ApplicationController
   end
 
   def show
-
-    # TODO : use find it throws 404
-    @sub = Sub.find_by(id: params[:id])
-
-    if (!@sub)
-      flash[:errors] = ["Subzeddit does not exist"]
-      redirect_to root_url
-    end
-
+    @sub = Sub.find(params[:id])
     render :show
   end
 
@@ -73,12 +65,9 @@ class SubsController < ApplicationController
   end
 
   def verify_owner
-    @sub = Sub.find_by(id: params[:id])
+    @sub = Sub.find(params[:id])
 
-    if !@sub
-      flash[:errors] = ["Subzeddit does not exist"]
-      redirect_to root_url
-    elsif !(current_user && current_user.id == @sub.owner_id)
+    if !(current_user && current_user.id == @sub.owner_id)
       flash[:errors] = ["You do not own that Subzeddit"]
       redirect_to root_url
     end

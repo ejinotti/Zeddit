@@ -23,13 +23,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find_by(id: params[:id])
-
-    if !@post
-      flash[:errors] = ["Post does not exist"]
-      redirect_to root_url
-    end
-
+    @post = Post.find(params[:id])
     @all_comments = @post.comments_by_parent_id
     render :show
   end
@@ -61,12 +55,9 @@ class PostsController < ApplicationController
   end
 
   def verify_owner
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
 
-    if !@post
-      flash[:errors] = ["Post does not exist"]
-      redirect_to root_url
-    elsif !(current_user && current_user.id == @post.author_id)
+    if !(current_user && current_user.id == @post.author_id)
       flash[:errors] = ["You do not own that Post"]
       redirect_to root_url
     end

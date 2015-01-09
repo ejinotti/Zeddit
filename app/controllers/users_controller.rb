@@ -8,13 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-
-    if !@user
-      flash[:errors] = ["User does not exist"]
-      redirect_to root_url
-    end
-
+    @user = User.find(params[:id])
     render :show
   end
 
