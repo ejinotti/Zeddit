@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
-  root to: 'subs#root'
+  root to: 'root#root'
 
   resources :users, only: [:index, :show, :new, :create]
-
   resource :session, only: [:new, :create, :destroy]
+
+  namespace :api, defaults: { format: :json } do
+    resources :subs, except: [:new, :edit]
+    resources :posts, except: [:new, :edit]
+    resources :comments, except: [:new, :edit]
+    # resources :subscriptions, only: [:create, :destroy]
+    # resources :votes, only: [:create, :destroy]
+  end
 
   resources :subs do
     resources :posts, only: [:new, :show]

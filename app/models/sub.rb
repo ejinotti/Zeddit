@@ -25,4 +25,8 @@ class Sub < ActiveRecord::Base
     posts.sort { |x,y| y.created_at <=> x.created_at }
   end
 
+  def self.get_top_subs
+    Sub.joins(:posts).group('subs.id').order('COUNT(posts.id) DESC').limit(5)
+  end
+
 end

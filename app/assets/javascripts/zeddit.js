@@ -4,7 +4,8 @@ window.Zeddit = {
   Views: {},
   Routers: {},
   initialize: function() {
-    // alert('Hello from Backbone!');
+    new Zeddit.Routers.Router();
+    Backbone.history.start();
   }
 };
 
