@@ -35,6 +35,8 @@ class SubsController < ApplicationController
   end
 
   def show
+
+    # TODO : use find it throws 404
     @sub = Sub.find_by(id: params[:id])
 
     if (!@sub)

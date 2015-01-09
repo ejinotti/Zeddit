@@ -3,12 +3,12 @@ if logged_in?
   up_action = upvote_url("Comment", comment.id)
   down_action = downvote_url("Comment", comment.id)
   method = "POST"
+  vote_val = current_user.get_vote_value(comment.id, "Comment")
 else
   up_action = down_action = new_session_url
   method = "GET"
+  vote_val = 0
 end
-
-vote_val = current_user.get_vote_value(comment.id, "Comment")
 %>
 
 <li>

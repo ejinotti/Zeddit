@@ -3,12 +3,12 @@ if logged_in?
   up_action = upvote_url("Post", post.id)
   down_action = downvote_url("Post", post.id)
   method = "POST"
+  vote_val = current_user.get_vote_value(post.id, "Post")
 else
   up_action = down_action = new_session_url
   method = "GET"
+  vote_val = 0
 end
-
-vote_val = current_user.get_vote_value(post.id, "Post")
 %>
 
 
@@ -18,7 +18,7 @@ vote_val = current_user.get_vote_value(post.id, "Post")
 </form>
 
 <a href="<%= sub_post_url(post.sub_id, post.id) %>"><%= post.title %></a>
-<small>(<%= post.points %> points)</small> vote_val <%= vote_val %><br>
+<small>(<%= post.points %> points)</small><br>
 
 
 <form class="vote" action="<%= down_action %>" method="<%= method %>">

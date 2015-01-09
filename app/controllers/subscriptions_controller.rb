@@ -1,5 +1,7 @@
 class SubscriptionsController < ApplicationController
 
+  before_action :ensure_logged_in
+
   def create
     current_user.subscriptions.create!(sub_id: params[:sub_id])
     redirect_to :back

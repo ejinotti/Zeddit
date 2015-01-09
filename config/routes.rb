@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   resources :posts, except: [:index, :new, :show] do
     resources :comments, only: [:new]
+    # member do
+    #   post 'upvote', to: 'votes#upvote'
+    #   post 'downvote', to: 'votes#downvote'
+    # end
   end
 
   resources :comments, except: [:index, :new, :show]

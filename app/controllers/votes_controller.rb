@@ -1,5 +1,7 @@
 class VotesController < ApplicationController
 
+  before_action :ensure_logged_in
+
   def upvote
     c_user = current_user
     v_id = params[:votable_id]
