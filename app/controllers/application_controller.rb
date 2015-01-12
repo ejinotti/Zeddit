@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(session_token: session[:session_token])
   end
 
+  private
+
   def user_params
     params.require(:user).permit(:username, :password)
   end

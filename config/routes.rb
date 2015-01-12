@@ -9,8 +9,11 @@ Rails.application.routes.draw do
     resources :subs, except: [:new, :edit]
     resources :posts, except: [:new, :edit]
     resources :comments, except: [:new, :edit]
-    # resources :subscriptions, only: [:create, :destroy]
-    # resources :votes, only: [:create, :destroy]
+    resources :subscriptions, only: [:create, :destroy]
+    resources :votes, only: [:create, :destroy]
+    resources :users, only: [:index, :show, :create]
+    resource :session, only: [:create, :destroy]
+    get '/user/current', to: 'users#current'
   end
 
   resources :subs do

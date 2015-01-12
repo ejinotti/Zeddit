@@ -1,5 +1,5 @@
 Zeddit.Views.SubsList = Backbone.View.extend({
-  template: JST['subs_list'],
+  template: JST['./subs_list'],
   tagName: 'ul',
 
   initialize: function () {

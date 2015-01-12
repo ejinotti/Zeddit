@@ -46,7 +46,7 @@ class Api::SubsController < ApplicationController
     @sub = Sub.find(params[:id])
 
     if !(current_user && current_user.id == @sub.owner_id)
-      render json: { message: "You do not own that Subzeddit" }, status: 403
+      render json: { message: "You do not own that Subzeddit" }, status: 401
     end
   end
 
