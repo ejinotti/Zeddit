@@ -24,9 +24,16 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
     return this;
   },
 
+  renderForm: function (model, errors, callback) {
+    var content = this.templateForm({
+
+    });
+
+    this.$el.html(content);
+  },
+
   logout: function () {
     var that = this;
-    console.log('Attempting logout..');
 
     $.ajax('/api/session', {
       type: 'DELETE',
@@ -41,21 +48,26 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   login: function () {
     var that = this;
     this.$el.html(this.templateForm());
+    var $form = this.$('form');
+    var $errors = this.$('ul');
 
-    this.$('form').on('submit', function (event) {
+    $form.on('submit', function (event) {
       event.preventDefault();
 
-      var attrs = $(this).serializeJSON();
+      var attrs = $form.serializeJSON();
       var sess = new Zeddit.Models.Session();
 
       sess.save(attrs, {
         success: function (user) {
           that.currentUser = user;
+          $form.off('submit');
           that.render();
         },
         error: function (model, response) {
-          console.log('Log-in error..');
-          console.log(response);
+          $errors.empty();
+          response.responseJSON.errors.forEach(function (error) {
+            $errors.append($('<li>').text(error));
+          });
         }
       });
     });
@@ -64,24 +76,29 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   signup: function () {
     var that = this;
     this.$el.html(this.templateForm());
+    var $form = this.$('form');
+    var $errors = this.$('ul');
 
-    this.$('form').on('submit', function (event) {
+    $form.on('submit', function (event) {
       event.preventDefault();
 
-      var attrs = $(this).serializeJSON();
+      var attrs = $form.serializeJSON();
       var user = new Zeddit.Models.User();
 
       user.save(attrs, {
         success: function (user) {
           that.currentUser = user;
+          $form.off('submit');
           that.render();
         },
         error: function (model, response) {
-          console.log('Sign-up error..');
-          console.log(response);
+          $errors.empty();
+          response.responseJSON.errors.forEach(function (error) {
+            $errors.append($('<li>').text(error));
+          });
         }
       });
     });
-  },
+  }
 
 });
