@@ -26,10 +26,12 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
 
   logout: function () {
     var that = this;
+    console.log('Attempting logout..');
 
     $.ajax('/api/session', {
       type: 'DELETE',
       success: function (response) {
+        console.log('Logout successful..');
         that.currentUser = null;
         that.render();
       }
@@ -47,13 +49,13 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
       var sess = new Zeddit.Models.Session();
 
       sess.save(attrs, {
-        success: function (response) {
-          if (!response.message) {
-            that.currentUser = response;
-            that.render();
-          } else {
-            // login failed stuff
-          }
+        success: function (user) {
+          that.currentUser = user;
+          that.render();
+        },
+        error: function (model, response) {
+          console.log('Log-in error..');
+          console.log(response);
         }
       });
     });
@@ -70,13 +72,13 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
       var user = new Zeddit.Models.User();
 
       user.save(attrs, {
-        success: function (response) {
-          if (!response.message) {
-            that.currentUser = response;
-            that.render();
-          } else {
-            // create acct failed stuff
-          }
+        success: function (user) {
+          that.currentUser = user;
+          that.render();
+        },
+        error: function (model, response) {
+          console.log('Sign-up error..');
+          console.log(response);
         }
       });
     });

@@ -1,4 +1,4 @@
-class Api::CommentsController < ApplicationController
+class Api::CommentsController < Api::ApiController
 
   # before_action :ensure_logged_in, only: [:new, :create]
   before_action :verify_owner, only: [:update, :destroy]

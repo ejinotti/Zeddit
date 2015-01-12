@@ -1,4 +1,4 @@
-class Api::PostsController < ApplicationController
+class Api::PostsController < Api::ApiController
 
   # before_action :ensure_logged_in, only: [:new, :create]
   before_action :verify_owner, only: [:update, :destroy]
@@ -48,7 +48,7 @@ class Api::PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if !(current_user && current_user.id == @post.author_id)
-      render json: { message: "You do not own that Post" }, status: 403
+      render json: { message: "You do not own that Post" }, status: 401
     end
   end
 

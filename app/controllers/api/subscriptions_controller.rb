@@ -1,4 +1,4 @@
-class Api::SubscriptionsController < ApplicationController
+class Api::SubscriptionsController < Api::ApiController
 
   before_action :ensure_logged_in
 

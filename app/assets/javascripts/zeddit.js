@@ -11,8 +11,10 @@ window.Zeddit = {
 
 $(document).ready(function(){
 
+  console.log(window.location.pathname);
+
   // only load backbone if not rails
-  if (!window.location.pathname.match(/\/railsroot/)) {
+  if (window.location.pathname === "/") {
     Zeddit.initialize();
   }
 });

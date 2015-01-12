@@ -1,4 +1,4 @@
-class Api::VotesController < ApplicationController
+class Api::VotesController < Api::ApiController
 
   before_action :ensure_logged_in
 
