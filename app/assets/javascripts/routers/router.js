@@ -24,8 +24,18 @@ Zeddit.Routers.Router = Backbone.Router.extend({
       return;
     }
 
-    console.log('Login check completed..');
-    console.log(this.authView.loggedIn);
+    var rootPosts = new Zeddit.Collections.Posts();
+    rootPosts.fetch({
+      success: function () {
+        // debugger;
+      }
+    });
+    var rootView = new Zeddit.Views.PostsList({
+      collection: rootPosts,
+      router: this
+    });
+
+    this._swapView(this.mainView, this.$main, rootView);
   },
 
   checkLoggedIn: function () {
@@ -43,5 +53,11 @@ Zeddit.Routers.Router = Backbone.Router.extend({
         that.$auth.trigger('checked');
       }
     });
+  },
+
+  _swapView: function (currView, $el, newView) {
+    currView && currView.remove();
+    currView = newView;
+    $el.html(newView.render().$el);
   }
 });

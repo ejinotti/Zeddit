@@ -16,6 +16,25 @@ class Post < ActiveRecord::Base
 
   has_many :votes, as: :votable, dependent: :destroy
 
+  def self.get_root_posts
+    where_clause = "posts.sub_id IN (" + <<-SQL + ")"
+      SELECT
+        subs.id
+      FROM
+        subs
+      JOIN
+        posts ON subs.id = posts.sub_id
+      GROUP BY
+        subs.id
+      ORDER BY
+        COUNT(posts.id) DESC
+      LIMIT
+        5
+    SQL
+
+    Post.all.where(where_clause).order(created_at: :desc)
+  end
+
   def comments_by_parent_id
     comment_hash = Hash.new([])
 

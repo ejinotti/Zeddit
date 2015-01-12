@@ -1,0 +1,12 @@
+<% posts.forEach(function (post) { %>
+  <li>
+    <button>&#8593;</button>
+    <%= post.escape('title') %>
+    <small>(<%= post.points %> points)</small>
+    <br>
+    <button>&#8595;</button>
+    <small>
+      submitted at <%= post.get('created_at') %>
+    </small>
+  </li>
+<% }) %>

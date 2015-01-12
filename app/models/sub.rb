@@ -16,17 +16,4 @@ class Sub < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :subbed_users, through: :subscriptions, source: :user
 
-  # TODO: find a better way to do this. Also, limit/paginate posts.
-  def self.get_root_posts
-    subs = Sub.joins(:posts).group('subs.id')
-              .order('COUNT(posts.id) DESC').limit(5)
-    posts = []
-    subs.each { |sub| posts += sub.posts }
-    posts.sort { |x,y| y.created_at <=> x.created_at }
-  end
-
-  def self.get_top_subs
-    Sub.joins(:posts).group('subs.id').order('COUNT(posts.id) DESC').limit(5)
-  end
-
 end

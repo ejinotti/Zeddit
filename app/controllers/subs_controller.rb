@@ -7,7 +7,7 @@ class SubsController < ApplicationController
     if logged_in?
       @posts = current_user.subzeddit_posts.order(created_at: :desc)
     else
-      @posts = Sub.get_root_posts
+      @posts = Post.get_root_posts
     end
 
     render :root
