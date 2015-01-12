@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
     if @user
       login!(@user)
-      redirect_to root_url
+      redirect_to railsroot_url
     else
       @user = User.new(user_params)
       flash.now[:errors] = ["Invalid username/password combination"]
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout!
-    redirect_to root_url
+    redirect_to railsroot_url
   end
 
 end

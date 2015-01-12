@@ -10,5 +10,9 @@ window.Zeddit = {
 };
 
 $(document).ready(function(){
-  Zeddit.initialize();
+
+  // only load backbone if not rails
+  if (!window.location.pathname.match(/\/railsroot/)) {
+    Zeddit.initialize();
+  }
 });
