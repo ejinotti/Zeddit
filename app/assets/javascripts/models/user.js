@@ -8,7 +8,7 @@ Zeddit.Models.User = Backbone.Model.extend({
   },
 
   parse: function (response) {
-    console.log('User model parse..');
+    // console.log('User model parse..');
 
     if (response.posts) {
       this.posts.reset(response.posts);

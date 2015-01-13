@@ -6,6 +6,7 @@ window.Zeddit = {
   initialize: function() {
     new Zeddit.Routers.Router();
     Backbone.history.start();
+    window.viewCount = 0;
   }
 };
 

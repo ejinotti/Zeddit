@@ -3,6 +3,8 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   tagName: 'ul',
 
   initialize: function (options) {
+    window.viewCount++;
+    console.log('PostsList view create.');
     this.listenTo(this.collection, 'sync reset', this.render);
     this.router = options.router;
     this.postViews = [];
@@ -22,9 +24,11 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   },
 
   remove: function () {
+    console.log('PostsList remove..')
     this.postViews.forEach(function (postView) {
       postView.remove();
     });
     Backbone.View.prototype.remove.call(this);
+    window.viewCount--;
   }
 });

@@ -2,7 +2,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   routes: {
     '': 'root',
-    'user/:username': 'userShow'
+    'user/:username': 'userShow',
+    'z/:subtitle': 'subShow'
   },
 
   initialize: function () {
@@ -18,6 +19,7 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   root: function () {
     console.log('ROUTE => root');
+    console.log("Living views: " + window.viewCount);
 
     if (!this.loginChecked) {
       console.log('Login check not done yet..');
@@ -32,11 +34,12 @@ Zeddit.Routers.Router = Backbone.Router.extend({
       router: this
     });
 
-    this._swapView(this.mainView, this.$main, rootView);
+    this._swapMainView(rootView);
   },
 
   userShow: function (username) {
     console.log('ROUTE => userShow / ' + username);
+    console.log("Living views: " + window.viewCount);
 
     if (!this.loginChecked) {
       console.log('Login check not done yet..');
@@ -45,18 +48,35 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     }
 
     var user = new Zeddit.Models.User({ username: username });
-    user.fetch({
-      success: function (model) {
-        console.log('userShow fetch success..');
-      }
-    });
+    user.fetch();
 
     var userView = new Zeddit.Views.PostsList({
       collection: user.posts,
       router: this
     });
 
-    this._swapView(this.mainView, this.$main, userView);
+    this._swapMainView(userView);
+  },
+
+  subShow: function (subtitle) {
+    console.log("ROUTE => subShow / " + subtitle);
+    console.log("Living views: " + window.viewCount);
+
+    if (!this.loginChecked) {
+      console.log('Login check not done yet..');
+      this.$auth.one('checked', this.subShow.bind(this, subtitle));
+      return;
+    }
+
+    var subzeddit = new Zeddit.Models.Sub({ title: subtitle });
+    subzeddit.fetch();
+
+    var subzedditView = new Zeddit.Views.SubShow({
+      model: subzeddit,
+      router: this
+    });
+
+    this._swapMainView(subzedditView);
   },
 
   checkLoggedIn: function () {
@@ -76,9 +96,11 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     });
   },
 
-  _swapView: function (currView, $el, newView) {
-    currView && currView.remove();
-    currView = newView;
-    $el.html(newView.$el);
+  _swapMainView: function (newView) {
+    // console.log('Swapping #main view. Current viewCount: ' + window.viewCount);
+    this.mainView && this.mainView.remove();
+    this.mainView = newView;
+    this.$main.html(newView.$el);
+    // console.log('Swap complete. Remaining views: ' + window.viewCount);
   }
 });

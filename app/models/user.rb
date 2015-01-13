@@ -2,9 +2,11 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
+  # TODO make sure username is valid for URLs or use slugs.
+
   validates :username, :password_digest, :session_token, presence: true
   validates :username, :session_token, uniqueness: true
-  validates :password, length: {minimum: 6, allow_nil: true}
+  validates :password, length: { minimum: 6, allow_nil: true }
 
   after_initialize :ensure_session_token
 

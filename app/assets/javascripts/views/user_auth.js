@@ -10,6 +10,8 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   },
 
   initialize: function (options) {
+    window.viewCount++;
+    console.log('UserAuth view create.');
     this.$el = options.$el;
     this.$el.one('checked', this.render.bind(this));
   },

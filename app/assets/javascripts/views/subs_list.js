@@ -3,6 +3,8 @@ Zeddit.Views.SubsList = Backbone.View.extend({
   tagName: 'ul',
 
   initialize: function () {
+    window.viewCount++;
+    console.log('SubsList view create.');
     this.listenTo(this.collection, 'sync', this.render);
     this.$el.css('color', 'red');
   },
@@ -11,5 +13,10 @@ Zeddit.Views.SubsList = Backbone.View.extend({
     var content = this.template({ subs: this.collection });
     this.$el.html(content);
     return this;
+  },
+
+  remove: function () {
+    Backbone.View.prototype.remove.call(this);
+    window.viewCount--;
   }
 });

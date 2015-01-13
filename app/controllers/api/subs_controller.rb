@@ -19,8 +19,8 @@ class Api::SubsController < Api::ApiController
   end
 
   def show
-    @sub = Sub.find(params[:id])
-    render json: @sub
+    @sub = Sub.friendly.find(params[:id])
+    render :show
   end
 
   def update

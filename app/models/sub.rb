@@ -1,6 +1,10 @@
 # aka Subzeddit
 
 class Sub < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title
+
+  # TODO make sure title is valid for URLs or use slugs.
 
   validates :title, :description, :owner_id, presence: true
   validates :title, uniqueness: true
