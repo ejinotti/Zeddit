@@ -1,3 +1,6 @@
+<% var authorName = post.escape('author_name'); %>
+<% var subTitle = '#z/' + post.escape('sub_title'); %>
+
 <button>&#8593;</button>
 <%= post.escape('title') %>
 <small>(<%= post.get('points') %> points)</small>
@@ -5,6 +8,6 @@
 <button>&#8595;</button>
 <small>
   submitted at <%= post.get('created_at') %>
-  by <a href="#"></a><%= post.escape('author_name') %>
-  to <%= post.escape('sub_title') %>
+  by <a href="<%= '#user/' + authorName %>"><%= authorName %></a>
+  to <a href="<%= subTitle %>"><%= subTitle %></a>
 </small><a href="#"></a>

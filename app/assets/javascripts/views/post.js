@@ -1,6 +1,7 @@
 Zeddit.Views.Post = Backbone.View.extend({
   template: JST['post'],
-
+  className: 'post',
+  
   events: {
 
   },

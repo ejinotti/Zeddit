@@ -3,7 +3,6 @@ Zeddit.Models.Post = Backbone.Model.extend({
 
   parse: function (response) {
     console.log('post model parse..');
-    console.log(response);
     return response;
   }
 });

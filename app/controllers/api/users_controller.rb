@@ -6,8 +6,8 @@ class Api::UsersController < Api::ApiController
   end
 
   def show
-    @user = User.find(params[:id])
-    render json: @user
+    @user = User.friendly.find(params[:id])
+    render :show
   end
 
   def create
@@ -26,7 +26,7 @@ class Api::UsersController < Api::ApiController
     if @user
       render json: @user
     else
-      render json: { message: "Logged-out!" }
+      render json: { message: "No current user." }
     end
   end
 

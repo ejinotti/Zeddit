@@ -1,7 +1,8 @@
 Zeddit.Routers.Router = Backbone.Router.extend({
 
   routes: {
-    '': 'root'
+    '': 'root',
+    'user/:username': 'userShow'
   },
 
   initialize: function () {
@@ -16,7 +17,7 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   },
 
   root: function () {
-    console.log('ROOT');
+    console.log('ROUTE => root');
 
     if (!this.loginChecked) {
       console.log('Login check not done yet..');
@@ -25,19 +26,37 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     }
 
     var rootPosts = new Zeddit.Collections.Posts();
-    rootPosts.fetch({
-      success: function () {
-        console.log('rootPosts fetch success..');
-        console.log(rootPosts);
-        // debugger;
-      }
-    });
+    rootPosts.fetch();
     var rootView = new Zeddit.Views.PostsList({
       collection: rootPosts,
       router: this
     });
 
     this._swapView(this.mainView, this.$main, rootView);
+  },
+
+  userShow: function (username) {
+    console.log('ROUTE => userShow / ' + username);
+
+    if (!this.loginChecked) {
+      console.log('Login check not done yet..');
+      this.$auth.one('checked', this.userShow.bind(this, username));
+      return;
+    }
+
+    var user = new Zeddit.Models.User({ username: username });
+    user.fetch({
+      success: function (model) {
+        console.log('userShow fetch success..');
+      }
+    });
+
+    var userView = new Zeddit.Views.PostsList({
+      collection: user.posts,
+      router: this
+    });
+
+    this._swapView(this.mainView, this.$main, userView);
   },
 
   checkLoggedIn: function () {
@@ -60,6 +79,6 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   _swapView: function (currView, $el, newView) {
     currView && currView.remove();
     currView = newView;
-    $el.html(newView.render().$el);
+    $el.html(newView.$el);
   }
 });
