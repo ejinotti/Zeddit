@@ -1,0 +1,10 @@
+<button>&#8593;</button>
+<%= post.escape('title') %>
+<small>(<%= post.get('points') %> points)</small>
+<br>
+<button>&#8595;</button>
+<small>
+  submitted at <%= post.get('created_at') %>
+  by <a href="#"></a><%= post.escape('author_name') %>
+  to <%= post.escape('sub_title') %>
+</small><a href="#"></a>

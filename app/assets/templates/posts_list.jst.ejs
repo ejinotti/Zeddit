@@ -2,11 +2,13 @@
   <li>
     <button>&#8593;</button>
     <%= post.escape('title') %>
-    <small>(<%= post.points %> points)</small>
+    <small>(<%= post.get('points') %> points)</small>
     <br>
     <button>&#8595;</button>
     <small>
       submitted at <%= post.get('created_at') %>
+      by <%= post.escape('author_name') %>
+      to <%= post.escape('sub_title') %>
     </small>
   </li>
 <% }) %>

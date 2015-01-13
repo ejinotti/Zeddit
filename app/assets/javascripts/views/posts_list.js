@@ -5,15 +5,25 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   initialize: function (options) {
     this.listenTo(this.collection, 'sync', this.render);
     this.router = options.router;
+    this.postViews = [];
   },
 
   render: function () {
-    var content = this.template({
-      posts: this.collection,
-      showSub: false
+    var that = this;
+
+    this.collection.each(function (post) {
+      var postView = new Zeddit.Views.Post({ model: post });
+      that.postViews.push(postView);
+      $('<li>').html(postView.render().$el).appendTo(that.$el);
     });
-    this.$el.html(content);
-    debugger;
+
     return this;
+  },
+
+  remove: function () {
+    this.postViews.forEach(function (postView) {
+      postView.remove();
+    });
+    Backbone.View.prototype.remove.call(this);
   }
 });

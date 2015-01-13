@@ -27,6 +27,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     var rootPosts = new Zeddit.Collections.Posts();
     rootPosts.fetch({
       success: function () {
+        console.log('rootPosts fetch success..');
+        console.log(rootPosts);
         // debugger;
       }
     });

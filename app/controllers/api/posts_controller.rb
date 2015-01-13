@@ -3,7 +3,6 @@ class Api::PostsController < Api::ApiController
   before_action :ensure_logged_in, only: [:new, :create]
   before_action :verify_owner, only: [:update, :destroy]
 
-  # TODO: jBuilder this up to include all teh infoz
   def index
     if logged_in?
       @posts = current_user.subzeddit_posts.order(created_at: :desc)
@@ -11,7 +10,7 @@ class Api::PostsController < Api::ApiController
       @posts = Post.get_root_posts
     end
 
-    render json: @posts
+    render :index
   end
 
   def create
