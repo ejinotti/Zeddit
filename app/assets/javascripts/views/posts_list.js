@@ -4,14 +4,12 @@ Zeddit.Views.PostsList = Backbone.View.extend({
 
   initialize: function (options) {
     window.viewCount++;
-    console.log('PostsList view create.');
     this.listenTo(this.collection, 'sync reset', this.render);
     this.router = options.router;
     this.postViews = [];
   },
 
   render: function () {
-    console.log('PostsList render..');
     var that = this;
 
     this.collection.each(function (post) {
