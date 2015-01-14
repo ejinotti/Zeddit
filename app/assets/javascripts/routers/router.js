@@ -3,7 +3,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   routes: {
     '': 'root',
     'user/:username': 'userShow',
-    'z/:subtitle': 'subShow'
+    'z/:subtitle': 'subShow',
+    'z/:subtitle/posts/:id/:posttitle': 'postShow'
   },
 
   initialize: function () {
@@ -74,6 +75,28 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     });
 
     this._swapMainView(subzedditView);
+  },
+
+  postShow: function(subtitle, id, posttitle) {
+    console.log("ROUTE => postShow / " + subtitle + " / " + id + " / " + posttitle);
+
+    if (!this.loginChecked) {
+      console.log('Login check not done yet..');
+      this.$auth.one('checked',
+        this.postShow.bind(this, subtitle, id, posttitle)
+      );
+      return;
+    }
+
+    var post = new Zeddit.Models.Post({ id: id });
+    post.fetch();
+
+    var postView = new Zeddit.Views.PostShow({
+      model: post,
+      router: this
+    });
+
+    this._swapMainView(postView);
   },
 
   checkLoggedIn: function () {

@@ -13,7 +13,10 @@ Zeddit.Views.PostsList = Backbone.View.extend({
     var that = this;
 
     this.collection.each(function (post) {
-      var postView = new Zeddit.Views.Post({ model: post });
+      var postView = new Zeddit.Views.Post({
+        model: post,
+        router: this.router
+      });
       that.postViews.push(postView);
       $('<li>').html(postView.render().$el).appendTo(that.$el);
     });

@@ -1,10 +1,5 @@
 class Api::UsersController < Api::ApiController
 
-  def index
-    @users = User.all
-    render json: @users
-  end
-
   def show
     @user = User.friendly.find(params[:id])
     render :show

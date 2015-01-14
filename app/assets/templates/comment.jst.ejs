@@ -1,0 +1,13 @@
+<% var authorName = comment.escape('author_name'); %>
+
+
+<button>&#8593;</button>
+<a href="<%= '#user/' + authorName %>"><%= authorName %></a>
+<small>
+  <%= comment.get('points') %> points
+  <%= comment.get('created_at') %>
+</small>
+<br>
+
+<button>&#8595;</button>
+<%= comment.content %>

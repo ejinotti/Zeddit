@@ -6,8 +6,10 @@ Zeddit.Views.Post = Backbone.View.extend({
 
   },
 
-  initialize: function () {
+  initialize: function (options) {
     window.viewCount++;
+    this.router = options.router;
+    this.listenTo(this.model, 'sync', this.render);
   },
 
   render: function () {
