@@ -1,4 +1,5 @@
 Zeddit.Views.PostShow = Backbone.View.extend({
+
   initialize: function (options) {
     window.viewCount++;
     this.router = options.router;
@@ -6,11 +7,17 @@ Zeddit.Views.PostShow = Backbone.View.extend({
       model: this.model,
       router: this.router
     });
+    this.$el.append(this.postView.$el);
+    this.listenTo(this.model, 'sync', this.renderCommentTree);
+  },
+
+  renderCommentTree: function () {
     this.commentsView = new Zeddit.Views.CommentsList({
-      collection: this.comments,
+      allComments: this.model.allComments,
+      parentId: "",
       router: this.router
     });
-    this.$el.append(this.postView.$el).append(this.commentsView.$el);
+    this.$el.append(this.commentsView.render().$el);
   },
 
   remove: function () {
@@ -19,4 +26,5 @@ Zeddit.Views.PostShow = Backbone.View.extend({
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   }
+
 });

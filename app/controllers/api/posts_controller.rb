@@ -25,8 +25,8 @@ class Api::PostsController < Api::ApiController
 
   def show
     @post = Post.find(params[:id])
-    # @all_comments = @post.comments_by_parent_id
-    render json: @post
+    @all_comments = @post.comments_by_parent_id
+    render :show
   end
 
   def update
