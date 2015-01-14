@@ -11,7 +11,7 @@
 <ul>
 
   <% @subs.each do |sub| %>
-  <li><a href="<%= sub_url(sub) %>"><%= sub.title %></a></li>
+  <li><a href="<%= sub_url(sub.id) %>"><%= sub.title %></a></li>
   <% end %>
 
 </ul>
