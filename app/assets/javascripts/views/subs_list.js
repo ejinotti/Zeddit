@@ -4,7 +4,6 @@ Zeddit.Views.SubsList = Backbone.View.extend({
 
   initialize: function () {
     window.viewCount++;
-    console.log('SubsList view create.');
     this.listenTo(this.collection, 'sync', this.render);
     this.$el.css('color', 'red');
   },

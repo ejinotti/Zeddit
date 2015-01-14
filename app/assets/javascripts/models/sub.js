@@ -8,8 +8,6 @@ Zeddit.Models.Sub = Backbone.Model.extend({
   },
 
   parse: function (response) {
-    // console.log('Sub model parse..');
-
     if (response.posts) {
       this.posts.reset(response.posts);
       delete response.posts;

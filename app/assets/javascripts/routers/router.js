@@ -19,7 +19,6 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   root: function () {
     console.log('ROUTE => root');
-    console.log("Living views: " + window.viewCount);
 
     if (!this.loginChecked) {
       console.log('Login check not done yet..');
@@ -39,7 +38,6 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   userShow: function (username) {
     console.log('ROUTE => userShow / ' + username);
-    console.log("Living views: " + window.viewCount);
 
     if (!this.loginChecked) {
       console.log('Login check not done yet..');
@@ -50,8 +48,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     var user = new Zeddit.Models.User({ username: username });
     user.fetch();
 
-    var userView = new Zeddit.Views.PostsList({
-      collection: user.posts,
+    var userView = new Zeddit.Views.UserShow({
+      model: user,
       router: this
     });
 
@@ -60,7 +58,6 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   subShow: function (subtitle) {
     console.log("ROUTE => subShow / " + subtitle);
-    console.log("Living views: " + window.viewCount);
 
     if (!this.loginChecked) {
       console.log('Login check not done yet..');
@@ -97,10 +94,9 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   },
 
   _swapMainView: function (newView) {
-    // console.log('Swapping #main view. Current viewCount: ' + window.viewCount);
     this.mainView && this.mainView.remove();
+    console.log("Living views: " + window.viewCount);
     this.mainView = newView;
     this.$main.html(newView.$el);
-    // console.log('Swap complete. Remaining views: ' + window.viewCount);
   }
 });

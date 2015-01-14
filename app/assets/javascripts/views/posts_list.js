@@ -24,7 +24,6 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   },
 
   remove: function () {
-    console.log('PostsList remove..')
     this.postViews.forEach(function (postView) {
       postView.remove();
     });
