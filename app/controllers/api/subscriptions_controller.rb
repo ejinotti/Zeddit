@@ -3,13 +3,13 @@ class Api::SubscriptionsController < Api::ApiController
   before_action :ensure_logged_in
 
   def create
-    current_user.subscriptions.create!(sub_id: params[:id])
-    redirect_to :back
+    @subscription = current_user.subscriptions.create!(sub_id: params[:id])
+    render json: @subscription
   end
 
   def destroy
     current_user.subscriptions.where(sub_id: params[:id]).first.destroy
-    redirect_to :back
+    render json: { message: 'destroyed!' }
   end
 
 end

@@ -1,33 +1,29 @@
 class Api::CommentsController < Api::ApiController
 
-  # before_action :ensure_logged_in, only: [:new, :create]
+  before_action :ensure_logged_in, only: [:create]
   before_action :verify_owner, only: [:update, :destroy]
 
   def create
     @comment = current_user.comments.new(comment_params)
 
     if @comment.save
-      redirect_to sub_post_url(@comment.post.sub_id, @comment.post_id)
+      render json: @comment
     else
-      flash.now[:errors] = @comment.errors.full_messages
-      render :new
+      render json: @comment.errors.full_messages, status: 422
     end
   end
 
   def update
     if @comment.update(comment_params)
-      redirect_to sub_post_url(@comment.post.sub_id, @comment.post_id)
+      render json: @comment
     else
-      flash.now[:errors] = @comment.errors.full_messages
-      @comment = Post.new(comment_params)
-      render :edit
+      render json: @comment.errors.full_messages, status: 422
     end
   end
 
   def destroy
-    rd_url = sub_post_url(@comment.post.sub_id, @comment.post_id)
     @comment.destroy!
-    redirect_to rd_url
+    render json: { message: 'destroyed!' }
   end
 
   private

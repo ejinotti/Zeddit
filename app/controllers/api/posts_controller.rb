@@ -1,6 +1,6 @@
 class Api::PostsController < Api::ApiController
 
-  before_action :ensure_logged_in, only: [:new, :create]
+  before_action :ensure_logged_in, only: [:create]
   before_action :verify_owner, only: [:update, :destroy]
 
   def index
