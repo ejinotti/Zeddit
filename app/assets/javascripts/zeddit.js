@@ -4,9 +4,13 @@ window.Zeddit = {
   Views: {},
   Routers: {},
   initialize: function() {
+    window.currentUser = new Zeddit.Models.CurrentUser();
+    window.currentUser.fetch();
+
+    window.viewCount = 0;
+    
     new Zeddit.Routers.Router();
     Backbone.history.start();
-    window.viewCount = 0;
   }
 };
 

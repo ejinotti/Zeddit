@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
     resources :subscriptions, only: [:create, :destroy]
     resources :users, only: [:index, :show, :create]
-    resource :session, only: [:create, :destroy]
+    resource :session, only: [:show, :create, :destroy]
     get '/user/current', to: 'users#current'
   end
 

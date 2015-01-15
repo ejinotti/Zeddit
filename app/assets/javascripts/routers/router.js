@@ -23,11 +23,11 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
     // TODO these login checks prob not needed since server already knows..
 
-    // if (!this.loginChecked) {
-    //   console.log('Login check not done yet..');
-    //   this.$auth.one('checked', this.root.bind(this));
-    //   return;
-    // }
+    if (!this.loginChecked) {
+      console.log('Login check not done yet..');
+      this.$auth.one('checked', this.root.bind(this));
+      return;
+    }
 
     var rootPosts = new Zeddit.Collections.Posts();
     rootPosts.fetch();

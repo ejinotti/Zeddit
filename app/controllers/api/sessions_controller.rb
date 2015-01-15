@@ -1,5 +1,14 @@
 class Api::SessionsController < Api::ApiController
 
+  def show
+    @user = current_user
+    if @user
+      render json: @user
+    else
+      render json: { message: "No current user." }
+    end
+  end
+
   def create
     @user = User.find_by_creds(user_params)
 
