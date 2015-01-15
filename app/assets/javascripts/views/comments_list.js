@@ -1,11 +1,10 @@
 Zeddit.Views.CommentsList = Backbone.View.extend({
-  tagName: 'ul',
+  tagName: "ul",
 
   initialize: function (options) {
     window.viewCount++;
     this.allComments = options.allComments;
     this.parentId = options.parentId;
-    this.router = options.router;
     this.commentViews = [];
   },
 
@@ -15,8 +14,7 @@ Zeddit.Views.CommentsList = Backbone.View.extend({
     this.allComments[this.parentId].forEach(function (comment) {
       var commentView = new Zeddit.Views.Comment({
         model: comment,
-        allComments: that.allComments,
-        router: that.router
+        allComments: that.allComments
       });
       that.commentViews.push(commentView);
       that.$el.append(commentView.$el);

@@ -1,21 +1,18 @@
 Zeddit.Views.PostShow = Backbone.View.extend({
 
-  initialize: function (options) {
+  initialize: function () {
     window.viewCount++;
-    this.router = options.router;
     this.postView = new Zeddit.Views.Post({
-      model: this.model,
-      router: this.router
+      model: this.model
     });
     this.$el.append(this.postView.$el);
-    this.listenTo(this.model, 'sync', this.renderCommentTree);
+    this.listenTo(this.model, "sync", this.renderCommentTree);
   },
 
   renderCommentTree: function () {
     this.commentsView = new Zeddit.Views.CommentsList({
       allComments: this.model.allComments,
-      parentId: "",
-      router: this.router
+      parentId: ""
     });
     this.$el.append(this.commentsView.render().$el);
   },

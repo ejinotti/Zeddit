@@ -1,59 +1,40 @@
 Zeddit.Routers.Router = Backbone.Router.extend({
 
   routes: {
-    '': 'root',
-    'user/:username': 'userShow',
-    'z/:subtitle': 'subShow',
-    'z/:subtitle/posts/:id/:posttitle': 'postShow'
+    "": "root",
+    "user/:username": "userShow",
+    "z/:subtitle": "subShow",
+    "z/:subtitle/posts/:id/:posttitle": "postShow"
   },
 
   initialize: function () {
-    this.$auth = $('#auth');
-    this.$main = $('#main');
-    this.$sidebar = $('#sidebar');
-    this.loginChecked = false;
+    this.$auth = $("#auth");
+    this.$main = $("#main");
+    this.$sidebar = $("#sidebar");
 
     this.authView = new Zeddit.Views.UserAuth({ $el: this.$auth });
-
-    this.checkLoggedIn();
   },
 
   root: function () {
-    console.log('ROUTE => root');
-
-    // TODO these login checks prob not needed since server already knows..
-
-    if (!this.loginChecked) {
-      console.log('Login check not done yet..');
-      this.$auth.one('checked', this.root.bind(this));
-      return;
-    }
+    console.log("ROUTE => root");
 
     var rootPosts = new Zeddit.Collections.Posts();
     rootPosts.fetch();
     var rootView = new Zeddit.Views.PostsList({
-      collection: rootPosts,
-      router: this
+      collection: rootPosts
     });
 
     this._swapMainView(rootView);
   },
 
   userShow: function (username) {
-    console.log('ROUTE => userShow / ' + username);
-
-    if (!this.loginChecked) {
-      console.log('Login check not done yet..');
-      this.$auth.one('checked', this.userShow.bind(this, username));
-      return;
-    }
+    console.log("ROUTE => userShow / " + username);
 
     var user = new Zeddit.Models.User({ username: username });
     user.fetch();
 
     var userView = new Zeddit.Views.UserShow({
-      model: user,
-      router: this
+      model: user
     });
 
     this._swapMainView(userView);
@@ -62,18 +43,11 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   subShow: function (subtitle) {
     console.log("ROUTE => subShow / " + subtitle);
 
-    if (!this.loginChecked) {
-      console.log('Login check not done yet..');
-      this.$auth.one('checked', this.subShow.bind(this, subtitle));
-      return;
-    }
-
     var subzeddit = new Zeddit.Models.Sub({ title: subtitle });
     subzeddit.fetch();
 
     var subzedditView = new Zeddit.Views.SubShow({
-      model: subzeddit,
-      router: this
+      model: subzeddit
     });
 
     this._swapMainView(subzedditView);
@@ -82,40 +56,14 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   postShow: function(subtitle, id, posttitle) {
     console.log("ROUTE => postShow / " + subtitle + " / " + id + " / " + posttitle);
 
-    if (!this.loginChecked) {
-      console.log('Login check not done yet..');
-      this.$auth.one('checked',
-        this.postShow.bind(this, subtitle, id, posttitle)
-      );
-      return;
-    }
-
     var post = new Zeddit.Models.Post({ id: id });
     post.fetch();
 
     var postView = new Zeddit.Views.PostShow({
-      model: post,
-      router: this
+      model: post
     });
 
     this._swapMainView(postView);
-  },
-
-  checkLoggedIn: function () {
-    console.log("Checking current user..");
-    var that = this;
-    $.ajax('api/user/current', {
-      success: function (response) {
-        console.log(response);
-        if (response.message) {
-          that.authView.currentUser = null;
-        } else {
-          that.authView.currentUser = new Zeddit.Models.User(response);
-        }
-        that.loginChecked = true;
-        that.$auth.trigger('checked');
-      }
-    });
   },
 
   _swapMainView: function (newView) {

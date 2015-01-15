@@ -10,18 +10,9 @@ class Api::UsersController < Api::ApiController
 
     if @user.save
       login!(@user)
-      render json: @user
+      render json: { id: @user.id, username: @user.username }
     else
       render json: { errors: @user.errors.full_messages }, status: 422
-    end
-  end
-
-  def current
-    @user = current_user
-    if @user
-      render json: @user
-    else
-      render json: { message: "No current user." }
     end
   end
 

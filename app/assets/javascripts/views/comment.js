@@ -1,7 +1,7 @@
 Zeddit.Views.Comment = Backbone.View.extend({
-  template: JST['comment'],
-  tagName: 'li',
-  className: 'comment',
+  template: JST["comment"],
+  tagName: "li",
+  className: "comment",
 
   events: {
 
@@ -9,7 +9,6 @@ Zeddit.Views.Comment = Backbone.View.extend({
 
   initialize: function (options) {
     window.viewCount++;
-    this.router = options.router;
     this.allComments = options.allComments;
     this.render();
 
@@ -27,8 +26,7 @@ Zeddit.Views.Comment = Backbone.View.extend({
   renderSubComments: function () {
     this.subCommentsView = new Zeddit.Views.CommentsList({
       allComments: this.allComments,
-      parentId: this.model.id,
-      router: this.router
+      parentId: this.model.id
     });
     this.$el.append(this.subCommentsView.render().$el);
   },

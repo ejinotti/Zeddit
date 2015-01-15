@@ -1,15 +1,14 @@
 Zeddit.Views.Post = Backbone.View.extend({
-  template: JST['post'],
-  className: 'post',
+  template: JST["post"],
+  className: "post",
 
   events: {
 
   },
 
-  initialize: function (options) {
+  initialize: function () {
     window.viewCount++;
-    this.router = options.router;
-    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, "sync", this.render);
   },
 
   render: function () {

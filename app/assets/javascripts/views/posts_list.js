@@ -1,11 +1,10 @@
 Zeddit.Views.PostsList = Backbone.View.extend({
-  template: JST['posts_list'],
-  tagName: 'ul',
+  template: JST["posts_list"],
+  tagName: "ul",
 
-  initialize: function (options) {
+  initialize: function () {
     window.viewCount++;
-    this.listenTo(this.collection, 'sync reset', this.render);
-    this.router = options.router;
+    this.listenTo(this.collection, "sync reset", this.render);
     this.postViews = [];
   },
 
@@ -14,11 +13,10 @@ Zeddit.Views.PostsList = Backbone.View.extend({
 
     this.collection.each(function (post) {
       var postView = new Zeddit.Views.Post({
-        model: post,
-        router: this.router
+        model: post
       });
       that.postViews.push(postView);
-      $('<li>').html(postView.render().$el).appendTo(that.$el);
+      $("<li>").html(postView.render().$el).appendTo(that.$el);
     });
 
     return this;

@@ -1,15 +1,13 @@
 Zeddit.Views.UserShow = Backbone.View.extend({
-  template: JST['user_show'],
+  template: JST["user_show"],
 
-  initialize: function (options) {
+  initialize: function () {
     window.viewCount++;
-    this.router = options.router;
     this.postsListView = new Zeddit.Views.PostsList({
-      collection: this.model.posts,
-      router: this.router
+      collection: this.model.posts
     });
     this.render();
-    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, "sync", this.render);
   },
 
   render: function (){
