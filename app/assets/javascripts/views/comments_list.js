@@ -17,7 +17,7 @@ Zeddit.Views.CommentsList = Backbone.View.extend({
         model: comment,
         allComments: that.allComments,
         router: that.router
-      })
+      });
       that.commentViews.push(commentView);
       that.$el.append(commentView.$el);
     });

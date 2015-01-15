@@ -1,8 +1,6 @@
 Zeddit.Models.User = Backbone.Model.extend({
-  url: function () {
-    return '/api/users/' + this.get('username');
-  },
-
+  urlRoot: '/api/users',
+  
   initialize: function () {
     this.posts = new Zeddit.Collections.Posts();
   },
@@ -14,5 +12,11 @@ Zeddit.Models.User = Backbone.Model.extend({
     }
 
     return response;
+  },
+
+  fetch: function (options) {
+    Backbone.Model.prototype.fetch.call(this, $.extend(options, {
+      url: this.urlRoot + "/" + this.get('username')
+    }));
   }
 });
