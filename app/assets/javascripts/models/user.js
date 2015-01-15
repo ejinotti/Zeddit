@@ -5,12 +5,25 @@ Zeddit.Models.User = Backbone.Model.extend({
     this.posts = new Zeddit.Collections.Posts();
   },
 
-  save: function (attrs, options) {
-    return Backbone.Model.prototype.save.call(this, attrs, $.extend(options, {
-      success: function (newUser) {
-        window.currentUser.loginNewUser(newUser);
+  createUser: function (attrs, errorCallback) {
+    var that = this;
+
+    // TODO change this when add more sign-up page stuff..
+    var creds = attrs;
+
+    return $.ajax({
+      url: this.urlRoot,
+      type: "POST",
+      data: creds,
+      dataType: "json",
+      success: function (data){
+        that.set(data);
+        window.currentUser.loginNewUser(that);
+      },
+      error: function (jqXHR) {
+        errorCallback(jqXHR);
       }
-    }));
+    });
   },
 
   parse: function (response) {
@@ -36,7 +49,9 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
     this.isChecked = false;
   },
 
-  parse: function (response) { return response; },
+  parse: function (response) {
+    return response;
+  },
 
   fetch: function() {
     var that = this;
@@ -52,25 +67,38 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
     return !this.isNew();
   },
 
-  login: function (attrs, options) {
+  login: function (creds, errorCallback) {
     var that = this;
     this.clear();
-    this.save(attrs, $.extend(options, {
-      success: function () {
+
+    return $.ajax({
+      url: this.url,
+      type: "POST",
+      data: creds,
+      dataType: "json",
+      success: function (data){
+        that.set(data);
         that.trigger("login");
+      },
+      error: function (jqXHR) {
+        errorCallback(jqXHR);
       }
-    }));
+    });
   },
 
   loginNewUser: function (newUser) {
-    this.set("id", newUser.id);
-    this.set("username", newUser.get("username"));
+    this.clear();
+    this.set(newUser.attributes);
     this.trigger("login");
   },
 
   logout: function () {
     var that = this;
-    this.destroy({
+
+    return $.ajax({
+      url: this.url,
+      type: "DELETE",
+      dataType: "json",
       success: function () {
         that.clear();
         that.trigger("logout");

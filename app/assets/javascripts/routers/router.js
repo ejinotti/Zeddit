@@ -12,6 +12,10 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     this.$main = $("#main");
     this.$sidebar = $("#sidebar");
 
+    // window.currentUser.on("change", function () {
+    //   console.log("currentUser change!");
+    // });
+
     this.authView = new Zeddit.Views.UserAuth({ $el: this.$auth });
   },
 

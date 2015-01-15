@@ -7,8 +7,8 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
     "click #signup": "renderSignupForm",
     "click #login": "renderLoginForm",
     "click #logout": "logout",
-    "submit #signup-form": "signup",
-    "submit #login-form" : "login"
+    "submit #signup-form": "submitSignup",
+    "submit #login-form" : "submitLogin"
   },
 
   initialize: function (options) {
@@ -35,20 +35,18 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
     this.$el.html(this.templateForm({ formId: "login-form" }));
   },
 
-  login: function () {
+  submitLogin: function () {
     event.preventDefault();
 
     var $form = this.$("#login-form");
-    var attrs = $form.serializeJSON();
+    var creds = $form.serializeJSON();
     var $errors = $form.find("ul");
 
-    window.currentUser.login(attrs, {
-      error: function (model, response) {
-        $errors.empty();
-        response.responseJSON.errors.forEach(function (error) {
-          $errors.append($("<li>").text(error));
-        });
-      }
+    window.currentUser.login(creds, function (response) {
+      $errors.empty();
+      response.responseJSON.errors.forEach(function (error) {
+        $errors.append($("<li>").text(error));
+      });
     });
   },
 
@@ -57,7 +55,7 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   },
 
 
-  signup: function () {
+  submitSignup: function () {
     event.preventDefault();
 
     var $form = this.$("#signup-form");
@@ -66,13 +64,11 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
 
     var user = new Zeddit.Models.User();
 
-    user.save(attrs, {
-      error: function (model, response) {
-        $errors.empty();
-        response.responseJSON.errors.forEach(function (error) {
-          $errors.append($("<li>").text(error));
-        });
-      }
+    user.createUser(attrs, function (response) {
+      $errors.empty();
+      response.responseJSON.errors.forEach(function (error) {
+        $errors.append($("<li>").text(error));
+      });
     });
   }
 
