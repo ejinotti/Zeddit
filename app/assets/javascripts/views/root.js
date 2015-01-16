@@ -11,12 +11,18 @@ Zeddit.Views.Root = Backbone.View.extend({
       collection: this.collection
     });
     this.render();
+    this.listenTo(window.currentUser, "login logout", this.refresh);
   },
 
   render: function () {
     this.$el.html(this.template());
     this.$el.append(this.postsListView.$el);
     return this;
+  },
+
+  refresh: function () {
+    console.log("Root REFRESH triggered!");
+    this.collection.fetch();
   },
 
   newSub: function () {

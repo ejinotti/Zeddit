@@ -22,11 +22,6 @@ Zeddit.Views.SubShow = Backbone.View.extend({
     return this;
   },
 
-  // fakeRefresh: function () {
-  //   this.render();
-  //   this.model.posts.trigger("sync");
-  // },
-
   edit: function () {
     this.postsListView.remove();
     this.editView = new Zeddit.Views.SubForm({
