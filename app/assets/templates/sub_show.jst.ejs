@@ -2,6 +2,8 @@
 
 <% if (window.currentUser.id === sub.get("owner_id")) { %>
   <button id="edit-sub">Edit this Subzeddit</button>
+  <br><br>
+  <button id="delete-sub">DELETE this Subzeddit!</button>
 <% } %>
 
 <p><%= sub.escape("description") %></p>

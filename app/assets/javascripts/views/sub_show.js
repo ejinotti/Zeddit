@@ -2,7 +2,8 @@ Zeddit.Views.SubShow = Backbone.View.extend({
   template: JST["sub_show"],
 
   events: {
-    "click #edit-sub": "edit"
+    "click #edit-sub": "edit",
+    "click #delete-sub": "delete"
   },
 
   initialize: function () {
@@ -28,6 +29,11 @@ Zeddit.Views.SubShow = Backbone.View.extend({
       model: this.model
     });
     this.$el.html(this.editView.$el);
+  },
+
+  delete: function () {
+    this.model.destroy();
+    window.history.back();
   },
 
   remove: function () {
