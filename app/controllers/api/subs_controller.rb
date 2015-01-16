@@ -5,7 +5,7 @@ class Api::SubsController < Api::ApiController
 
   def index
     @subs = Sub.all
-    render json: @subs
+    render :index
   end
 
   def create

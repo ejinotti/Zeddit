@@ -46,7 +46,7 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
   url: "/api/session",
 
   initialize: function () {
-    this.isChecked = false;
+    this.initCheckDone = false;
   },
 
   parse: function (response) {
@@ -57,7 +57,7 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
     var that = this;
     return Backbone.Model.prototype.fetch.call(this, {
       success: function () {
-        that.isChecked = true;
+        that.initCheckDone = true;
         that.trigger("checked");
       }
     });

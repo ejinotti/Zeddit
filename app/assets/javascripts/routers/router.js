@@ -2,19 +2,19 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   routes: {
     "": "root",
+    "subzeddits": "subsIndex",
     "user/:username": "userShow",
     "z/:subtitle": "subShow",
-    "z/:subtitle/posts/:id/:posttitle": "postShow"
+    "z/:subtitle/posts/:id/:posttitle": "postShow",
+    "submit": "newPost",
+    "subzeddits/create": "newSub",
+    "z/:subtitle/submit": "newSub"
   },
 
   initialize: function () {
     this.$auth = $("#auth");
     this.$main = $("#main");
     this.$sidebar = $("#sidebar");
-
-    // window.currentUser.on("change", function () {
-    //   console.log("currentUser change!");
-    // });
 
     this.authView = new Zeddit.Views.UserAuth({ $el: this.$auth });
   },
@@ -24,11 +24,25 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
     var rootPosts = new Zeddit.Collections.Posts();
     rootPosts.fetch();
+
     var rootView = new Zeddit.Views.PostsList({
       collection: rootPosts
     });
 
     this._swapMainView(rootView);
+  },
+
+  subsIndex: function () {
+    console.log("ROUTE => subsIndex");
+
+    var subs = new Zeddit.Collections.Subs();
+    subs.fetch();
+
+    var subIndexMain = new Zeddit.Views.SubsIndex({
+      collection: subs
+    });
+
+    this._swapMainView(subIndexMain);
   },
 
   userShow: function (username) {

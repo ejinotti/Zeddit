@@ -1,4 +1,5 @@
 json.(@sub, :title, :description)
+json.subbed_count @sub.subscriptions.count
 
 json.posts @sub.posts do |post|
   json.extract! post, *post.attributes.keys

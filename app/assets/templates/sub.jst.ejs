@@ -1,0 +1,9 @@
+<% var subTitle = "#z/" + sub.escape("title") %>
+
+<button>subscribe</button>
+<a href="<%= subTitle %>"><%= subTitle %></a>
+<br>
+<%= sub.escape("description") %>
+<br>
+<small><%= sub.get("subbed_count") %> readers</small>
+<br><br>
