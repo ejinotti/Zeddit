@@ -1,19 +1,18 @@
-Zeddit.Views.SubForm = Backbone.View.extend({
-  template: JST["sub_form"],
+Zeddit.Views.PostForm = Backbone.View.extend({
+  template: JST["post_form"],
 
   events: {
     "submit": "submitForm"
   },
 
-  initialize: function () {
+  initialize: function (options) {
     window.viewCount++;
     this.render();
   },
 
   render: function () {
-    // debugger;
     var content = this.template({
-      sub: this.model
+      post: this.model
     });
     this.$el.html(content);
     return this;
@@ -22,8 +21,7 @@ Zeddit.Views.SubForm = Backbone.View.extend({
   submitForm: function (event) {
     event.preventDefault();
 
-    // TODO user event.currentTarget? or target?
-    var $form = this.$("form");
+    var $form = $(event.currentTarget);
     var attrs = $form.serializeJSON();
     var $errors = $form.find("ul");
 
@@ -34,20 +32,20 @@ Zeddit.Views.SubForm = Backbone.View.extend({
       });
     };
 
-    var successCb = function (sub) {
+    var successCb = function (post) {
       Backbone.history.navigate("z/" + sub.get("title"), { trigger: true });
     };
 
     if (this.model) {
-      this.model.set(attrs.sub);
+      this.model.set(attrs.post);
       this.model.save({}, {
         success: successCb,
         error: errorCb
       });
     } else {
-      var newSub = new Zeddit.Models.Sub();
-      newSub.set(attrs.sub);
-      newSub.save({}, {
+      var newPost = new Zeddit.Models.Post();
+      newPost.set(attrs.post);
+      newPost.save({}, {
         success: successCb,
         error: errorCb
       });
@@ -58,5 +56,4 @@ Zeddit.Views.SubForm = Backbone.View.extend({
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   }
-
 });

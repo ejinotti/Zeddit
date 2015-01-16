@@ -3,7 +3,8 @@ Zeddit.Views.SubShow = Backbone.View.extend({
 
   events: {
     "click #edit-sub": "edit",
-    "click #delete-sub": "delete"
+    "click #delete-sub": "delete",
+    "click #new-post": "newPost"
   },
 
   initialize: function () {
@@ -34,6 +35,12 @@ Zeddit.Views.SubShow = Backbone.View.extend({
   delete: function () {
     this.model.destroy();
     window.history.back();
+  },
+
+  newPost: function () {
+    Backbone.history.navigate(
+      "z/" + this.model.get("title") + "/submit", { trigger: true }
+    );
   },
 
   remove: function () {

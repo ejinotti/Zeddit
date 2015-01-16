@@ -88,7 +88,7 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     console.log("ROUTE => newSub");
 
     if (!window.currentUser.isLoggedIn()) {
-      alert("You must be logged-in to do that!");
+      alert("You must be logged-in to create a Subzeddit!");
       Backbone.history.navigate("", { trigger: true });
     }
 
@@ -99,6 +99,16 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
   newPost: function (subtitle) {
     console.log("ROUTE => newPost / " + subtitle);
+
+    if (!window.currentUser.isLoggedIn()) {
+      alert("You must be logged-in to create a Post!");
+      Backbone.history.navigate("", { trigger: true });
+    }
+
+    var subs = new Zeddit.Collections.Subs();
+    var newPostView = new Zeddit.Views.PostForm({ subTitle: subtitle });
+
+    this._swapMainView(newPostView);
   },
 
 

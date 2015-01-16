@@ -2,7 +2,8 @@ Zeddit.Views.Root = Backbone.View.extend({
   template: JST["root"],
 
   events: {
-    "click #new-subz": "newSub"
+    "click #new-subz": "newSub",
+    "click #new-post": "newPost"
   },
 
   initialize: function () {
@@ -34,6 +35,10 @@ Zeddit.Views.Root = Backbone.View.extend({
       // TODO pop-up login/signup modal
       alert("You must be logged-in to do that!");
     }
+  },
+
+  newPost: function () {
+    Backbone.history.navigate("submit", { trigger: true });
   },
 
   remove: function () {
