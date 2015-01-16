@@ -28,11 +28,15 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   },
 
   renderSignupForm: function () {
-    this.$el.html(this.templateForm({ formId: "signup-form" }));
+    this.$el.empty();
+    this.render();
+    this.$el.append(this.templateForm({ formId: "signup-form" }));
   },
 
   renderLoginForm: function () {
-    this.$el.html(this.templateForm({ formId: "login-form" }));
+    this.$el.empty();
+    this.render();
+    this.$el.append(this.templateForm({ formId: "login-form" }));
   },
 
   submitLogin: function () {

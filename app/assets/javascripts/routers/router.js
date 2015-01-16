@@ -6,9 +6,9 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     "user/:username": "userShow",
     "z/:subtitle": "subShow",
     "z/:subtitle/posts/:id/:posttitle": "postShow",
-    "submit": "newPost",
     "subzeddits/create": "newSub",
-    "z/:subtitle/submit": "newSub"
+    "submit": "newPost",
+    "z/:subtitle/submit": "newPost"
   },
 
   initialize: function () {
@@ -25,7 +25,7 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     var rootPosts = new Zeddit.Collections.Posts();
     rootPosts.fetch();
 
-    var rootView = new Zeddit.Views.PostsList({
+    var rootView = new Zeddit.Views.Root({
       collection: rootPosts
     });
 
@@ -38,11 +38,11 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     var subs = new Zeddit.Collections.Subs();
     subs.fetch();
 
-    var subIndexMain = new Zeddit.Views.SubsIndex({
+    var subIndexView = new Zeddit.Views.SubsIndex({
       collection: subs
     });
 
-    this._swapMainView(subIndexMain);
+    this._swapMainView(subIndexView);
   },
 
   userShow: function (username) {
@@ -71,7 +71,7 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     this._swapMainView(subzedditView);
   },
 
-  postShow: function(subtitle, id, posttitle) {
+  postShow: function (subtitle, id, posttitle) {
     console.log("ROUTE => postShow / " + subtitle + " / " + id + " / " + posttitle);
 
     var post = new Zeddit.Models.Post({ id: id });
@@ -83,6 +83,24 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
     this._swapMainView(postView);
   },
+
+  newSub: function () {
+    console.log("ROUTE => newSub");
+
+    if (!window.currentUser.isLoggedIn()) {
+      alert("You must be logged-in to do that!");
+      Backbone.history.navigate("", { trigger: true });
+    }
+
+    var newSubView = new Zeddit.Views.SubForm();
+
+    this._swapMainView(newSubView);
+  },
+
+  newPost: function (subtitle) {
+    console.log("ROUTE => newPost / " + subtitle);
+  },
+
 
   _swapMainView: function (newView) {
     this.mainView && this.mainView.remove();

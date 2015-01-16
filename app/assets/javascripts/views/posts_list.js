@@ -4,7 +4,7 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   initialize: function () {
     window.viewCount++;
     this.listenTo(this.collection, "sync reset", this.render);
-    this.listenTo(window.currentUser, "checked", this.render);
+    // this.listenTo(window.currentUser, "checked", this.render);
     this.listenTo(window.currentUser, "login logout", this.refresh);
     this.postViews = [];
   },
@@ -14,12 +14,15 @@ Zeddit.Views.PostsList = Backbone.View.extend({
 
     console.log("PostsList render..");
 
-    if (!window.currentUser.initCheckDone) return this;
+    // if (!window.currentUser.initCheckDone) return this;
 
     if (this.postViews.length) {
+      console.log("PostsList render removing subviews..");
       this.removeSubs();
       this.$el.empty();
     }
+
+    console.log("PostsList render createing subviews..");
 
     this.collection.each(function (post) {
       var postView = new Zeddit.Views.Post({ model: post });
@@ -35,7 +38,9 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   },
 
   remove: function () {
+    console.log("Removing PostsList View");
     this.removeSubs();
+    // debugger;
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   },
@@ -44,6 +49,8 @@ Zeddit.Views.PostsList = Backbone.View.extend({
     this.postViews.forEach(function (postView) {
       postView.remove();
     });
+    // debugger;
+    this.postViews = [];
   }
 
 });

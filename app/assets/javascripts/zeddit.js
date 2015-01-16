@@ -8,7 +8,7 @@ window.Zeddit = {
     window.currentUser.fetch();
 
     window.viewCount = 0;
-    
+
     new Zeddit.Routers.Router();
     Backbone.history.start();
   }

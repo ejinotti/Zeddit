@@ -1,5 +1,5 @@
-Zeddit.Views.SubsIndex = Backbone.View.extend({
-  template: JST["subs_index"],
+Zeddit.Views.Root = Backbone.View.extend({
+  template: JST["root"],
 
   events: {
     "click #new-subz": "newSub"
@@ -7,24 +7,15 @@ Zeddit.Views.SubsIndex = Backbone.View.extend({
 
   initialize: function () {
     window.viewCount++;
-    this.listenTo(this.collection, "sync", this.render);
-    this.listenTo(window.currentUser, "checked", this.render);
-    this.subzViews = [];
+    this.postsListView = new Zeddit.Views.PostsList({
+      collection: this.collection
+    });
+    this.render();
   },
 
   render: function () {
-    var that = this;
-
-    if (!window.currentUser.initCheckDone) return this;
-
     this.$el.html(this.template());
-
-    this.collection.each(function (sub) {
-      var subzView = new Zeddit.Views.Sub({ model: sub });
-      that.subzViews.push(subzView);
-      $("<li>").html(subzView.render().$el).appendTo(that.$("ul"));
-    });
-
+    this.$el.append(this.postsListView.$el);
     return this;
   },
 
@@ -40,11 +31,9 @@ Zeddit.Views.SubsIndex = Backbone.View.extend({
   },
 
   remove: function () {
-    this.subzViews.forEach(function (subzView) {
-      subzView.remove();
-    });
+    console.log("removing Root View");
+    this.postsListView.remove();
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   }
-
 });

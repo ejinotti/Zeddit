@@ -1,3 +1,8 @@
 <h1><%= sub.escape("title") %></h1>
+
+<% if (window.currentUser.id === sub.get("owner_id")) { %>
+  <button id="edit-sub">Edit this Subzeddit</button>
+<% } %>
+
 <p><%= sub.escape("description") %></p>
 <small><%= sub.get("subbed_count") %> readers</small>
