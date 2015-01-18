@@ -35,11 +35,10 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   subsIndex: function () {
     console.log("ROUTE => subsIndex");
 
-    var subs = new Zeddit.Collections.Subs();
-    subs.fetch();
+    Zeddit.allSubs.fetch();
 
     var subIndexView = new Zeddit.Views.SubsIndex({
-      collection: subs
+      collection: Zeddit.allSubs
     });
 
     this._swapMainView(subIndexView);
@@ -105,8 +104,18 @@ Zeddit.Routers.Router = Backbone.Router.extend({
       Backbone.history.navigate("", { trigger: true });
     }
 
-    var subs = new Zeddit.Collections.Subs();
-    var newPostView = new Zeddit.Views.PostForm({ subTitle: subtitle });
+    var newPostView, sub;
+
+    if (subtitle) {
+      sub = Zeddit.allSubs.findWhere({ title: subtitle });
+
+      if (!sub) {
+        alert("Subzeddit not found!");
+        Backbone.history.navigate("", { trigger: true });
+      }
+    }
+
+    newPostView = new Zeddit.Views.PostNew({ subzeddit: sub });
 
     this._swapMainView(newPostView);
   },

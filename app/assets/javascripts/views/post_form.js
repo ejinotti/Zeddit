@@ -1,18 +1,22 @@
-Zeddit.Views.PostForm = Backbone.View.extend({
-  template: JST["post_form"],
+Zeddit.Views.PostNew = Backbone.View.extend({
+  template: JST.post_new,
 
   events: {
-    "submit": "submitForm"
+    "submit": "submitForm",
+    "keyup #title": "handleSubTitleInput",
+    "click li.dropdown-item": "setDropdown"
   },
 
   initialize: function (options) {
     window.viewCount++;
+    this.subzeddit = options.subzeddit;
     this.render();
   },
 
   render: function () {
     var content = this.template({
-      post: this.model
+      post: this.model,
+      sub: this.subzeddit
     });
     this.$el.html(content);
     return this;
@@ -21,8 +25,8 @@ Zeddit.Views.PostForm = Backbone.View.extend({
   submitForm: function (event) {
     event.preventDefault();
 
-    var $form = $(event.currentTarget);
-    var attrs = $form.serializeJSON();
+    var $form = $(event.target);
+    var attrs = $form.serializeJSON().post;
     var $errors = $form.find("ul");
 
     var errorCb = function (response) {
@@ -33,23 +37,55 @@ Zeddit.Views.PostForm = Backbone.View.extend({
     };
 
     var successCb = function (post) {
+      var sub = Zeddit.allSubs.get(post.get("sub_id"));
       Backbone.history.navigate("z/" + sub.get("title"), { trigger: true });
     };
 
     if (this.model) {
-      this.model.set(attrs.post);
+      this.model.set(attrs);
       this.model.save({}, {
         success: successCb,
         error: errorCb
       });
+
     } else {
       var newPost = new Zeddit.Models.Post();
-      newPost.set(attrs.post);
+
+      var sub = Zeddit.allSubs.findWhere({ title: attrs.sub_title });
+      attrs.sub_id = sub.id;
+      delete attrs.sub_title;
+
+      newPost.set(attrs);
       newPost.save({}, {
         success: successCb,
         error: errorCb
       });
     }
+  },
+
+  handleSubTitleInput: function (event) {
+    var $dropdown = $("#dropdown");
+    var input = $(event.currentTarget).val();
+    console.log(input);
+
+    $dropdown.empty();
+
+    if (input === "") return;
+
+    var results = Zeddit.allSubs.filter(function (sub) {
+      return sub.get("title").match(new RegExp("^" + input));
+    });
+
+    results.forEach(function (result) {
+      var $li = $("<li class='dropdown-item'>");
+      $li.text(result.get("title")).appendTo($dropdown);
+    });
+  },
+
+  setDropdown: function (event) {
+    var $targ = $(event.currentTarget);
+    $("#title").val($targ.text());
+    $("#dropdown").empty();
   },
 
   remove: function () {

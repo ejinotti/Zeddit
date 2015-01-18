@@ -33,12 +33,17 @@ Zeddit.Views.Root = Backbone.View.extend({
       Backbone.history.navigate("subzeddits/create", { trigger: true });
     } else {
       // TODO pop-up login/signup modal
-      alert("You must be logged-in to do that!");
+      alert("You must be logged-in to create a subzeddit!");
     }
   },
 
   newPost: function () {
-    Backbone.history.navigate("submit", { trigger: true });
+    if (window.currentUser.isLoggedIn()) {
+      Backbone.history.navigate("submit", { trigger: true });
+    } else {
+      // TODO pop-up login/signup modal
+      alert("You must be logged-in to submit a new post!");
+    }
   },
 
   remove: function () {

@@ -6,8 +6,10 @@ window.Zeddit = {
   initialize: function() {
     window.currentUser = new Zeddit.Models.CurrentUser();
     window.currentUser.fetch();
-
     window.viewCount = 0;
+
+    Zeddit.allSubs = new Zeddit.Collections.Subs();
+    Zeddit.allSubs.fetch();
 
     new Zeddit.Routers.Router();
     Backbone.history.start();

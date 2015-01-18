@@ -38,9 +38,13 @@ Zeddit.Views.SubShow = Backbone.View.extend({
   },
 
   newPost: function () {
-    Backbone.history.navigate(
-      "z/" + this.model.get("title") + "/submit", { trigger: true }
-    );
+    if (window.currentUser.isLoggedIn()) {
+      Backbone.history.navigate(
+        "z/" + this.model.get("title") + "/submit", { trigger: true }
+      );
+    } else {
+      alert("You must be logged-in to submit a new post!");
+    }
   },
 
   remove: function () {

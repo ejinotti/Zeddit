@@ -1,0 +1,40 @@
+<% var subTitle = (sub) ? sub.get("title") : ""; %>
+
+<h3>Submit New Post</h3>
+
+<ul id="errors"></ul>
+
+<form>
+
+  <label>Title<br>
+    <input type="text" name="post[title]">
+  </label>
+
+  <br><br>
+
+  <label>URL<br>
+    <input type="text" name="post[url]">
+  </label>
+
+  <br>
+
+  <label>Content<br>
+    <textarea name="post[content]"></textarea>
+  </label>
+
+  <br>
+
+  <% if (!post) { %>
+    <label>Subzeddit<br>
+      <input id="title" type="text" name="post[sub_title]" value="<%= subTitle %>">
+    </label>
+    <ul id="dropdown"></ul>
+  <% } %>
+
+  <br>
+
+  <button>Submit</button>
+
+</form>
+
+<br><br>
