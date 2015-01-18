@@ -21,7 +21,7 @@ Zeddit.Views.PostShow = Backbone.View.extend({
 
   remove: function () {
     this.postView.remove();
-    this.commentsView.remove();
+    this.commentsView && this.commentsView.remove();
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   }
