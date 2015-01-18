@@ -35,6 +35,7 @@ Zeddit.Views.SubForm = Backbone.View.extend({
     };
 
     var successCb = function (sub) {
+      Zeddit.allSubs.add(sub, { merge: true });
       Backbone.history.navigate("z/" + sub.get("title"), { trigger: true });
     };
 

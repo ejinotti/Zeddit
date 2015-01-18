@@ -1,20 +1,48 @@
-<% var authorName = post.escape('author_name'); %>
-<% var subTitle = '#z/' + post.escape('sub_title'); %>
-
+<% var authorName = post.escape("author_name"); %>
+<% var subTitle = "#z/" + post.escape("sub_title"); %>
 
 <button>&#8593;</button>
-<%= post.escape('title') %>
-<small>(<%= post.get('points') %> points)</small>
+<%= post.escape("title") %>
+<small>(<%= post.get("points") %> points)</small>
 <br>
 
 <button>&#8595;</button>
 <small>
-  submitted at <%= post.get('created_at') %>
-  by <a href="<%= '#user/' + authorName %>"><%= authorName %></a>
+  submitted at <%= post.get("created_at") %>
+  by <a href="<%= "#user/" + authorName %>"><%= authorName %></a>
   to <a href="<%= subTitle %>"><%= subTitle %></a>
 </small>
 <br>
 
-<a href="<%= subTitle + "/posts/" + post.id + "/" + encodeTitle(post.get('title'))%>">
-  <%= post.get('comment_count') %> comments
-</a>
+<% if (isShowPage) { %>
+  <div id="post-content">
+    <p><%= post.escape("content") %></p>
+  </div>
+  <div id="post-edit" class="hidden">
+    <form>
+      <label>URL<br>
+        <input type="text" name="post[url]" value="<%= post.get("url") %>"><br>
+      </label>
+      <label>Content<br>
+        <textarea name="post[content]"><%= post.get("content") %></textarea><br>
+      </label>
+      <input type="submit" value="save">
+    </form>
+    <button>cancel</button><br>
+  </div>
+
+<% } %>
+
+<small><strong>
+  <a href="<%= subTitle + "/posts/" + post.id + "/" + encodeTitle(post.get("title"))%>">
+    <%= post.get("comment_count") %> comments
+  </a>
+
+  <% if (window.currentUser.id === post.get("author_id")) { %>
+    <% if (isShowPage) { %>
+      <a href="javascript:void(0)" id="edit">edit</a>
+    <% } %>
+    <a href="javascript:void(0)" id="delete">delete</a>
+  <% } %>
+
+</strong></small>
