@@ -14,4 +14,5 @@ Zeddit.Collections.Posts = Backbone.Collection.extend({
       return 0;
     }
   }
+  
 });
