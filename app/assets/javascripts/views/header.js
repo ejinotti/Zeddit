@@ -2,6 +2,10 @@ Zeddit.Views.Header = Backbone.View.extend({
   template: JST.header,
   templateMySubs: JST.header_mysubs,
 
+  events: {
+    "click #my-subzeddits": "toggleMySubzeddits"
+  },
+
   initialize: function (options) {
     this.$el = options.$el;
     this.render();
@@ -21,6 +25,11 @@ Zeddit.Views.Header = Backbone.View.extend({
     } else {
       this.$("nav").empty();
     }
+  },
+
+  toggleMySubzeddits: function () {
+    console.log("toggle");
+    this.$("ul").toggleClass("hidden");
   }
 
   // clearMySubs: function () {

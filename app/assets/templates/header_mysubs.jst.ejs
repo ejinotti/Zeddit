@@ -1,4 +1,5 @@
-<ul>
+<a id="my-subzeddits" href="javascript:void(0)">MY SUBZEDDITS</a>
+<ul class="hidden">
   <% window.currentUser.subzeddits.each(function (sub) { %>
     <li>
       <a href="<%= "#z/" + sub.get("title") %>">
