@@ -1,2 +1,3 @@
-<%= user.escape('username') %>
+<% var name = user.escape("username"); %>
+<a href="<%="#user/" + name %>"><%= name %></a>
 <button id="logout">LOGOUT</button>

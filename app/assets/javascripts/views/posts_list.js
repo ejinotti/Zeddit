@@ -10,6 +10,7 @@ Zeddit.Views.PostsList = Backbone.View.extend({
   render: function () {
     var that = this;
 
+    console.log("PostsList render..");
 
     if (this.postViews.length) {
       this.removeSubs();
@@ -22,7 +23,11 @@ Zeddit.Views.PostsList = Backbone.View.extend({
         isShowPage: false
       });
       that.postViews.push(postView);
+      // var $li = $("<li>");
+      // $li.append(postView.render().$el);
+      // that.$el.append($li);
       $("<li>").html(postView.render().$el).appendTo(that.$el);
+      // debugger;
     });
 
     return this;

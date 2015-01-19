@@ -15,6 +15,7 @@
 <br>
 
 <% if (isShowPage) { %>
+
   <div id="post-content">
     <p><%= post.escape("content") %></p>
   </div>
@@ -40,9 +41,9 @@
 
   <% if (window.currentUser.id === post.get("author_id")) { %>
     <% if (isShowPage) { %>
-      <a href="javascript:void(0)" id="edit">edit</a>
+      <a href="javascript:void(0)" class="edit">edit</a>
     <% } %>
-    <a href="javascript:void(0)" id="delete">delete</a>
+    <a href="javascript:void(0)" class="delete">delete</a>
   <% } %>
 
 </strong></small>
