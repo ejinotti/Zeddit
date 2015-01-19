@@ -8,7 +8,7 @@ Zeddit.Views.SubsIndex = Backbone.View.extend({
   initialize: function () {
     window.viewCount++;
     this.listenTo(this.collection, "sync", this.render);
-    this.listenTo(window.currentUser, "checked", this.render);
+    this.listenTo(window.currentUser, "checked login logout", this.render);
     this.subzViews = [];
   },
 

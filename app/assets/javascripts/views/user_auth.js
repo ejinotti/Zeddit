@@ -1,7 +1,7 @@
 Zeddit.Views.UserAuth = Backbone.View.extend({
-  templateLoggedIn: JST["user_loggedin"],
-  templateLoggedOut: JST["user_loggedout"],
-  templateForm: JST["user_form"],
+  templateLoggedIn: JST.user_loggedin,
+  templateLoggedOut: JST.user_loggedout,
+  templateForm: JST.user_form,
 
   events: {
     "click #signup": "renderSignupForm",

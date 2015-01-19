@@ -32,6 +32,8 @@ Zeddit.Views.Post = Backbone.View.extend({
     //   this.$(".delete").on("click", this.delete.bind(this));
     // }
 
+    this.delegateEvents();
+
     return this;
   },
 

@@ -9,31 +9,28 @@ Zeddit.Views.Header = Backbone.View.extend({
   initialize: function (options) {
     this.$el = options.$el;
     this.render();
+    // this.listenTo(window.currentUser, "login logout checked", this.renderMySubs);
+    this.listenTo(window.currentUser.subscriptions, "add remove", this.renderMySubs);
     this.listenTo(window.currentUser, "login logout checked", this.renderMySubs);
-    // this.listenTo(window.currentUser, "logout", this.clearMySubs);
   },
 
   render: function () {
     this.$el.html(this.template());
-    // debugger;
     return this;
   },
 
   renderMySubs: function () {
+    console.log("rendering MySubs..");
     if (window.currentUser.isLoggedIn()) {
       this.$("nav").html(this.templateMySubs());
     } else {
       this.$("nav").empty();
+      window.currentUser.subscriptions.reset();
     }
   },
 
   toggleMySubzeddits: function () {
-    console.log("toggle");
     this.$("ul").toggleClass("hidden");
   }
-
-  // clearMySubs: function () {
-  //   this.$("nav").empty();
-  // }
 
 });

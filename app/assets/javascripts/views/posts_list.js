@@ -27,6 +27,7 @@ Zeddit.Views.PostsList = Backbone.View.extend({
       // $li.append(postView.render().$el);
       // that.$el.append($li);
       $("<li>").html(postView.render().$el).appendTo(that.$el);
+      postView.delegateEvents();
       // debugger;
     });
 

@@ -1,6 +1,13 @@
 <h1><%= sub.escape("title") %></h1>
 
+<% if (window.currentUser.subscriptions.findWhere({ sub_id: sub.id })) { %>
+  <button class="subscribe">unsubscribe</button>
+<% } else { %>
+  <button class="subscribe">subscribe</button>
+<% } %>
+
 <% if (window.currentUser.id === sub.get("owner_id")) { %>
+  <br><br>
   <button id="edit-sub">Edit this Subzeddit</button>
   <br><br>
   <button id="delete-sub">DELETE this Subzeddit!</button>

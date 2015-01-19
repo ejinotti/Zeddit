@@ -1,6 +1,11 @@
 <% var subTitle = "#z/" + sub.escape("title") %>
 
-<button>subscribe</button>
+<% if (window.currentUser.subscriptions.findWhere({ sub_id: sub.id })) { %>
+  <button class="subscribe">unsubscribe</button>
+<% } else { %>
+  <button class="subscribe">subscribe</button>
+<% } %>
+
 <a href="<%= subTitle %>"><%= subTitle %></a>
 <br>
 <%= sub.escape("description") %>

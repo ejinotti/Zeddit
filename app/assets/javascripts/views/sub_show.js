@@ -4,7 +4,8 @@ Zeddit.Views.SubShow = Backbone.View.extend({
   events: {
     "click #edit-sub": "edit",
     "click #delete-sub": "delete",
-    "click #new-post": "newPost"
+    "click #new-post": "newPost",
+    "click .subscribe": "toggleSubscription"
   },
 
   initialize: function () {
@@ -44,6 +45,35 @@ Zeddit.Views.SubShow = Backbone.View.extend({
       );
     } else {
       alert("You must be logged-in to submit a new post!");
+    }
+  },
+
+  toggleSubscription: function (event) {
+    var $button = $(event.currentTarget);
+    var that = this;
+
+    if (!window.currentUser.isLoggedIn()) {
+      alert("You must be logged-in to subscribe!");
+      return;
+    }
+
+    if ($button.text() === "subscribe") {
+      var newSubscrip = new Zeddit.Models.Subscription({
+        sub_id: this.model.id
+      });
+      newSubscrip.save({}, {
+        success: function () {
+          newSubscrip.set("sub_title", that.model.get("title"));
+          window.currentUser.subscriptions.add(newSubscrip);
+        }
+      });
+      $button.text("unsubscribe");
+    } else {
+      var subscrip = window.currentUser.subscriptions.findWhere({
+        sub_id: this.model.id
+      });
+      subscrip.destroy();
+      $button.text("subscribe");
     }
   },
 
