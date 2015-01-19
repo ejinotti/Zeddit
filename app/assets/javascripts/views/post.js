@@ -3,10 +3,10 @@ Zeddit.Views.Post = Backbone.View.extend({
   className: "post",
 
   events: {
+    "click .delete": "delete",
     "click .edit": "showEdit",
     "click .edit-cancel": "clearEdit",
     "submit .edit-form": "submitEdit",
-    "click .delete": "delete",
     "submit .new-comment-form": "newComment"
   },
 

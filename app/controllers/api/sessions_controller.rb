@@ -3,7 +3,7 @@ class Api::SessionsController < Api::ApiController
   def show
     @user = current_user
     if @user
-      render json: { id: @user.id, username: @user.username }
+      render :show
     else
       render json: { message: "No current user." }
     end
@@ -14,7 +14,8 @@ class Api::SessionsController < Api::ApiController
 
     if @user
       login!(@user)
-      render json: { id: @user.id, username: @user.username }
+      render :show
+      # render json: { id: @user.id, username: @user.username }
     else
       render json: { errors: ["Invalid username and/or password"] }, status: 401
     end

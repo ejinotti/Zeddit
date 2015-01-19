@@ -47,9 +47,15 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
 
   initialize: function () {
     this.initCheckDone = false;
+    this.subzeddits = new Zeddit.Collections.Subs();
   },
 
   parse: function (response) {
+    if (response.subzeddits) {
+      this.subzeddits.reset(response.subzeddits);
+      delete response.subzeddits;
+    }
+
     return response;
   },
 
@@ -76,7 +82,11 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
       type: "POST",
       data: creds,
       dataType: "json",
-      success: function (data){
+      success: function (data) {
+        if (data.subzeddits) {
+          that.subzeddits.reset(data.subzeddits);
+          delete data.subzeddits;
+        }
         that.set(data);
         that.trigger("login");
       },

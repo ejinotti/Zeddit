@@ -1,0 +1,9 @@
+<ul>
+  <% window.currentUser.subzeddits.each(function (sub) { %>
+    <li>
+      <a href="<%= "#z/" + sub.get("title") %>">
+        <%= sub.escape("title") %>
+      </a>
+    </li>
+  <% }); %>
+</ul>

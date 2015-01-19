@@ -12,11 +12,12 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   },
 
   initialize: function () {
-    this.$auth = $("#auth");
+    // this.$auth = $("#auth");
     this.$main = $("#main");
     this.$sidebar = $("#sidebar");
 
-    this.authView = new Zeddit.Views.UserAuth({ $el: this.$auth });
+    this.authView = new Zeddit.Views.UserAuth({ $el: $("#auth") });
+    this.headerView = new Zeddit.Views.Header({ $el: $("header") });
   },
 
   root: function () {
