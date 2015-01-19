@@ -7,18 +7,21 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :subs, except: [:new, :edit]
-    resources :posts, except: [:new, :edit] do
-      member do
-        post 'upvote', to: 'votes#upvote'
-        post 'downvote', to: 'votes#downvote'
-      end
-    end
-    resources :comments, except: [:new, :edit] do
-      member do
-        post 'upvote', to: 'votes#upvote'
-        post 'downvote', to: 'votes#downvote'
-      end
-    end
+    # resources :posts, except: [:new, :edit] do
+    #   member do
+    #     post 'upvote', to: 'votes#upvote'
+    #     post 'downvote', to: 'votes#downvote'
+    #   end
+    # end
+    resources :posts, except: [:new, :edit]
+    # resources :comments, except: [:new, :edit] do
+    #   member do
+    #     post 'upvote', to: 'votes#upvote'
+    #     post 'downvote', to: 'votes#downvote'
+    #   end
+    # end
+    resources :comments, except: [:new, :edit]
+    resources :votes, only: [:create, :destroy]
     resources :subscriptions, only: [:create, :destroy]
     resources :users, only: [:index, :show, :create]
     resource :session, only: [:show, :create, :destroy]

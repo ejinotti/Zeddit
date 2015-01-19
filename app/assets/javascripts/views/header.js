@@ -25,7 +25,7 @@ Zeddit.Views.Header = Backbone.View.extend({
       this.$("nav").html(this.templateMySubs());
     } else {
       this.$("nav").empty();
-      window.currentUser.subscriptions.reset();
+      // window.currentUser.subscriptions.reset();
     }
   },
 

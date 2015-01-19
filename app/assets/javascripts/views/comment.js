@@ -10,12 +10,22 @@ Zeddit.Views.Comment = Backbone.View.extend({
     "submit .reply-form": "submitReply",
     "click .delete": "delete",
     "click .reply": "showReply",
-    "click .reply-cancel": "clearReply"
+    "click .reply-cancel": "clearReply",
+    "click .vote-up": "upvote",
+    "click .vote-down": "downvote"
   },
 
   initialize: function (options) {
     window.viewCount++;
     this.allComments = options.allComments;
+
+    this.voteValue = 0;
+    var vote = window.currentUser.votes.findWhere({
+      votable_id: this.model.id,
+      votable_type: "Comment"
+    });
+    if (vote) this.voteValue = vote.get("value");
+
     this.render();
 
     this.$body = this.$(".comment-body");
@@ -33,7 +43,10 @@ Zeddit.Views.Comment = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template({ comment: this.model });
+    var content = this.template({
+      comment: this.model,
+      voteValue: this.voteValue
+    });
     this.$el.html(content);
     return this;
   },
@@ -45,6 +58,18 @@ Zeddit.Views.Comment = Backbone.View.extend({
       parentId: this.model.id
     });
     this.$el.append(this.subCommentsView.render().$el);
+  },
+
+  upvote: function (event) {
+    event.stopPropagation();
+    console.log("upvote!");
+
+    
+  },
+
+  downvote: function (event) {
+    event.stopPropagation();
+    console.log("downvote!");
   },
 
   showEdit: function (event) {

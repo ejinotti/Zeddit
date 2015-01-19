@@ -1,6 +1,8 @@
-<% var authorName = comment.escape('author_name'); %>
+<%
+var authorName = comment.escape('author_name');
+%>
 
-<button>&#8593;</button>
+<button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>">&#8593;</button>
 <a href="<%= '#user/' + authorName %>"><%= authorName %></a>
 <small>
   <%= comment.get('points') %> points
@@ -9,7 +11,7 @@
 <br>
 
 <div>
-  <button>&#8595;</button>
+  <button class="vote vote-down<%= (voteValue === -1) ? ' vote-on' : '' %>">&#8595;</button>
   <div class="comment-body"><%= comment.escape('content') %></div>
   <div class="edit-box hidden">
     <form class="edit-form">

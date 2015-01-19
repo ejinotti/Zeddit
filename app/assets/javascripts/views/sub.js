@@ -1,5 +1,5 @@
 Zeddit.Views.Sub = Backbone.View.extend({
-  template: JST["sub"],
+  template: JST.sub,
   className: "subzeddit",
 
   events: {

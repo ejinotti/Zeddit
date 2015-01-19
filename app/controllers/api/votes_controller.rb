@@ -1,45 +1,35 @@
 class Api::VotesController < Api::ApiController
 
-  before_action :ensure_logged_in
+  before_action :ensure_logged_in, only: [:create]
+  before_action :verify_owner, only: [:destroy]
 
-  def upvote
-    c_user = current_user
-    v_id = params[:id]
-    v_type = (request.path == upvote_post_path(v_id)) ? "Post" : "Comment"
+  def create
+    @vote = current_user.votes.new(vote_params)
 
-    votable = eval(v_type).find(v_id)
-
-    case c_user.get_vote_value(v_id, v_type)
-    when 0
-      votable.votes.create!(voter_id: c_user.id, value: 1)
-    when -1
-      votable.votes.where(voter_id: c_user.id).destroy_all
-      votable.votes.create!(voter_id: c_user.id, value: 1)
+    if @vote.save
+      render json: @vote
     else
-      votable.votes.where(voter_id: c_user.id).destroy_all
+      render json: @vote.errors.full_messages, status: 422
     end
-
-    redirect_to :back
   end
 
-  def downvote
-    c_user = current_user
-    v_id = params[:id]
-    v_type = (request.path == downvote_post_path(v_id)) ? "Post" : "Comment"
+  def destroy
+    @vote.destroy!
+    render json: { message: 'destroyed!' }
+  end
 
-    votable = eval(v_type).find(v_id)
+  private
 
-    case c_user.get_vote_value(v_id, v_type)
-    when 0
-      votable.votes.create!(voter_id: c_user.id, value: -1)
-    when 1
-      votable.votes.where(voter_id: c_user.id).destroy_all
-      votable.votes.create!(voter_id: c_user.id, value: -1)
-    else
-      votable.votes.where(voter_id: c_user.id).destroy_all
+  def vote_params
+    params.require(:vote).permit(:value, :votable_id, :votable_type)
+  end
+
+  def verify_owner
+    @vote = Vote.find(params[:id])
+
+    if !(current_user && current_user.id == @vote.voter_id)
+      render json: { message: "You do not own that Vote" }, status: 401
     end
-
-    redirect_to :back
   end
 
 end

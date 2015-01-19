@@ -48,13 +48,18 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
   initialize: function () {
     this.initCheckDone = false;
     this.subscriptions = new Zeddit.Collections.Subscriptions();
+    this.votes = new Zeddit.Collections.Votes();
   },
 
   parse: function (response) {
     if (response.subscriptions) {
-      console.log("reset subscriptions..");
       this.subscriptions.reset(response.subscriptions);
       delete response.subscriptions;
+    }
+
+    if (response.votes) {
+      this.votes.reset(response.votes);
+      delete response.votes;
     }
 
     return response;
@@ -88,6 +93,10 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
           that.subscriptions.reset(data.subscriptions);
           delete data.subscriptions;
         }
+        if (data.votes) {
+          that.votes.reset(data.votes);
+          delete data.votes;
+        }
         that.set(data);
         that.trigger("login");
       },
@@ -112,6 +121,8 @@ Zeddit.Models.CurrentUser = Zeddit.Models.User.extend({
       dataType: "json",
       success: function () {
         that.clear();
+        that.subscriptions.reset();
+        that.votes.reset();
         that.trigger("logout");
       }
     });

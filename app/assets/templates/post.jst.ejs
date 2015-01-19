@@ -1,12 +1,14 @@
-<% var authorName = post.escape("author_name"); %>
-<% var subTitle = "#z/" + post.escape("sub_title"); %>
+<%
+var authorName = post.escape("author_name");
+var subTitle = "#z/" + post.escape("sub_title");
+%>
 
-<button>&#8593;</button>
+<button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>">&#8593;</button>
 <%= post.escape("title") %>
 <small>(<%= post.get("points") %> points)</small>
 <br>
 
-<button>&#8595;</button>
+<button class="vote vote-down<%= (voteValue === -1) ? ' vote-on' : '' %>">&#8595;</button>
 <small>
   submitted at <%= post.get("created_at") %>
   by <a href="<%= "#user/" + authorName %>"><%= authorName %></a>

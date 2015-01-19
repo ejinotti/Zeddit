@@ -1,5 +1,5 @@
 Zeddit.Views.SubsIndex = Backbone.View.extend({
-  template: JST["subs_index"],
+  template: JST.subs_index,
 
   events: {
     "click #new-subz": "newSub"

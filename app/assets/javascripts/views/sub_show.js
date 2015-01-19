@@ -1,5 +1,5 @@
 Zeddit.Views.SubShow = Backbone.View.extend({
-  template: JST["sub_show"],
+  template: JST.sub_show,
 
   events: {
     "click #edit-sub": "edit",
