@@ -11,12 +11,13 @@
 <div>
   <button>&#8595;</button>
   <div class="comment-body"><%= comment.escape('content') %></div>
-  <div class="hidden">
-    <form>
+  <div class="edit-box hidden">
+    <form class="edit-form">
       <textarea name="comment[content]"><%= comment.get("content") %></textarea>
+      <br>
       <input type="submit" value="save">
     </form>
-    <button>cancel</button>
+    <button class="edit-cancel">cancel</button>
   </div>
 </div>
 
@@ -27,3 +28,12 @@
   <% } %>
   <a href="javascript:void(0)" class="reply">reply</a>
 </strong></small>
+
+<div class="reply-box hidden">
+  <form class="reply-form">
+    <textarea name="comment[content]"></textarea>
+    <br>
+    <input type="submit" value="save">
+  </form>
+  <button class="reply-cancel">cancel</button>
+</div>

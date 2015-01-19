@@ -13,6 +13,8 @@ Zeddit.Views.PostShow = Backbone.View.extend({
   render: function () {
     if (!this.model.allComments) return;
 
+    this.commentsView && this.commentsView.remove();
+
     this.commentsView = new Zeddit.Views.CommentsList({
       allComments: this.model.allComments,
       parentId: ""

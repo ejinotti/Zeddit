@@ -3,10 +3,11 @@ Zeddit.Views.Post = Backbone.View.extend({
   className: "post",
 
   events: {
-    "click .edit": "editToggle",
-    "click button": "clearAndToggle",
-    "submit": "submit",
-    "click .delete": "delete"
+    "click .edit": "showEdit",
+    "click .edit-cancel": "clearEdit",
+    "submit .edit-form": "submitEdit",
+    "click .delete": "delete",
+    "submit .new-comment-form": "newComment"
   },
 
   initialize: function (options) {
@@ -17,7 +18,8 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   render: function () {
-    console.log("post render..");
+    // debugger;
+    console.log("Post render..");
     var content = this.template({
       post: this.model,
       isShowPage: this.isShowPage
@@ -33,18 +35,18 @@ Zeddit.Views.Post = Backbone.View.extend({
     return this;
   },
 
-  editToggle: function () {
+  showEdit: function () {
     $("#post-content").toggleClass("hidden");
     $("#post-edit").toggleClass("hidden");
     this.$("a.edit").toggleClass("hidden");
   },
 
-  clearAndToggle: function () {
+  clearEdit: function () {
     this.$("form")[0].reset();
-    this.editToggle();
+    this.showEdit();
   },
 
-  submit: function (event) {
+  submitEdit: function (event) {
     event.preventDefault();
 
     var attrs = $(event.target).serializeJSON().post;
@@ -59,12 +61,33 @@ Zeddit.Views.Post = Backbone.View.extend({
 
   delete: function (event) {
     console.log("a.delete clicked!");
-    this.model.destroy();
-    if (this.isShowPage) {
-      window.history.back();
-    } else {
-      this.remove();
-    }
+    // this.model.destroy();
+    // if (this.isShowPage) {
+    //   window.history.back();
+    // } else {
+    //   this.remove();
+    // }
+  },
+
+  newComment: function (event) {
+    event.preventDefault();
+    var attrs = $(event.target).serializeJSON().comment;
+    var newComment = new Zeddit.Models.Comment({
+      post_id: this.model.id,
+      parent_id: null
+    });
+    var that = this;
+
+    newComment.save(attrs, {
+      success: function () {
+        if (!that.model.allComments) {
+          that.model.allComments = {};
+          that.model.allComments[""] = new Zeddit.Collections.Comments();
+        }
+        that.model.allComments[""].add(newComment);
+        that.model.trigger("sync");
+      }
+    });
   },
 
   remove: function () {

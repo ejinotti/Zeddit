@@ -20,7 +20,7 @@
     <p><%= post.escape("content") %></p>
   </div>
   <div id="post-edit" class="hidden">
-    <form>
+    <form class="edit-form">
       <label>URL<br>
         <input type="text" name="post[url]" value="<%= post.get("url") %>"><br>
       </label>
@@ -47,3 +47,10 @@
   <% } %>
 
 </strong></small>
+
+<% if (isShowPage) { %>
+  <form class="new-comment-form">
+    <textarea name="comment[content]"></textarea><br>
+    <input type="submit" value="save">
+  </form>
+<% } %>
