@@ -20,11 +20,11 @@ Zeddit.Views.Comment = Backbone.View.extend({
     this.allComments = options.allComments;
 
     this.voteValue = 0;
-    var vote = window.currentUser.votes.findWhere({
+    this.vote = window.currentUser.votes.findWhere({
       votable_id: this.model.id,
       votable_type: "Comment"
     });
-    if (vote) this.voteValue = vote.get("value");
+    if (this.vote) this.voteValue = this.vote.get("value");
 
     this.render();
 
@@ -36,6 +36,10 @@ Zeddit.Views.Comment = Backbone.View.extend({
     this.$replyBox = this.$(".reply-box");
     this.$replyLink = this.$(".reply");
     this.$replyForm = this.$(".reply-form");
+
+    this.$points = this.$(".points");
+    this.$upArrow = this.$(".vote-up");
+    this.$downArrow = this.$(".vote-down");
 
     if (this.allComments[this.model.id]) {
       this.renderSubComments();
@@ -63,13 +67,58 @@ Zeddit.Views.Comment = Backbone.View.extend({
   upvote: function (event) {
     event.stopPropagation();
     console.log("upvote!");
-
-    
+    this.castVote(1, this.$upArrow);
   },
 
   downvote: function (event) {
     event.stopPropagation();
     console.log("downvote!");
+    this.castVote(-1, this.$downArrow);
+  },
+
+  castVote: function (val, $arrow) {
+    var that = this;
+    var delta, newPts;
+
+    console.log("current voteValue = " + this.voteValue);
+
+    if (this.vote) {
+      console.log("vote exists, destroying..");
+      this.vote.destroy();
+      this.vote = null;
+      this.$upArrow.removeClass("vote-on");
+      this.$downArrow.removeClass("vote-on");
+    }
+
+    if (this.voteValue === val) {
+      console.log("vote was same click, so returning..");
+      this.voteValue = 0;
+      newPts = this.model.get("points") - val;
+      this.model.set("points", newPts);
+      this.$points.text(newPts + " points");
+      return;
+    }
+
+    console.log("creating new vote..");
+
+    var newVote = new Zeddit.Models.Vote({
+      value: val,
+      votable_id: this.model.id,
+      votable_type: "Comment"
+    });
+
+    newVote.save({}, {
+      success: function () {
+        window.currentUser.votes.add(newVote);
+        delta = (that.voteValue * -1) + val;
+        newPts = that.model.get("points") + delta;
+        that.model.set("points", newPts);
+        that.$points.text(newPts + " points");
+        $arrow.addClass("vote-on");
+        that.voteValue = val;
+        that.vote = newVote;
+      }
+    });
   },
 
   showEdit: function (event) {

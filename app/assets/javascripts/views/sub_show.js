@@ -13,12 +13,13 @@ Zeddit.Views.SubShow = Backbone.View.extend({
     this.postsListView = new Zeddit.Views.PostsList({
       collection: this.model.posts
     });
-    this.render();
+    // this.render();
     this.listenTo(this.model, "sync", this.render);
     this.listenTo(window.currentUser, "login logout", this.render);
   },
 
   render: function () {
+    console.log("SubShow render..");
     var content = this.template({ sub: this.model });
     this.$el.html(content);
     this.$el.append(this.postsListView.$el);

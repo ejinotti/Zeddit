@@ -6,11 +6,12 @@ Zeddit.Views.UserShow = Backbone.View.extend({
     this.postsListView = new Zeddit.Views.PostsList({
       collection: this.model.posts
     });
-    this.render();
+    // this.render();
     this.listenTo(this.model, "sync", this.render);
   },
 
   render: function (){
+    console.log("UserShow render..");
     var content = this.template({ user: this.model });
     this.$el.html(content);
     this.$el.append(this.postsListView.$el);

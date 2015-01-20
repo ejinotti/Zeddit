@@ -5,7 +5,7 @@ var authorName = comment.escape('author_name');
 <button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>">&#8593;</button>
 <a href="<%= '#user/' + authorName %>"><%= authorName %></a>
 <small>
-  <%= comment.get('points') %> points
+  <span class="points"><%= comment.get('points') %> points</span>
   <%= comment.get('created_at') %>
 </small>
 <br>

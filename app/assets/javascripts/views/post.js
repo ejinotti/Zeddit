@@ -16,8 +16,14 @@ Zeddit.Views.Post = Backbone.View.extend({
     window.viewCount++;
     this.isShowPage = options.isShowPage;
 
+    if (this.isShowPage) {
+      this.listenTo(this.model, "sync", this.initialSetup);
+    } else {
+      this.initialSetup();
+    }
+
     // this.render();
-    this.listenTo(this.model, "sync", this.render);
+    // this.listenTo(this.model, "sync", this.render);
   },
 
   initialSetup: function () {
@@ -35,7 +41,6 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   render: function () {
-    // debugger;
     console.log("Post render..");
 
     var content = this.template({
@@ -45,71 +50,35 @@ Zeddit.Views.Post = Backbone.View.extend({
     });
     this.$el.html(content);
 
-    // debugger;
-
-    // if (window.currentUser.id === this.model.get("author_id")) {
-    //   this.$(".delete").on("click", this.delete.bind(this));
-    // }
-
-    // this.delegateEvents();
-
     return this;
   },
 
   upvote: function (event) {
-    console.log("upvote!");
-    console.log(this.vote);
-    console.log(this.voteValue);
-    // debugger;
-
-    var that = this;
-
-    if (this.vote) {
-      console.log("this.vote exists, destroying.. " + this.vote.id);
-      this.$(".vote").removeClass("vote-on");
-      // debugger;
-      this.vote.destroy();
-      // debugger;
-    }
-
-    if (this.voteVal === 1) {
-      this.voteVal = 0;
-      return;
-    }
-
-    var newVote = new Zeddit.Models.Vote({
-      value: 1,
-      votable_id: this.model.id,
-      votable_type: "Post"
-    });
-
-    newVote.save({}, {
-      success: function () {
-        window.currentUser.votes.add(newVote);
-        console.log("created new vote.. " + newVote.id);
-        that.voteVal = 1;
-        that.vote = newVote;
-        that.$(".vote-up").addClass("vote-on");
-      }
-    });
+    this.castVote(1);
   },
 
   downvote: function (event) {
-    console.log("downvote!");
+    this.castVote(-1);
+  },
+
+  castVote: function (val) {
+    console.log("voting, val = " + val);
     var that = this;
 
     if (this.vote) {
-      this.$(".vote").removeClass("vote-on");
       this.vote.destroy();
+      this.vote = null;
     }
 
-    if (this.voteVal === -1) {
-      this.voteVal = 0;
+    if (this.voteValue === val) {
+      this.voteValue = 0;
+      this.model.set("points", this.model.get("points") - val);
+      this.render();
       return;
     }
 
     var newVote = new Zeddit.Models.Vote({
-      value: -1,
+      value: val,
       votable_id: this.model.id,
       votable_type: "Post"
     });
@@ -117,9 +86,11 @@ Zeddit.Views.Post = Backbone.View.extend({
     newVote.save({}, {
       success: function () {
         window.currentUser.votes.add(newVote);
-        that.voteVal = -1;
+        var delta = (that.voteValue * -1) + val;
+        that.model.set("points", that.model.get("points") + delta);
+        that.voteValue = val;
         that.vote = newVote;
-        that.$(".vote-up").addClass("vote-on");
+        that.render();
       }
     });
   },
@@ -143,10 +114,6 @@ Zeddit.Views.Post = Backbone.View.extend({
 
     this.model.save(attrs, { success: function () { that.render(); } });
   },
-
-  // wtf: function () {
-  //   console.log("wtfffff");
-  // },
 
   delete: function (event) {
     console.log("a.delete clicked!");
