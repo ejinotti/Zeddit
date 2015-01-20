@@ -1,12 +1,20 @@
 class Api::VotesController < Api::ApiController
 
   before_action :ensure_logged_in, only: [:create]
-  before_action :verify_owner, only: [:destroy]
+  before_action :verify_owner, only: [:update, :destroy]
 
   def create
     @vote = current_user.votes.new(vote_params)
 
     if @vote.save
+      render json: @vote
+    else
+      render json: @vote.errors.full_messages, status: 422
+    end
+  end
+
+  def update
+    if @vote.update(vote_params)
       render json: @vote
     else
       render json: @vote.errors.full_messages, status: 422

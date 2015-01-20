@@ -62,37 +62,43 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   castVote: function (val) {
-    console.log("voting, val = " + val);
     var that = this;
 
-    if (this.vote) {
+    // destroy
+    if (this.voteValue === val) {
       this.vote.destroy();
       this.vote = null;
-    }
-
-    if (this.voteValue === val) {
       this.voteValue = 0;
       this.model.set("points", this.model.get("points") - val);
       this.render();
-      return;
+
+    // create
+    } else if (this.voteValue === 0) {
+      var newVote = new Zeddit.Models.Vote({
+        value: val,
+        votable_id: this.model.id,
+        votable_type: "Post"
+      });
+      newVote.save({}, {
+        success: function () {
+          window.currentUser.votes.add(newVote);
+          that.model.set("points", that.model.get("points") + val);
+          that.voteValue = val;
+          that.vote = newVote;
+          that.render();
+        }
+      });
+
+    // update
+    } else {
+      this.vote.save({ value: val }, {
+        success: function () {
+          that.model.set("points", that.model.get("points") + (val * 2));
+          that.voteValue = val;
+          that.render();
+        }
+      });
     }
-
-    var newVote = new Zeddit.Models.Vote({
-      value: val,
-      votable_id: this.model.id,
-      votable_type: "Post"
-    });
-
-    newVote.save({}, {
-      success: function () {
-        window.currentUser.votes.add(newVote);
-        var delta = (that.voteValue * -1) + val;
-        that.model.set("points", that.model.get("points") + delta);
-        that.voteValue = val;
-        that.vote = newVote;
-        that.render();
-      }
-    });
   },
 
   showEdit: function () {

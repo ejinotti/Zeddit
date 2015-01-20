@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     #   end
     # end
     resources :comments, except: [:new, :edit]
-    resources :votes, only: [:create, :destroy]
+    resources :votes, only: [:create, :update, :destroy]
     resources :subscriptions, only: [:create, :destroy]
     resources :users, only: [:index, :show, :create]
     resource :session, only: [:show, :create, :destroy]

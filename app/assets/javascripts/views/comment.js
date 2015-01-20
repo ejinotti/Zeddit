@@ -78,47 +78,51 @@ Zeddit.Views.Comment = Backbone.View.extend({
 
   castVote: function (val, $arrow) {
     var that = this;
-    var delta, newPts;
+    var newPts;
 
-    console.log("current voteValue = " + this.voteValue);
+    this.$upArrow.removeClass("vote-on");
+    this.$downArrow.removeClass("vote-on");
 
-    if (this.vote) {
-      console.log("vote exists, destroying..");
+    // destroy
+    if (this.voteValue === val) {
       this.vote.destroy();
       this.vote = null;
-      this.$upArrow.removeClass("vote-on");
-      this.$downArrow.removeClass("vote-on");
-    }
-
-    if (this.voteValue === val) {
-      console.log("vote was same click, so returning..");
       this.voteValue = 0;
       newPts = this.model.get("points") - val;
       this.model.set("points", newPts);
       this.$points.text(newPts + " points");
-      return;
+
+    // create
+    } else if (this.voteValue === 0) {
+      var newVote = new Zeddit.Models.Vote({
+        value: val,
+        votable_id: this.model.id,
+        votable_type: "Comment"
+      });
+      newVote.save({}, {
+        success: function () {
+          window.currentUser.votes.add(newVote);
+          newPts = that.model.get("points") + val;
+          that.model.set("points", newPts);
+          that.voteValue = val;
+          that.vote = newVote;
+          $arrow.addClass("vote-on");
+          that.$points.text(newPts + " points");
+        }
+      });
+
+    // update
+    } else {
+      this.vote.save({ value: val }, {
+        success: function () {
+          newPts = that.model.get("points") + (val * 2);
+          that.model.set("points", newPts);
+          that.voteValue = val;
+          $arrow.addClass("vote-on");
+          that.$points.text(newPts + " points");
+        }
+      });
     }
-
-    console.log("creating new vote..");
-
-    var newVote = new Zeddit.Models.Vote({
-      value: val,
-      votable_id: this.model.id,
-      votable_type: "Comment"
-    });
-
-    newVote.save({}, {
-      success: function () {
-        window.currentUser.votes.add(newVote);
-        delta = (that.voteValue * -1) + val;
-        newPts = that.model.get("points") + delta;
-        that.model.set("points", newPts);
-        that.$points.text(newPts + " points");
-        $arrow.addClass("vote-on");
-        that.voteValue = val;
-        that.vote = newVote;
-      }
-    });
   },
 
   showEdit: function (event) {
