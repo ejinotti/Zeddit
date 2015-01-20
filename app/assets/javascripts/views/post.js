@@ -19,11 +19,10 @@ Zeddit.Views.Post = Backbone.View.extend({
     if (this.isShowPage) {
       this.listenTo(this.model, "sync", this.initialSetup);
     } else {
+      this.$el = options.$el;
+      this.$el.addClass("post");
       this.initialSetup();
     }
-
-    // this.render();
-    // this.listenTo(this.model, "sync", this.render);
   },
 
   initialSetup: function () {
@@ -41,8 +40,6 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   render: function () {
-    console.log("Post render..");
-
     var content = this.template({
       post: this.model,
       isShowPage: this.isShowPage,
@@ -122,13 +119,12 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   delete: function (event) {
-    console.log("a.delete clicked!");
-    // this.model.destroy();
-    // if (this.isShowPage) {
-    //   window.history.back();
-    // } else {
-    //   this.remove();
-    // }
+    this.model.destroy();
+    if (this.isShowPage) {
+      window.history.back();
+    } else {
+      this.remove();
+    }
   },
 
   newComment: function (event) {
@@ -153,7 +149,6 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   remove: function () {
-    console.log("removing a Post View.");
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   }

@@ -56,7 +56,6 @@ Zeddit.Views.Comment = Backbone.View.extend({
   },
 
   renderSubComments: function () {
-    console.log("rendering subComments..");
     this.subCommentsView = new Zeddit.Views.CommentsList({
       allComments: this.allComments,
       parentId: this.model.id
@@ -66,13 +65,11 @@ Zeddit.Views.Comment = Backbone.View.extend({
 
   upvote: function (event) {
     event.stopPropagation();
-    console.log("upvote!");
     this.castVote(1, this.$upArrow);
   },
 
   downvote: function (event) {
     event.stopPropagation();
-    console.log("downvote!");
     this.castVote(-1, this.$downArrow);
   },
 
