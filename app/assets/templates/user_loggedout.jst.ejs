@@ -1,5 +1,28 @@
-want to join?
-<a href="javascript:void(0)" id="login">sign in</a>
-or
-<a href="javascript:void(0)" id="signup">create an account</a>
-in seconds
+<small>
+  want to join?
+  <a href="javascript:void(0)" id="login">sign in</a>
+  or
+  <a href="javascript:void(0)" id="signup">create an account</a>
+  in seconds
+</small>
+
+<form id="login-form">
+  <input class="form-input" type="text" name="user[username]" placeholder="username">
+  <input class="form-input" type="password" name="user[password]" placeholder="password">
+  <p class="hidden">wrong password</p>
+  <button class="btn" name="login">login</button>
+</form>
+<button class="btn" id="make-test-user" name="test">make a test user</button>
+
+<div class="hidden" id="user-modal"></div>
+
+<div class="hidden" id="user-modal-content">
+  <a id="cancel-modal" href="javascript:void(0)">X</a>
+  <form id="signup-form">
+    <h2>CREATE A NEW ACCOUNT</h2>
+    <input class="form-input" type="text" name="user[username]" placeholder="username">
+    <input class="form-input" type="password" name="user[password]" placeholder="password">
+    <input class="form-input" type="password" name="user[password]" placeholder="verify password">
+    <button name="create">CREATE ACCOUNT</button>
+  </form>
+</div>

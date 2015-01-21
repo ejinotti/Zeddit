@@ -1,3 +1,152 @@
+.btn {
+  cursor: pointer;
+  padding: 2px 6px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 1px 1px gray;
+}
+
+.form-input {
+  font-family: verdana;
+  font-size: 11px;
+  border: 1px solid #999;
+  width: 127px;
+  padding: 6px;
+}
+
+.form-input:focus {
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px;
+}
+
 #auth {
   float: right;
+  margin-top: -21px;
+}
+
+#auth > small {
+  border-bottom: 1px solid #5f99cf;
+  padding: 4px;
+  border-top-left-radius: 7px;
+  color: gray;
+  background: #EFF7FF;
+  display: block;
+}
+
+#auth a {
+  color: #369;
+}
+
+#auth a:visited {
+  color: #369;
+}
+
+#auth > form {
+  position: relative;
+  margin-top: 10px;
+  border: 1px solid gray;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+#auth > form > input[type=password] {
+  width: 128px;
+}
+
+#auth > form > p {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5px;
+  color: red;
+  font-size: 12px;
+}
+
+#auth > form > button {
+  display: block;
+  margin: 4px 0 0 248px;
+}
+
+#auth > form > button:active {
+  background: #37d;
+}
+
+#make-test-user {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 130px;
+  background: red;
+  color: white;
+  font-weight: bold;
+}
+
+#make-test-user:active {
+  background: white;
+  color: red;
+}
+
+#user-modal {
+  position: absolute;
+  background: black;
+  height: 150%;
+  opacity: 0.5;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 998;
+}
+
+#user-modal-content {
+  position: absolute;
+  z-index: 999;
+  height: 40%;
+  min-height: 320px;
+  width: 50%;
+  top: 10%;
+  left: 25%;
+  background: rgb(242, 246, 253);
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px black;
+}
+
+a#cancel-modal {
+  font-size: 24px;
+  float: right;
+  color: #999;
+  margin: 10px;
+}
+#user-modal-content form {
+  padding: 50px;
+}
+
+#user-modal-content h2 {
+  text-align: center;
+  font-weight: bold;
+  color: #4270a2;
+  font-size: 12px;
+}
+
+#user-modal-content > form > input {
+  display: block;
+  background: white;
+  border-radius: 5px;
+  width: 60%;
+  height: 20px;
+  padding: 6px 12px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+#user-modal-content button {
+  display: block;
+  margin: auto;
+  cursor: pointer;
+  background-color: #4f86b5;
+  border-bottom: 2px solid #4270a2;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  font-size: 12px;
 }

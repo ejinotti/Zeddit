@@ -63,19 +63,3 @@ header nav a, header nav a:visited {
   vertical-align: bottom;
   margin: 2px 5px 3px 0;
 }
-
-#auth {
-  margin-top: -21px;
-  padding: 4px;
-  border-top-left-radius: 7px;
-  color: gray;
-  background: #EFF7FF;
-}
-
-#auth a {
-  color: #369;
-}
-
-#auth a:visited {
-  color: #369;
-}

@@ -1,4 +1,15 @@
-<% var name = user.escape("username"); %>
-<a href="<%="#user/" + name %>"><%= name %></a>
-|
-<a href="javascript:void(0)" id="logout">logout</a>
+<small>
+  <% var name = user.escape("username"); %>
+  <a href="<%="#user/" + name %>"><%= name %></a>
+  |
+  <a href="javascript:void(0)" id="logout">logout</a>
+</small>
+
+<div id="user-modal">
+  <form>
+    <input class="form-input" type="text" name="user[username]" placeholder="username">
+    <input class="form-input" type="password" name="user[password]" placeholder="password">
+    <input class="form-input" type="password" name="user[password]" placeholder="verify password">
+  </form>
+  <button name="create">CREATE ACCOUNT</button>
+</div>
