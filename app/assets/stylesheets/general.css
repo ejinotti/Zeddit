@@ -1,3 +1,41 @@
+html, body, header, footer, section, article, div,
+strong, a, img, p, h1, h2, h3, time, ul, li, small,
+form, label, input, textarea, button, nav, span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  box-sizing: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  color: inherit;
+  background: transparent;
+}
+
 .hidden {
   display: none;
+}
+
+.group:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  font: normal x-small verdana,arial,helvetica,sans-serif;
+}
+
+a {
+  color: blue;
+}
+
+a:visited {
+  color: #551a8b;
 }

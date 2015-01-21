@@ -1,0 +1,81 @@
+header {
+  border-bottom: 1px solid #5f99cf;
+  background: #cee3f8;
+}
+
+header > nav {
+  color: black;
+  background: #f0f0f0;
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+  height: 18px;
+  line-height: 18px;
+  position: relative;
+  font-size: 90%;
+}
+
+header nav a, header nav a:visited {
+  color: black;
+}
+
+#my-subzeddits {
+  padding-left: 5px;
+  padding-right: 21px;
+  float: left;
+  margin-right: 10px;
+  vertical-align: bottom;
+}
+
+#my-subzeddits img {
+  padding-bottom: 1px;
+}
+
+#my-subzeddits-list {
+  position: absolute;
+  top: 18px;
+  background: white;
+  border: 1px solid gray;
+  margin-left: 5px;
+  line-height: normal;
+}
+
+#my-subzeddits-list > li {
+  padding: 2px 3px 1px 3px;
+}
+
+#my-subzeddits-list a, #my-subzeddits-list a:visited {
+  color: #369;
+}
+
+#subzeddits-index {
+  float: right;
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+#logo {
+  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-position: 0px -313px;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 120px;
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 2px 5px 3px 0;
+}
+
+#auth {
+  margin-top: -21px;
+  padding: 4px;
+  border-top-left-radius: 7px;
+  color: gray;
+  background: #EFF7FF;
+}
+
+#auth a {
+  color: #369;
+}
+
+#auth a:visited {
+  color: #369;
+}

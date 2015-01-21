@@ -9,7 +9,6 @@ Zeddit.Views.Header = Backbone.View.extend({
   initialize: function (options) {
     this.$el = options.$el;
     this.render();
-    // this.listenTo(window.currentUser, "login logout checked", this.renderMySubs);
     this.listenTo(window.currentUser.subscriptions, "add remove", this.renderMySubs);
     this.listenTo(window.currentUser, "login logout checked", this.renderMySubs);
   },
@@ -20,13 +19,13 @@ Zeddit.Views.Header = Backbone.View.extend({
   },
 
   renderMySubs: function () {
-    console.log("rendering MySubs..");
-    if (window.currentUser.isLoggedIn()) {
-      this.$("nav").html(this.templateMySubs());
-    } else {
-      this.$("nav").empty();
-      // window.currentUser.subscriptions.reset();
-    }
+    this.$("nav").html(this.templateMySubs());
+    return this;
+    // if (window.currentUser.isLoggedIn()) {
+    //   this.$("nav").html(this.templateMySubs());
+    // } else {
+    //   this.$("nav").empty();
+    // }
   },
 
   toggleMySubzeddits: function () {

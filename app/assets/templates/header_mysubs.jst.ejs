@@ -1,10 +1,16 @@
-<a id="my-subzeddits" href="javascript:void(0)">MY SUBZEDDITS</a>
-<ul class="hidden">
-  <% window.currentUser.subscriptions.each(function (subscrip) { %>
-    <li>
-      <a href="<%= "#z/" + subscrip.get("sub_title") %>">
-        <%= subscrip.escape("sub_title") %>
-      </a>
-    </li>
-  <% }); %>
-</ul>
+<% if (window.currentUser.isLoggedIn()) { %>
+  <a id="my-subzeddits" href="javascript:void(0)">MY SUBZEDDITS<img src="http://www.redditstatic.com/droparrowgray.gif" alt="droparrow"/></a>
+  <ul id="my-subzeddits-list" class="hidden">
+    <% window.currentUser.subscriptions.each(function (subscrip) { %>
+      <li>
+        <a href="<%= "#z/" + subscrip.get("sub_title") %>">
+          <%= subscrip.escape("sub_title") %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+<% } %>
+
+<a id="subzeddits-index" href="#subzeddits">
+  <%= window.currentUser.isLoggedIn() ? "edit »" : "more »" %>
+</a>
