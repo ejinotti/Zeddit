@@ -1,3 +1,7 @@
+.post {
+  margin: 10px 0;
+}
+
 .post figure {
   float: left;
   margin: 0 7px;
