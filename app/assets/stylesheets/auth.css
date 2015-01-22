@@ -138,6 +138,13 @@ a#cancel-modal {
   text-align: center;
 }
 
+#user-modal-content ul {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
 #user-modal-content button {
   display: block;
   margin: auto;
@@ -149,4 +156,8 @@ a#cancel-modal {
   font-weight: bold;
   padding: 6px 12px;
   font-size: 12px;
+}
+
+#user-modal-content button:active {
+  background-color: #6fa8d7;
 }

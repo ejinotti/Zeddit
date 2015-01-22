@@ -8,7 +8,6 @@ Zeddit.Models.User = Backbone.Model.extend({
   createUser: function (attrs, errorCallback) {
     var that = this;
 
-    // TODO change this when add more sign-up page stuff..
     var creds = attrs;
 
     return $.ajax({

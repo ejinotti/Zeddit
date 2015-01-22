@@ -5,7 +5,7 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
 
   events: {
     "click #signup": "showSignupModal",
-    "click #login": "renderLoginForm",
+    "click #login": "focusLoginForm",
     "click #logout": "logout",
     "submit #signup-form": "submitSignup",
     "submit #login-form" : "submitLogin",
@@ -42,10 +42,8 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
     $("body").css("overflow", "auto");
   },
 
-  renderLoginForm: function () {
-    this.$el.empty();
-    this.render();
-    this.$el.append(this.templateForm({ formId: "login-form" }));
+  focusLoginForm: function () {
+    $("#login-form").find("input[type=text]").focus();
   },
 
   submitLogin: function () {
@@ -68,9 +66,19 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   submitSignup: function () {
     event.preventDefault();
 
+    console.log("signup clicked..");
+
     var $form = this.$("#signup-form");
     var attrs = $form.serializeJSON();
     var $errors = $form.find("ul");
+
+    if (attrs.user.password !== attrs.user.vpassword) {
+      $errors.empty();
+      $errors.append($("<li>").text("password verification error."));
+      return;
+    }
+
+    delete attrs.user.vpassword;
 
     var user = new Zeddit.Models.User();
 

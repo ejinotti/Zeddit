@@ -1,0 +1,62 @@
+.post figure {
+  float: left;
+  margin: 0 7px;
+}
+
+.post figure small {
+  text-align: center;
+  color: #c6c6c6;
+  display: block;
+  font-weight: bold;
+  font-size: small;
+}
+
+.post figure small.points-up {
+  color: #FF8B60;
+}
+
+.post figure small.points-down {
+  color: #9494FF;
+}
+
+.post > a {
+  float: left;
+  width: 70px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.post strong {
+  display: block;
+  font-size: medium;
+  margin-bottom: 1px;
+}
+
+.post > small.author-etc {
+  color: #888;
+  font-size: x-small;
+}
+
+.post > small.author-etc > a {
+  color: #369;
+}
+
+#post-content {
+  background: #fafafa;
+  border: 1px solid #369;
+  border-radius: 7px;
+  display: inline-block;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.post > small.comments-etc {
+  display: block;
+  margin-top: 2px;
+}
+
+.post > small.comments-etc > a {
+  font-weight: bold;
+  color: #888;
+  padding: 0 1px;
+}

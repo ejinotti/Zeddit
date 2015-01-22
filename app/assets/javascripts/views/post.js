@@ -1,6 +1,6 @@
 Zeddit.Views.Post = Backbone.View.extend({
   template: JST.post,
-  className: "post",
+  className: "post group",
 
   events: {
     "click .delete": "delete",
@@ -20,7 +20,7 @@ Zeddit.Views.Post = Backbone.View.extend({
       this.listenTo(this.model, "sync", this.initialSetup);
     } else {
       this.$el = options.$el;
-      this.$el.addClass("post");
+      this.$el.addClass("post group");
       this.initialSetup();
     }
   },
@@ -60,6 +60,7 @@ Zeddit.Views.Post = Backbone.View.extend({
 
   castVote: function (val) {
     var that = this;
+    var $points = this.$("figure > small");
 
     // destroy
     if (this.voteValue === val) {

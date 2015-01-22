@@ -1,26 +1,40 @@
 <%
 var authorName = post.escape("author_name");
 var subTitle = "#z/" + post.escape("sub_title");
+var pointsClass = "";
+if (voteValue === 1) {
+  pointsClass = "points-up";
+} else if (voteValue === -1) {
+  pointsClass = "points-down";
+}
 %>
 
-<button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>">&#8593;</button>
-<%= post.escape("title") %>
-<small>(<%= post.get("points") %> points)</small>
-<br>
+<figure>
+  <button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>"></button>
+  <small class="<%= pointsClass %>"><%= post.get("points") %></small>
+  <button class="vote vote-down<%= (voteValue === -1) ? ' vote-on' : '' %>"></button>
+</figure>
 
-<button class="vote vote-down<%= (voteValue === -1) ? ' vote-on' : '' %>">&#8595;</button>
-<small>
+<a href="#">
+  <img src="http://static.simonscat.com/Images/Avatars/70/500_SimonsCat.png" alt="dummy"/>
+</a>
+
+<strong><a href="#"><%= post.escape("title") %></a></strong>
+
+<small class="author-etc">
   submitted at <%= post.get("created_at") %>
   by <a href="<%= "#user/" + authorName %>"><%= authorName %></a>
-  to <a href="<%= subTitle %>"><%= subTitle %></a>
+  <% if (!isShowPage) { %>
+    to <a href="<%= subTitle %>"><%= subTitle %></a>
+  <% } %>
 </small>
 <br>
 
 <% if (isShowPage) { %>
 
-  <div id="post-content">
-    <p><%= post.escape("content") %></p>
-  </div>
+  <!-- <div id="post-content"> -->
+  <p id="post-content"><%= post.escape("content") %></p>
+  <!-- </div> -->
   <div id="post-edit" class="hidden">
     <form class="edit-form">
       <label>URL<br>
@@ -36,7 +50,7 @@ var subTitle = "#z/" + post.escape("sub_title");
 
 <% } %>
 
-<small><strong>
+<small class="comments-etc">
   <a href="<%= subTitle + "/posts/" + post.id + "/" + encodeTitle(post.get("title"))%>">
     <%= post.get("comment_count") %> comments
   </a>
@@ -47,8 +61,7 @@ var subTitle = "#z/" + post.escape("sub_title");
     <% } %>
     <a href="javascript:void(0)" class="delete">delete</a>
   <% } %>
-
-</strong></small>
+</small>
 
 <% if (isShowPage) { %>
   <form class="new-comment-form">

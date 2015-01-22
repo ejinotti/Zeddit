@@ -1,6 +1,6 @@
 html, body, header, footer, section, article, div,
 strong, a, img, p, h1, h2, h3, time, ul, li, small,
-form, label, input, textarea, button, nav, span {
+form, label, input, textarea, button, nav, span, figure {
   margin: 0;
   padding: 0;
   border: 0;
@@ -34,8 +34,5 @@ body {
 
 a {
   color: blue;
-}
-
-a:visited {
-  color: #551a8b;
+  cursor: pointer;
 }
