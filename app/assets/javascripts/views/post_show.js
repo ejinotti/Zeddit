@@ -1,16 +1,20 @@
 Zeddit.Views.PostShow = Backbone.View.extend({
+  className: "main-container",
 
-  initialize: function () {
+  initialize: function (options) {
     window.viewCount++;
     this.postView = new Zeddit.Views.Post({
       model: this.model,
       isShowPage: true
     });
+    this.header = options.header;
     this.$el.append(this.postView.$el);
     this.listenTo(this.model, "sync", this.render);
   },
 
   render: function () {
+    this.header.setTitle(this.model.get("sub_title"));
+
     if (!this.model.allComments) return;
 
     this.commentsView && this.commentsView.remove();

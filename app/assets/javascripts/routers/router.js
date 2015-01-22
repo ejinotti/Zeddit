@@ -25,6 +25,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     var rootPosts = new Zeddit.Collections.Posts();
     rootPosts.fetch();
 
+    this.headerView.setTitle("");
+
     var rootView = new Zeddit.Views.Root({
       collection: rootPosts
     });
@@ -37,6 +39,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
     Zeddit.allSubs.fetch();
 
+    this.headerView.setTitle("SUBZEDDITS");
+
     var subIndexView = new Zeddit.Views.SubsIndex({
       collection: Zeddit.allSubs
     });
@@ -48,10 +52,16 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     console.log("ROUTE => userShow / " + username);
 
     var user = new Zeddit.Models.User({ username: username });
-    user.fetch();
+    user.fetch({
+      error: function () {
+        alert("User does not exist");
+        Backbone.history.navigate("", { trigger: true });
+      }
+    });
 
     var userView = new Zeddit.Views.UserShow({
-      model: user
+      model: user,
+      header: this.headerView
     });
 
     this._swapMainView(userView);
@@ -61,10 +71,16 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     console.log("ROUTE => subShow / " + subtitle);
 
     var subzeddit = new Zeddit.Models.Sub({ title: subtitle });
-    subzeddit.fetch();
+    subzeddit.fetch({
+      error: function () {
+        alert("Subzeddit does not exist");
+        Backbone.history.navigate("", { trigger: true });
+      }
+    });
 
     var subzedditView = new Zeddit.Views.SubShow({
-      model: subzeddit
+      model: subzeddit,
+      header: this.headerView
     });
 
     this._swapMainView(subzedditView);
@@ -77,7 +93,8 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     post.fetch();
 
     var postView = new Zeddit.Views.PostShow({
-      model: post
+      model: post,
+      header: this.headerView
     });
 
     this._swapMainView(postView);

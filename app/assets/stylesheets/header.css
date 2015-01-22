@@ -63,3 +63,10 @@ header nav a, header nav a:visited {
   vertical-align: bottom;
   margin: 2px 5px 3px 0;
 }
+
+header > h1 {
+  display: inline;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}

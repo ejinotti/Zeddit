@@ -22,7 +22,6 @@ Zeddit.Views.Root = Backbone.View.extend({
   },
 
   refresh: function () {
-    console.log("Root REFRESH triggered!");
     this.collection.fetch();
   },
 

@@ -40,3 +40,21 @@ a {
 #main {
   padding-left: 10px;
 }
+
+.main-container {
+
+}
+
+.btn {
+  cursor: pointer;
+  padding: 2px 6px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 1px 1px gray;
+}
+
+.btn:active {
+  color: white;
+  background: #37d;
+}

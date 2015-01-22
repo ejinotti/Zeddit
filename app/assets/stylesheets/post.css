@@ -47,6 +47,7 @@
   border: 1px solid #369;
   border-radius: 7px;
   display: inline-block;
+  max-width: 500px;
   padding: 5px;
   margin-top: 5px;
   font-size: small;

@@ -1,28 +1,35 @@
 Zeddit.Views.SubShow = Backbone.View.extend({
   template: JST.sub_show,
+  className: "sub-show",
 
   events: {
     "click #edit-sub": "edit",
     "click #delete-sub": "delete",
-    "click #new-post": "newPost",
+    "click #new-post > div": "newPost",
+    // "click #new-post > span": "newPost",
     "click .subscribe": "toggleSubscription"
   },
 
-  initialize: function () {
+  initialize: function (options) {
     window.viewCount++;
     this.postsListView = new Zeddit.Views.PostsList({
       collection: this.model.posts
     });
-    // this.render();
+    this.header = options.header;
     this.listenTo(this.model, "sync", this.render);
-    this.listenTo(window.currentUser, "login logout", this.render);
+    this.listenTo(window.currentUser, "login logout", this.refresh);
   },
 
   render: function () {
+    this.header.setTitle("#z/" + this.model.get("title"));
     var content = this.template({ sub: this.model });
     this.$el.html(content);
     this.$el.append(this.postsListView.$el);
     return this;
+  },
+
+  refresh: function () {
+    this.model.fetch();
   },
 
   edit: function () {
@@ -75,6 +82,7 @@ Zeddit.Views.SubShow = Backbone.View.extend({
       subscrip.destroy();
       $button.text("subscribe");
     }
+    $button.toggleClass("subbed");
   },
 
   remove: function () {

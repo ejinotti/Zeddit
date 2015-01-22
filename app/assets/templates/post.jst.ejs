@@ -7,6 +7,7 @@ if (voteValue === 1) {
 } else if (voteValue === -1) {
   pointsClass = "points-down";
 }
+var createdAt = $.timeago(post.get("created_at"));
 %>
 
 <figure>
@@ -22,7 +23,7 @@ if (voteValue === 1) {
 <strong><a href="#"><%= post.escape("title") %></a></strong>
 
 <small class="author-etc">
-  submitted at <%= post.get("created_at") %>
+  submitted <%= createdAt %>
   by <a href="<%= "#user/" + authorName %>"><%= authorName %></a>
   <% if (!isShowPage) { %>
     to <a href="<%= subTitle %>"><%= subTitle %></a>
@@ -31,9 +32,8 @@ if (voteValue === 1) {
 
 <% if (isShowPage) { %>
 
-  <!-- <div id="post-content"> -->
   <p id="post-content"><%= post.escape("content") %></p>
-  <!-- </div> -->
+
   <div id="post-edit" class="hidden">
     <form class="edit-form">
       <input class="form-input" type="text" name="post[url]" value="<%= post.get("url") %>" placeholder="URL">

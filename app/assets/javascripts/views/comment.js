@@ -52,6 +52,7 @@ Zeddit.Views.Comment = Backbone.View.extend({
       voteValue: this.voteValue
     });
     this.$el.html(content);
+
     return this;
   },
 

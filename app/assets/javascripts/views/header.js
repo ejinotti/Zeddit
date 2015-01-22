@@ -28,6 +28,10 @@ Zeddit.Views.Header = Backbone.View.extend({
     // }
   },
 
+  setTitle: function (title) {
+    this.$("h1").text(title);
+  },
+
   toggleMySubzeddits: function () {
     this.$("ul").toggleClass("hidden");
   }

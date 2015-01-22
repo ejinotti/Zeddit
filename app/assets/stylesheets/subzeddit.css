@@ -1,0 +1,95 @@
+.subscribe {
+  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-position: 0px 0px;
+  background-repeat: repeat;
+  border: 1px solid #444;
+  border-radius: 3px;
+  padding: 0 6px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subscribe.subbed {
+  background-position: 0px -182px;
+}
+
+.sub-show > p {
+  background: #fafafa;
+  border: 1px solid #369;
+  border-radius: 7px;
+  display: block;
+  padding: 5px;
+  margin: 5px 0;
+  font-size: small;
+  max-width: 500px;
+}
+
+.sub-show > small {
+  font-size: small;
+}
+
+#edit-sub, #delete-sub {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#delete-sub {
+  color: white;
+  background: red;
+}
+
+#delete-sub:active {
+  color: red;
+  background: white;
+}
+
+#new-post {
+  /*position: relative;*/
+  display: block;
+  margin-bottom: 10px;
+}
+
+#new-post > div {
+  position: relative;
+  display: inline-block;
+}
+
+#new-post button {
+  cursor: pointer;
+  display: inline-block;
+  color: #369;
+  text-align: center;
+  border: 1px solid #c4dbf1;
+  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-position: 0px -278px;
+  background-repeat: repeat;
+  font-size: 150%;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 29px;
+  height: 29px;
+  padding: 0 20px 0 30px;
+}
+
+#new-post > div:hover > button {
+  color: white;
+  background-position: 0px -243px;
+}
+
+#new-post span {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 190px;
+  height: 31px;
+  width: 24px;
+  background: #ffffff none no-repeat scroll center left;
+  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-position: -30px -547px;
+}
+
+#new-post > div:hover > span {
+  color: white;
+  background-position: 0 -547px;
+}

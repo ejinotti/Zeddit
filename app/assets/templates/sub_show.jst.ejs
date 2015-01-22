@@ -1,20 +1,20 @@
-<h1><%= sub.escape("title") %></h1>
+<p><%= sub.escape("description") %></p>
 
 <% if (window.currentUser.subscriptions.findWhere({ sub_id: sub.id })) { %>
-  <button class="subscribe">unsubscribe</button>
+  <button class="subscribe subbed">unsubscribe</button>
 <% } else { %>
   <button class="subscribe">subscribe</button>
 <% } %>
+<small><%= sub.get("subbed_count") %> readers</small>
 
 <% if (window.currentUser.id === sub.get("owner_id")) { %>
-  <br><br>
-  <button id="edit-sub">Edit this Subzeddit</button>
-  <br><br>
-  <button id="delete-sub">DELETE this Subzeddit!</button>
+  <button class="btn" id="edit-sub">edit subzeddit</button>
+  <button class="btn" id="delete-sub">delete subzeddit</button>
 <% } %>
 
-<p><%= sub.escape("description") %></p>
-<small><%= sub.get("subbed_count") %> readers</small>
-<br><br>
-<button id="new-post">Submit a new post</button>
-<br>
+<div id="new-post">
+  <div>
+    <button>Submit a new post</button>
+    <span></span>
+  </div>
+</div>

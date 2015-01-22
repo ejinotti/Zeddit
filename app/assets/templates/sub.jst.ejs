@@ -1,7 +1,7 @@
 <% var subTitle = "#z/" + sub.escape("title") %>
 
 <% if (window.currentUser.subscriptions.findWhere({ sub_id: sub.id })) { %>
-  <button class="subscribe">unsubscribe</button>
+  <button class="subscribe subbed">unsubscribe</button>
 <% } else { %>
   <button class="subscribe">subscribe</button>
 <% } %>
