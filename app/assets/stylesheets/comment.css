@@ -1,0 +1,79 @@
+.indented {
+  margin-left: 20px;
+  border-left: 1px dotted #ddd;
+  padding-left: 10px;
+}
+
+.comment {
+  margin: 15px 0;
+}
+
+.comment > figure {
+  float: left;
+}
+
+.comment > a {
+  font-weight: bold;
+  color: #369;
+  margin-left: 5px;
+}
+
+.comment > small {
+  color: #888;
+  margin-left: 5px;
+}
+
+.comment > .middle-area {
+  margin: 5px 0 5px 20px;
+  font-size: small;
+  max-width: 500px;
+}
+
+.comment .edit-form {
+  display: inline;
+}
+
+.comment .edit-form > textarea {
+  display: block;
+  border: 1px solid;
+  width: 500px;
+  min-height: 100px;
+  padding: 2px;
+}
+
+.comment .middle-area button {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: x-small;
+}
+
+.comment > strong {
+  margin-left: 20px;
+}
+
+.comment > strong > a {
+  display: inline-block;
+  font-weight: bold;
+  color: #888;
+  margin-right: 10px;
+}
+
+.comment .reply-box {
+  margin: 5px 0 5px 20px;
+}
+
+.comment .reply-form {
+  display: inline;
+}
+
+.comment .reply-form > textarea {
+  display: block;
+  border: 1px solid;
+  width: 500px;
+  min-height: 100px;
+  padding: 2px;
+}
+
+.comment .reply-box button {
+  margin: 5px 0;
+}

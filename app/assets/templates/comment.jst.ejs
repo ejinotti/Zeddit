@@ -3,40 +3,42 @@ var authorName = comment.escape('author_name');
 var createdAt = $.timeago(comment.get("created_at"));
 %>
 
-<button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>">&#8593;</button>
+<figure>
+  <button class="vote vote-up<%= (voteValue === 1) ? ' vote-on' : '' %>"></button>
+  <button class="vote vote-down<%= (voteValue === -1) ? ' vote-on' : '' %>"></button>
+</figure>
+
 <a href="<%= '#user/' + authorName %>"><%= authorName %></a>
 <small>
   <span class="points"><%= comment.get('points') %> points</span>
   <%= createdAt %>
 </small>
-<br>
 
-<div>
-  <button class="vote vote-down<%= (voteValue === -1) ? ' vote-on' : '' %>">&#8595;</button>
-  <div class="comment-body"><%= comment.escape('content') %></div>
+
+<div class="middle-area">
+  <p class="comment-body"><%= comment.escape('content') %></p>
   <div class="edit-box hidden">
     <form class="edit-form">
       <textarea name="comment[content]"><%= comment.get("content") %></textarea>
-      <br>
-      <input type="submit" value="save">
+
+      <button class="btn">save</button>
     </form>
-    <button class="edit-cancel">cancel</button>
+    <button class="btn edit-cancel">cancel</button>
   </div>
 </div>
 
-<small><strong>
+<strong>
   <% if (window.currentUser.id === comment.get("author_id")) { %>
     <a href="javascript:void(0)" class="edit">edit</a>
     <a href="javascript:void(0)" class="delete">delete</a>
   <% } %>
   <a href="javascript:void(0)" class="reply">reply</a>
-</strong></small>
+</strong>
 
 <div class="reply-box hidden">
   <form class="reply-form">
     <textarea name="comment[content]"></textarea>
-    <br>
-    <input type="submit" value="save">
+    <button class="btn">save</button>
   </form>
-  <button class="reply-cancel">cancel</button>
+  <button class="btn reply-cancel">cancel</button>
 </div>

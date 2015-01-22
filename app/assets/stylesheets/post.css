@@ -105,5 +105,6 @@
 }
 
 .post > .new-comment-form > .btn {
+  display: block;
   margin-top: 5px;
 }

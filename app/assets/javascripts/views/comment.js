@@ -1,7 +1,7 @@
 Zeddit.Views.Comment = Backbone.View.extend({
   template: JST.comment,
   tagName: "li",
-  className: "comment",
+  className: "comment group",
 
   events: {
     "click .edit": "showEdit",
@@ -126,9 +126,9 @@ Zeddit.Views.Comment = Backbone.View.extend({
   showEdit: function (event) {
     event.stopPropagation();
 
-    this.$body.toggleClass("hidden");
-    this.$editBox.toggleClass("hidden");
-    this.$editLink.toggleClass("hidden");
+    this.$body.toggle();
+    this.$editBox.toggle();
+    this.$editLink.toggle();
   },
 
   clearEdit: function (event) {
@@ -139,8 +139,8 @@ Zeddit.Views.Comment = Backbone.View.extend({
   showReply: function (event) {
     event.stopPropagation();
 
-    this.$replyBox.toggleClass("hidden");
-    this.$replyLink.toggleClass("hidden");
+    this.$replyBox.toggle();
+    this.$replyLink.toggle();
   },
 
   clearReply: function (event) {

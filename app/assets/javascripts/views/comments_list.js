@@ -20,6 +20,10 @@ Zeddit.Views.CommentsList = Backbone.View.extend({
       that.$el.append(commentView.$el);
     });
 
+    if (this.parentId !== "") {
+      this.$el.addClass("indented");
+    }
+
     return this;
   },
 
