@@ -1,6 +1,6 @@
 Zeddit.Views.Sub = Backbone.View.extend({
   template: JST.sub,
-  className: "subzeddit",
+  className: "subzeddit group",
 
   events: {
     "click .subscribe": "toggleSubscription"

@@ -5,8 +5,7 @@ Zeddit.Views.SubShow = Backbone.View.extend({
   events: {
     "click #edit-sub": "edit",
     "click #delete-sub": "delete",
-    "click #new-post > div": "newPost",
-    // "click #new-post > span": "newPost",
+    "click #new-post > .big-btn": "newPost",
     "click .subscribe": "toggleSubscription"
   },
 

@@ -58,3 +58,51 @@ a {
   color: white;
   background: #37d;
 }
+
+/*.big-btn-outer {
+  display: block;
+}*/
+
+.big-btn {
+  position: relative;
+  display: inline-block;
+}
+
+.big-btn-body {
+  cursor: pointer;
+  display: inline-block;
+  color: #369;
+  text-align: center;
+  border: 1px solid #c4dbf1;
+  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-position: 0px -278px;
+  background-repeat: repeat;
+  font-size: 150%;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 29px;
+  height: 29px;
+  padding: 0 20px 0 30px;
+}
+
+.big-btn:hover > .big-btn-body {
+  color: white;
+  background-position: 0px -243px;
+}
+
+.big-btn-nub {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: -23px;
+  height: 31px;
+  width: 24px;
+  background: #ffffff none no-repeat scroll center left;
+  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-position: -30px -547px;
+}
+
+.big-btn:hover > .big-btn-nub {
+  color: white;
+  background-position: 0 -547px;
+}
