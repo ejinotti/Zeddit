@@ -100,9 +100,9 @@ Zeddit.Views.Post = Backbone.View.extend({
   },
 
   showEdit: function () {
-    $("#post-content").toggleClass("hidden");
-    $("#post-edit").toggleClass("hidden");
-    this.$("a.edit").toggleClass("hidden");
+    $("#post-content").toggle();
+    $("#post-edit").toggle();
+    this.$("a.edit").toggle();
   },
 
   clearEdit: function () {

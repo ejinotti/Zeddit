@@ -36,3 +36,7 @@ a {
   color: blue;
   cursor: pointer;
 }
+
+#main {
+  padding-left: 10px;
+}
