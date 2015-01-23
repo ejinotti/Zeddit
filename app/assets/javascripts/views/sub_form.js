@@ -1,6 +1,6 @@
 Zeddit.Views.SubForm = Backbone.View.extend({
   template: JST.sub_form,
-  className: "sub-new",
+  className: "sub-form",
 
   events: {
     "submit": "submitForm"

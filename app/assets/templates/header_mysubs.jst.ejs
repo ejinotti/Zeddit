@@ -2,11 +2,7 @@
   <a id="my-subzeddits" href="javascript:void(0)">MY SUBZEDDITS<img src="http://www.redditstatic.com/droparrowgray.gif" alt="droparrow"/></a>
   <ul id="my-subzeddits-list" class="hidden">
     <% window.currentUser.subscriptions.each(function (subscrip) { %>
-      <li>
-        <a href="<%= "#z/" + subscrip.get("sub_title") %>">
-          <%= subscrip.escape("sub_title") %>
-        </a>
-      </li>
+      <li><%= subscrip.escape("sub_title") %></li>
     <% }); %>
   </ul>
 <% } %>

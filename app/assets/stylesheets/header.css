@@ -37,14 +37,17 @@ header nav a, header nav a:visited {
   border: 1px solid gray;
   margin-left: 5px;
   line-height: normal;
+  z-index: 10;
 }
 
 #my-subzeddits-list > li {
   padding: 2px 3px 1px 3px;
+  color: #369;
 }
 
-#my-subzeddits-list a, #my-subzeddits-list a:visited {
-  color: #369;
+#my-subzeddits-list > li:hover {
+  cursor: pointer;
+  background: #c7def7;
 }
 
 #subzeddits-index {

@@ -3,7 +3,8 @@ Zeddit.Views.Header = Backbone.View.extend({
   templateMySubs: JST.header_mysubs,
 
   events: {
-    "click #my-subzeddits": "toggleMySubzeddits"
+    "click #my-subzeddits": "toggleMySubzeddits",
+    "click li": "navToSub"
   },
 
   initialize: function (options) {
@@ -21,11 +22,6 @@ Zeddit.Views.Header = Backbone.View.extend({
   renderMySubs: function () {
     this.$("nav").html(this.templateMySubs());
     return this;
-    // if (window.currentUser.isLoggedIn()) {
-    //   this.$("nav").html(this.templateMySubs());
-    // } else {
-    //   this.$("nav").empty();
-    // }
   },
 
   setTitle: function (title) {
@@ -33,7 +29,15 @@ Zeddit.Views.Header = Backbone.View.extend({
   },
 
   toggleMySubzeddits: function () {
+    console.log("toggle mysubzeddits");
     this.$("ul").toggleClass("hidden");
+  },
+
+  navToSub: function (event) {
+    this.toggleMySubzeddits();
+    Backbone.history.navigate(
+      "#z/" + $(event.currentTarget).text(), { trigger: true }
+    );
   }
 
 });
