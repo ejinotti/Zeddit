@@ -130,6 +130,10 @@ Zeddit.Routers.Router = Backbone.Router.extend({
         alert("Subzeddit not found!");
         Backbone.history.navigate("", { trigger: true });
       }
+
+      this.headerView.setTitle(subtitle + ": submit");
+    } else {
+      this.headerView.setTitle("submit");
     }
 
     newPostView = new Zeddit.Views.PostNew({ subzeddit: sub });

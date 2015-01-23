@@ -1,0 +1,51 @@
+.post-new > h3 {
+  font-size: large;
+  margin: 20px 0;
+}
+
+.backdrop {
+  display: block;
+  background: #cee3f8;
+  width: 500px;
+  padding: 5px 10px 10px 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.post-new > form label {
+  font-size: large;
+}
+
+.post-new > form input, textarea {
+  display: block;
+  background: white;
+  border: 1px solid gray;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.post-new > form textarea {
+  min-height: 100px;
+}
+
+.post-new > form {
+  margin-bottom: 20px;
+}
+
+.post-new > form span {
+  position: relative;
+}
+
+#dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid gray;
+  font-size: large;
+  width: 500px;
+  top: -2px;
+}
+
+#dropdown > li:hover {
+  background: #369;
+  color: white;
+}

@@ -1,5 +1,6 @@
 Zeddit.Views.PostNew = Backbone.View.extend({
   template: JST.post_new,
+  className: "post-new",
 
   events: {
     "submit": "submitForm",
@@ -11,15 +12,21 @@ Zeddit.Views.PostNew = Backbone.View.extend({
     window.viewCount++;
     this.subzeddit = options.subzeddit;
     this.render();
+    this.listenTo(window.currentUser, "logout", this.kickEmOut);
+    $(document).on("keyup", this.cancelDropdown);
   },
 
   render: function () {
     var content = this.template({
-      post: this.model,
       sub: this.subzeddit
     });
     this.$el.html(content);
     return this;
+  },
+
+  kickEmOut: function () {
+    alert("You must be logged-in to post");
+    Backbone.history.navigate("", { trigger: true });
   },
 
   submitForm: function (event) {
@@ -41,26 +48,17 @@ Zeddit.Views.PostNew = Backbone.View.extend({
       Backbone.history.navigate("z/" + sub.get("title"), { trigger: true });
     };
 
-    if (this.model) {
-      this.model.set(attrs);
-      this.model.save({}, {
-        success: successCb,
-        error: errorCb
-      });
+    var newPost = new Zeddit.Models.Post();
 
-    } else {
-      var newPost = new Zeddit.Models.Post();
+    var sub = Zeddit.allSubs.findWhere({ title: attrs.sub_title });
+    attrs.sub_id = sub.id;
+    delete attrs.sub_title;
 
-      var sub = Zeddit.allSubs.findWhere({ title: attrs.sub_title });
-      attrs.sub_id = sub.id;
-      delete attrs.sub_title;
-
-      newPost.set(attrs);
-      newPost.save({}, {
-        success: successCb,
-        error: errorCb
-      });
-    }
+    newPost.set(attrs);
+    newPost.save({}, {
+      success: successCb,
+      error: errorCb
+    });
   },
 
   handleSubTitleInput: function (event) {
@@ -88,7 +86,14 @@ Zeddit.Views.PostNew = Backbone.View.extend({
     $("#dropdown").empty();
   },
 
+  cancelDropdown: function (e) {
+    if (e.keyCode === 27) {
+      $("#dropdown").empty();
+    }
+  },
+
   remove: function () {
+    $(document).off("keyup");
     Backbone.View.prototype.remove.call(this);
     window.viewCount--;
   }

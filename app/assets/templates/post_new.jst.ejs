@@ -1,40 +1,36 @@
 <% var subTitle = (sub) ? sub.get("title") : ""; %>
 
-<h3>Submit New Post</h3>
+<h3>submit to <%= (sub) ? subTitle : "zeddit" %></h3>
 
 <ul id="errors"></ul>
 
 <form>
-
-  <label>Title<br>
-    <input type="text" name="post[title]">
-  </label>
-
-  <br><br>
-
-  <label>URL<br>
-    <input type="text" name="post[url]">
-  </label>
-
-  <br>
-
-  <label>Content<br>
-    <textarea name="post[content]"></textarea>
-  </label>
-
-  <br>
-
-  <% if (!post) { %>
-    <label>Subzeddit<br>
-      <input id="title" type="text" name="post[sub_title]" value="<%= subTitle %>">
+  <div class="backdrop">
+    <label>title
+      <input type="text" name="post[title]">
     </label>
-    <ul id="dropdown"></ul>
-  <% } %>
+  </div>
 
-  <br>
+  <div class="backdrop">
+    <label>url
+      <input type="text" name="post[url]">
+    </label>
+  </div>
 
-  <button>Submit</button>
+  <div class="backdrop">
+    <label>text
+      <textarea name="post[content]"></textarea>
+    </label>
+  </div>
 
+  <div class="backdrop">
+    <span>
+      <label>choose a subzeddit
+        <input id="title" type="text" name="post[sub_title]" value="<%= subTitle %>">
+      </label>
+      <ul id="dropdown"></ul>
+    </span>
+  </div>
+
+  <button class="btn">Submit</button>
 </form>
-
-<br><br>
