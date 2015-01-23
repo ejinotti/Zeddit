@@ -1,35 +1,30 @@
 <%
-  var buttonText, subTitle, subDescrip;
-  if (sub) {
-    buttonText = "Edit Subzeddit: " + sub.escape("title");
-    subTitle = sub.get("title");
-    subDescrip = sub.get("description");
-  } else {
-    buttonText = "Create Subzeddit";
-    subTitle = "";
-    subDescrip = "";
-  }
+var buttonText, subTitle, subDescrip;
+if (sub) {
+  buttonText = "Edit Subzeddit: " + sub.escape("title");
+  subTitle = sub.get("title");
+  subDescrip = sub.get("description");
+} else {
+  buttonText = "Create Subzeddit";
+  subTitle = "";
+  subDescrip = "";
+}
 %>
-
-<h3><%= buttonText %></h3>
 
 <ul></ul>
 
 <form>
+  <div class="backdrop">
+    <label>title
+      <input type="text" name="sub[title]" value="<%= subTitle %>">
+    </label>
+  </div>
 
-  <label>Title<br>
-    <input type="text" name="sub[title]" value="<%= subTitle %>"
-  </label>
+  <div class="backdrop">
+    <label>description
+      <textarea name="sub[description]"><%= subDescrip %></textarea>
+    </label>
+  </div>
 
-  <br><br>
-
-  <label>Description<br>
-    <textarea name="sub[description]"><%= subDescrip %></textarea>
-  </label>
-
-  <br><br>
-
-  <button><%= buttonText %></button>
+  <button class="btn"><%= buttonText %></button>
 </form>
-
-<br><br>

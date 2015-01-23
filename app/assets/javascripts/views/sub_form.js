@@ -1,5 +1,6 @@
 Zeddit.Views.SubForm = Backbone.View.extend({
-  template: JST["sub_form"],
+  template: JST.sub_form,
+  className: "sub-new",
 
   events: {
     "submit": "submitForm"
@@ -8,10 +9,11 @@ Zeddit.Views.SubForm = Backbone.View.extend({
   initialize: function () {
     window.viewCount++;
     this.render();
+    this.listenTo(window.currentUser, "logout", this.kickEmOut);
   },
 
   render: function () {
-    // debugger;
+    console.log("rendering SubForm..");
     var content = this.template({
       sub: this.model
     });
@@ -19,11 +21,15 @@ Zeddit.Views.SubForm = Backbone.View.extend({
     return this;
   },
 
+  kickEmOut: function () {
+    alert("You must be logged-in to create a subzeddit");
+    Backbone.history.navigate("", { trigger: true });
+  },
+
   submitForm: function (event) {
     event.preventDefault();
 
-    // TODO user event.currentTarget? or target?
-    var $form = this.$("form");
+    var $form = $(event.target);
     var attrs = $form.serializeJSON();
     var $errors = $form.find("ul");
 

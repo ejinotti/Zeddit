@@ -1,0 +1,21 @@
+.sub-new > form label {
+  font-size: medium;
+  font-weight: bold;
+  color: blue;
+}
+
+.sub-new > form input, textarea {
+  display: block;
+  background: white;
+  border: 1px solid gray;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.sub-new > form textarea {
+  min-height: 100px;
+}
+
+.sub-new > form {
+  margin: 20px 0;
+}
