@@ -1,5 +1,5 @@
 Zeddit.Views.Root = Backbone.View.extend({
-  template: JST["root"],
+  template: JST.root,
 
   events: {
     "click #new-subz": "newSub",

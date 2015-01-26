@@ -45,7 +45,7 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
     $("#login-form").find("input[type=text]").focus();
   },
 
-  submitLogin: function () {
+  submitLogin: function (event) {
     event.preventDefault();
 
     var $form = this.$("#login-form");
@@ -62,10 +62,8 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
   },
 
 
-  submitSignup: function () {
+  submitSignup: function (event) {
     event.preventDefault();
-
-    console.log("signup clicked..");
 
     var $form = this.$("#signup-form");
     var attrs = $form.serializeJSON();
@@ -91,6 +89,9 @@ Zeddit.Views.UserAuth = Backbone.View.extend({
 
   makeTestUser: function () {
     console.log("make test user..");
+    $("#login-form").find("input[type=text]").val("test");
+    $("#login-form").find("input[type=password]").val("test");
+    $("#login-form").trigger("submit");
   }
 
 });

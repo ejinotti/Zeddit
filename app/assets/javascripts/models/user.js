@@ -18,6 +18,7 @@ Zeddit.Models.User = Backbone.Model.extend({
       success: function (data){
         that.set(data);
         window.currentUser.loginNewUser(that);
+        $("body").css("overflow", "auto"); // TODO change this..
       },
       error: function (jqXHR) {
         errorCallback(jqXHR);

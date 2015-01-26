@@ -36,12 +36,14 @@ Zeddit.Views.Sub = Backbone.View.extend({
           window.currentUser.subscriptions.add(newSubscrip);
         }
       });
+      $button.addClass("subbed");
       $button.text("unsubscribe");
     } else {
       var subscrip = window.currentUser.subscriptions.findWhere({
         sub_id: this.model.id
       });
       subscrip.destroy();
+      $button.removeClass("subbed");
       $button.text("subscribe");
     }
   },
