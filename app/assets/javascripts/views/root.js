@@ -26,11 +26,9 @@ Zeddit.Views.Root = Backbone.View.extend({
   },
 
   newSub: function () {
-    // TODO might also want to change to wait for initCheck
     if (window.currentUser.isLoggedIn()) {
       Backbone.history.navigate("subzeddits/create", { trigger: true });
     } else {
-      // TODO pop-up login/signup modal
       alert("You must be logged-in to create a subzeddit!");
     }
   },

@@ -8,6 +8,8 @@ if (voteValue === 1) {
   pointsClass = "points-down";
 }
 var createdAt = $.timeago(post.get("created_at"));
+var commentsLink = subTitle + "/posts/" + post.id + "/" + encodeTitle(post.get("title"));
+var titleLink = post.get("url") || commentsLink;
 %>
 
 <figure>
@@ -20,7 +22,7 @@ var createdAt = $.timeago(post.get("created_at"));
   <img src="http://static.simonscat.com/Images/Avatars/70/500_SimonsCat.png" alt="dummy"/>
 </a>
 
-<strong><a href="#"><%= post.escape("title") %></a></strong>
+<strong><a href="<%= titleLink %>"><%= post.escape("title") %></a></strong>
 
 <small class="author-etc">
   submitted <%= createdAt %>
@@ -46,7 +48,7 @@ var createdAt = $.timeago(post.get("created_at"));
 <% } %>
 
 <small class="comments-etc">
-  <a href="<%= subTitle + "/posts/" + post.id + "/" + encodeTitle(post.get("title"))%>">
+  <a href="<%= commentsLink %>">
     <%= post.get("comment_count") %> comments
   </a>
 
