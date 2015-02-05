@@ -1,27 +1,12 @@
 #Zeddit
 A humble clone of [Reddit.](http://www.reddit.com)
 
-###Minimum Features *(M.V.P.)*
-
-Initial objectives, in intended order of completion..
-
-1. Users / Auth
-2. Sub-Zeddits
-3. Posts
-4. Comments with nesting
-5. Users subscribing to SubZ's
-6. Main page sub/post mix by creation date (aka *new*)
-7. User profile pages with user image upload
-8. Up/Down-voting of posts and comments
-9. User friend'ing
-
-###Additional Features
-
-Some other things that'd be nice to have..
+###TODO
++ Add custom logo upload to subzeddit create.
++ Improve user show to interleave the user's posts and comments.
++ User Karma: post and comment
 + Other orderings for main page (*hot, rising, top, etc*)
 + Extend other orderings to SubZ's and comments
-+ User Karma: post and comment
-+ User-to-user direct messaging
 + Moderators
 + Search: full-site and SubZ's
 
