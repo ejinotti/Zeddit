@@ -9,25 +9,25 @@
 }
 
 .vote-up {
-  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-image: image-url("sprite-zeddit.png");
   background-position: -42px -818px;
   background-repeat: no-repeat;
 }
 
 .vote-up.vote-on {
-  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-image: image-url("sprite-zeddit.png");
   background-position: -63px -818px;
   background-repeat: no-repeat;
 }
 
 .vote-down {
-  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-image: image-url("sprite-zeddit.png");
   background-position: 0 -818px;
   background-repeat: no-repeat;
 }
 
 .vote-down.vote-on {
-  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  background-image: image-url("sprite-zeddit.png");
   background-position: -21px -818px;
   background-repeat: no-repeat;
 }

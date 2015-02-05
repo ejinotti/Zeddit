@@ -57,7 +57,8 @@ header nav a, header nav a:visited {
 }
 
 #logo {
-  background-image: url(http://www.redditstatic.com/sprite-reddit.JqPSSyjOUZE.png);
+  /*image-url("name")*/
+  background-image: image-url("sprite-zeddit.png");
   background-position: 0px -313px;
   background-repeat: no-repeat;
   height: 40px;
