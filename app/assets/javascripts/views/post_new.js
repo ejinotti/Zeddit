@@ -4,7 +4,7 @@ Zeddit.Views.PostNew = Backbone.View.extend({
 
   events: {
     "submit": "submitForm",
-    "keyup #title": "handleSubTitleInput",
+    "keyup #sub-title": "handleSubTitleInput",
     "click li.dropdown-item": "setDropdown"
   },
 
@@ -48,6 +48,13 @@ Zeddit.Views.PostNew = Backbone.View.extend({
     var newPost = new Zeddit.Models.Post();
 
     var sub = Zeddit.allSubs.findWhere({ title: attrs.sub_title });
+
+    if (!sub) {
+      alert("That subzeddit does not exist!");
+      $("#sub-title").val("").focus();
+      return;
+    }
+
     attrs.sub_id = sub.id;
     delete attrs.sub_title;
 
@@ -58,7 +65,6 @@ Zeddit.Views.PostNew = Backbone.View.extend({
   handleSubTitleInput: function (event) {
     var $dropdown = $("#dropdown");
     var input = $(event.currentTarget).val();
-    console.log(input);
 
     $dropdown.empty().hide();
 
@@ -77,7 +83,7 @@ Zeddit.Views.PostNew = Backbone.View.extend({
 
   setDropdown: function (event) {
     var $targ = $(event.currentTarget);
-    $("#title").val($targ.text());
+    $("#sub-title").val($targ.text());
     $("#dropdown").empty().hide();
   },
 

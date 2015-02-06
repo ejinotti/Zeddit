@@ -103,6 +103,11 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   newSub: function () {
     console.log("ROUTE => newSub");
 
+    if (!window.currentUser.initCheckDone) {
+      this.listenToOnce(window.currentUser, "checked", this.newSub);
+      return;
+    }
+
     if (!window.currentUser.isLoggedIn()) {
       alert("You must be logged-in to create a Subzeddit!");
       Backbone.history.navigate("", { trigger: true });
@@ -119,6 +124,13 @@ Zeddit.Routers.Router = Backbone.Router.extend({
   newPost: function (subtitle) {
     console.log("ROUTE => newPost / " + subtitle);
 
+    if (!window.currentUser.initCheckDone) {
+      this.listenToOnce(
+        window.currentUser, "checked", this.newPost.bind(this, subtitle)
+      );
+      return;
+    }
+
     if (!window.currentUser.isLoggedIn()) {
       alert("You must be logged-in to create a Post!");
       Backbone.history.navigate("", { trigger: true });
@@ -127,8 +139,15 @@ Zeddit.Routers.Router = Backbone.Router.extend({
 
     var newPostView, sub;
 
-    if (subtitle) {
+    if (subtitle && !Zeddit.allSubsFetched) {
+      this.listenToOnce(
+        Zeddit.allSubs, "sync", this.newPost.bind(this, subtitle)
+      );
+      return;
+    } else if (subtitle) {
       sub = Zeddit.allSubs.findWhere({ title: subtitle });
+
+      // debugger;
 
       if (!sub) {
         alert("Subzeddit not found!");

@@ -8,8 +8,13 @@ window.Zeddit = {
     window.currentUser.fetch();
     window.viewCount = 0;
 
+    Zeddit.allSubsFetched = false;
     Zeddit.allSubs = new Zeddit.Collections.Subs();
-    Zeddit.allSubs.fetch();
+    Zeddit.allSubs.fetch({
+      success: function () {
+        Zeddit.allSubsFetched = true;
+      }
+    });
 
     new Zeddit.Routers.Router();
     Backbone.history.start();
