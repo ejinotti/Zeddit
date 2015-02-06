@@ -4,16 +4,16 @@
 
 <ul id="errors"></ul>
 
-<form>
+<form id="new-post-form">
   <div class="backdrop">
     <label>title
-      <input type="text" name="post[title]">
+      <input type="text" name="post[title]" required>
     </label>
   </div>
 
   <div class="backdrop">
-    <label>url
-      <input type="text" name="post[url]">
+    <label>url (prefix 'http://' etc is required)
+      <input type="url" name="post[url]">
     </label>
   </div>
 
@@ -26,7 +26,7 @@
   <div class="backdrop">
     <span>
       <label>choose a subzeddit
-        <input id="title" type="text" name="post[sub_title]" value="<%= subTitle %>">
+        <input id="title" type="text" name="post[sub_title]" value="<%= subTitle %>" required>
       </label>
       <ul id="dropdown"></ul>
     </span>

@@ -12,6 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'backbone-on-rails'
 gem 'faker'
 gem 'friendly_id'
+gem 'validate_url'
 
 group :development, :test do
   gem 'byebug'

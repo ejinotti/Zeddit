@@ -11,18 +11,16 @@ if (sub) {
 }
 %>
 
-<ul></ul>
-
-<form>
+<form id="sub-form">
   <div class="backdrop">
     <label>title
-      <input type="text" name="sub[title]" value="<%= subTitle %>">
+      <input type="text" name="sub[title]" value="<%= subTitle %>" required>
     </label>
   </div>
 
   <div class="backdrop">
     <label>description
-      <textarea name="sub[description]"><%= subDescrip %></textarea>
+      <textarea name="sub[description]" required><%= subDescrip %></textarea>
     </label>
   </div>
 

@@ -12,6 +12,7 @@ Zeddit.Views.PostNew = Backbone.View.extend({
     window.viewCount++;
     this.subzeddit = options.subzeddit;
     this.render();
+    this.$("#new-post-form").validate();
     this.listenTo(window.currentUser, "logout", this.kickEmOut);
     $(document).on("keyup", this.cancelDropdown);
   },
@@ -34,13 +35,9 @@ Zeddit.Views.PostNew = Backbone.View.extend({
 
     var $form = $(event.target);
     var attrs = $form.serializeJSON().post;
-    var $errors = $form.find("ul");
 
-    var errorCb = function (response) {
-      $errors.empty();
-      response.responseJSON.errors.forEach(function (error) {
-        $errors.append($("<li>").text(error));
-      });
+    var errorCb = function () {
+      alert("Something unexpected has occurred!");
     };
 
     var successCb = function (post) {
@@ -55,10 +52,7 @@ Zeddit.Views.PostNew = Backbone.View.extend({
     delete attrs.sub_title;
 
     newPost.set(attrs);
-    newPost.save({}, {
-      success: successCb,
-      error: errorCb
-    });
+    newPost.save({}, { success: successCb, error: errorCb });
   },
 
   handleSubTitleInput: function (event) {
@@ -66,7 +60,7 @@ Zeddit.Views.PostNew = Backbone.View.extend({
     var input = $(event.currentTarget).val();
     console.log(input);
 
-    $dropdown.empty();
+    $dropdown.empty().hide();
 
     if (input === "") return;
 
@@ -78,17 +72,18 @@ Zeddit.Views.PostNew = Backbone.View.extend({
       var $li = $("<li class='dropdown-item'>");
       $li.text(result.get("title")).appendTo($dropdown);
     });
+    $dropdown.show();
   },
 
   setDropdown: function (event) {
     var $targ = $(event.currentTarget);
     $("#title").val($targ.text());
-    $("#dropdown").empty();
+    $("#dropdown").empty().hide();
   },
 
   cancelDropdown: function (e) {
     if (e.keyCode === 27) {
-      $("#dropdown").empty();
+      $("#dropdown").empty().hide();
     }
   },
 

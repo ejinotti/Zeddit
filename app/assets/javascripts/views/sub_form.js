@@ -9,6 +9,7 @@ Zeddit.Views.SubForm = Backbone.View.extend({
   initialize: function () {
     window.viewCount++;
     this.render();
+    this.$("#sub-form").validate();
     this.listenTo(window.currentUser, "logout", this.kickEmOut);
   },
 
@@ -31,13 +32,9 @@ Zeddit.Views.SubForm = Backbone.View.extend({
 
     var $form = $(event.target);
     var attrs = $form.serializeJSON();
-    var $errors = $form.find("ul");
 
-    var errorCb = function (response) {
-      $errors.empty();
-      response.responseJSON.errors.forEach(function (error) {
-        $errors.append($("<li>").text(error));
-      });
+    var errorCb = function () {
+      alert("Something unexpected has occurred!");
     };
 
     var successCb = function (sub) {
@@ -54,10 +51,7 @@ Zeddit.Views.SubForm = Backbone.View.extend({
     } else {
       var newSub = new Zeddit.Models.Sub();
       newSub.set(attrs.sub);
-      newSub.save({}, {
-        success: successCb,
-        error: errorCb
-      });
+      newSub.save({}, { success: successCb, error: errorCb });
     }
   },
 

@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.serializejson.min
-//= require jquery.timeago.js
+//= require jquery.timeago
+//= require jquery.validate.min
 //= require underscore
 //= require backbone
 //= require zeddit

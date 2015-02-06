@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
 
   validates :title, :sub_id, :author_id, presence: true
+  validates :url, url: { allow_nil: true, allow_blank: true }
   validate :subzeddit_must_exist
 
   belongs_to(

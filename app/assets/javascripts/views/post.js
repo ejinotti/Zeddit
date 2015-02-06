@@ -23,13 +23,12 @@ Zeddit.Views.Post = Backbone.View.extend({
       this.$el.addClass("post group");
       this.initialSetup();
     }
-
-    // this.listenTo(window.currentUser, "login logout", this.initialSetup);
   },
 
   initialSetup: function () {
     this.setInitVote();
     this.render();
+    this.$("#edit-form").validate();
   },
 
   setInitVote: function () {
