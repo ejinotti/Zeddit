@@ -147,8 +147,6 @@ Zeddit.Routers.Router = Backbone.Router.extend({
     } else if (subtitle) {
       sub = Zeddit.allSubs.findWhere({ title: subtitle });
 
-      // debugger;
-
       if (!sub) {
         alert("Subzeddit not found!");
         Backbone.history.navigate("", { trigger: true });

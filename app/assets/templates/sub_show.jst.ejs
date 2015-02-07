@@ -5,7 +5,7 @@
 <% } else { %>
   <button class="subscribe">subscribe</button>
 <% } %>
-<small><%= sub.get("subbed_count") %> readers</small>
+<small id="sub-readers"><%= sub.get("subbed_count") %> readers</small>
 
 <% if (window.currentUser.id === sub.get("owner_id")) { %>
   <button class="btn" id="edit-sub">edit subzeddit</button>
