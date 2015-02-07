@@ -175,10 +175,14 @@ Zeddit.Views.Comment = Backbone.View.extend({
         } else {
           that.subCommentsView.remove();
         }
+
+        newComment.set("points", 0);
+        newComment.set("author_name", window.currentUser.get("username"));
+
         that.allComments[that.model.id].add(newComment);
         that.renderSubComments();
-        that.$replyBox.toggleClass("hidden");
-        that.$replyLink.toggleClass("hidden");
+        that.$replyBox.toggle();
+        that.$replyLink.toggle();
       }
     });
   },
