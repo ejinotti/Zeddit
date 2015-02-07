@@ -24,7 +24,6 @@ Zeddit.Views.SubShow = Backbone.View.extend({
     var content = this.template({ sub: this.model });
     this.$el.html(content);
     this.$el.append(this.postsListView.$el);
-    this.currentSubbedCount = this.model.get("subbed_count");
     return this;
   },
 
@@ -72,9 +71,10 @@ Zeddit.Views.SubShow = Backbone.View.extend({
         success: function () {
           newSubscrip.set("sub_title", that.model.get("title"));
           window.currentUser.subscriptions.add(newSubscrip);
-          that.$("#sub-readers").text(
-            ++that.currentSubbedCount + " readers"
-          );
+
+          var currReaders = that.model.get("subbed_count") + 1;
+          that.model.set("subbed_count", currReaders);
+          that.$("#sub-readers").text(currReaders + " readers");
         }
       });
       $button.text("unsubscribe");
@@ -84,9 +84,9 @@ Zeddit.Views.SubShow = Backbone.View.extend({
       });
       subscrip.destroy({
         success: function () {
-          that.$("#sub-readers").text(
-            --that.currentSubbedCount + " readers"
-          );
+          var currReaders = that.model.get("subbed_count") - 1;
+          that.model.set("subbed_count", currReaders);
+          that.$("#sub-readers").text(currReaders + " readers");
         }
       });
       $button.text("subscribe");
