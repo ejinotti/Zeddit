@@ -20,10 +20,12 @@ various gems and plug-ins, including:
 ######Design Challenges, Choices, Etc..
 This project was first implemented entirely in Rails with no JS or styling.  I
 then converted it to a JSON API with a front-end in Backbone..
+
 1. The only challenge of the initial Rails version was deciding how to implement
 subscribe/unsubscribe and upvote/downvote.  I originally had them as custom
 routes to actions on the users controller, but later refactored to give them
 their own controllers.
+
 2. The first challenge of the port to Backbone was authentication.  My original
 implementation provided a #auth html id where event handlers were attached with
 jQuery to watch for auth events.  I eventually realized that this was terrible
@@ -31,16 +33,19 @@ and did a complete refactor to create a top-level Backbone model of the
 CurrentUser attached to the window.  This allowed for the monitoring of auth
 events with Backbone listenTo and also for storing data such as subscriptions
 on the CurrentUser model.
+
 3. Had a minor issue with votes.  After porting vote behavior, had changed it to
 using only create and delete calls to the API.  This created some erratic
 behavior when clicking to change from an upvote to a downvote or vice-versa as I
 would first delete the existing vote, then create a new vote.  This was
 obviously a synch issue which I resolved upon realizing that I could simply do
 a single update of the vote's value from 1 to -1 or vice-versa.
+
 4. Had a longstanding bug with click events on delete button of posts in a list
 not registering.  Solved this when I found that I was accidentally rendering
 twice, thus calling .html() (and thus .empty())twice and zonking out my event
 handlers.
+
 5. Styling was a *nightmare*..
 
 ###TODO
