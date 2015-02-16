@@ -4,12 +4,7 @@ class Api::PostsController < Api::ApiController
   before_action :verify_owner, only: [:update, :destroy]
 
   def index
-    if logged_in?
-      @posts = current_user.subzeddit_posts.order(created_at: :desc)
-    else
-      @posts = Post.get_root_posts
-    end
-
+    @posts = Post.get_root_posts(current_user)
     render :index
   end
 

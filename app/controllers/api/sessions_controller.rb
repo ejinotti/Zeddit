@@ -3,6 +3,7 @@ class Api::SessionsController < Api::ApiController
   def show
     @user = current_user
     if @user
+      @user = User.where(id: @user.id).includes(subscriptions: [:sub]).first
       render :show
     else
       render json: { message: "No current user." }

@@ -4,7 +4,7 @@ class Api::SubsController < Api::ApiController
   before_action :verify_owner, only: [:update, :destroy]
 
   def index
-    @subs = Sub.all
+    @subs = Sub.all.includes(:subscriptions)
     render :index
   end
 
@@ -20,6 +20,7 @@ class Api::SubsController < Api::ApiController
 
   def show
     @sub = Sub.friendly.find(params[:id])
+    @sub = Sub.where(id: @sub.id).includes(posts: [:author, :votes, :comments]).first
     render :show
   end
 

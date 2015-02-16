@@ -28,8 +28,9 @@ class Comment < ActiveRecord::Base
 
   has_many :votes, as: :votable, dependent: :destroy
 
+  # assume votes are pre-loaded and use inject to sum w/out query
   def points
-    self.votes.sum(:value)
+    self.votes.inject(0) { |points, vote| points + vote.value }
   end
 
 end

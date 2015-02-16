@@ -17,29 +17,38 @@ class Post < ActiveRecord::Base
 
   has_many :votes, as: :votable, dependent: :destroy
 
-  def self.get_root_posts
-    where_clause = "posts.sub_id IN (" + <<-SQL + ")"
-      SELECT
-        subs.id
-      FROM
-        subs
-      JOIN
-        posts ON subs.id = posts.sub_id
-      GROUP BY
-        subs.id
-      ORDER BY
-        COUNT(posts.id) DESC
-      LIMIT
-        5
-    SQL
+  def self.get_root_posts(user)
+    if (user)
+      user.subzeddit_posts.order(created_at: :desc).includes(
+        :author, :sub, :votes, :comments
+      )
+      
+    else
+      where_clause = "posts.sub_id IN (" + <<-SQL + ")"
+        SELECT
+          subs.id
+        FROM
+          subs
+        JOIN
+          posts ON subs.id = posts.sub_id
+        GROUP BY
+          subs.id
+        ORDER BY
+          COUNT(posts.id) DESC
+        LIMIT
+          5
+      SQL
 
-    Post.all.where(where_clause).order(created_at: :desc)
+      Post.all.where(where_clause).order(created_at: :desc).includes(
+        :author, :sub, :votes, :comments
+      )
+    end
   end
 
   def comments_by_parent_id
     comment_hash = Hash.new([])
 
-    all_comments = self.comments.includes(:author)
+    all_comments = self.comments.includes(:author, :votes)
     all_comments.each do |comment|
       comment_hash[comment.parent_id] += [comment]
     end
@@ -47,8 +56,9 @@ class Post < ActiveRecord::Base
     comment_hash
   end
 
+  # assume votes are pre-loaded and use inject to sum w/out query
   def points
-    self.votes.sum(:value)
+    self.votes.inject(0) { |points, vote| points + vote.value }
   end
 
   private
