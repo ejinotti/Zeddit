@@ -144,6 +144,10 @@ Zeddit.Views.Post = Backbone.View.extend({
           that.model.allComments = {};
           that.model.allComments[""] = new Zeddit.Collections.Comments();
         }
+
+        newComment.set("points", 0);
+        newComment.set("author_name", window.currentUser.get("username"));
+
         that.model.allComments[""].add(newComment);
         that.model.trigger("sync");
       }
