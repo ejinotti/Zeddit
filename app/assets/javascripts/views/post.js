@@ -18,6 +18,7 @@ Zeddit.Views.Post = Backbone.View.extend({
 
     if (this.isShowPage) {
       this.listenTo(this.model, "sync", this.initialSetup);
+      this.listenTo(window.currentUser, "login logout", this.refresh);
     } else {
       this.$el = options.$el;
       this.$el.addClass("post group");
@@ -49,6 +50,10 @@ Zeddit.Views.Post = Backbone.View.extend({
     this.$el.html(content);
 
     return this;
+  },
+
+  refresh: function () {
+    this.model.fetch();
   },
 
   upvote: function (event) {
