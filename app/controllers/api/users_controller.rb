@@ -1,7 +1,9 @@
 class Api::UsersController < Api::ApiController
 
+  # TODO fix excessive queries!
   def show
     @user = User.friendly.find(params[:id])
+    @user = User.where(id: @user.id).includes(posts: [:sub, :votes, :comments]).first
     render :show
   end
 
